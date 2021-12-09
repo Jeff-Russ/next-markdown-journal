@@ -1,34 +1,94 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js Markdown Journal
 
-## Getting Started
+<!-- ![banner](img/banner.png) -->
 
-First, run the development server:
+[![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-```bash
+This is a collection of markdown-based personal website templates suitable for any individual comfortable editing their content in markdown files without the aid of interface for doing so build into the website itself. The content of each post may be a blog posts, journal entries, documentation, tutorials, news articles, resumes or really any kind of content one can eke out of markdown files. 
+
+The is build in [Next.js](https://nextjs.org/) and thus can be used to generate a content for a static website or deployed as is. 
+
+## Table of Contents
+
+- [Install](#install)
+- [Usage](#usage)
+  - [Tips and Tricks](#tips-and-tricks)
+
+- [Maintainers](#maintainers)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Install
+
+This project uses [node](http://nodejs.org/) and [npm](https://npmjs.com/), which must be locally installed, along with [git](https://github.com/git-guides/install-git).
+
+```sh
+git clone https://github.com/Jeff-Russ/next-markdown-journal.git
+cd next-markdown-journal
+npm install
+```
+
+## Usage
+
+All branches beside those starting with `dev` and `exp` are complete builds. Each differs in complexity so you can use whichever has no more than what you need. Checkout each of these branches and determine which suits your needs. Running `git branch` alone will only show you `main`, the only branch you get locally from `git clone` but you can see all of them with this:
+
+```sh
+git branch -a
+* main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+  remotes/origin/static_blog_with_nextjs_and_markdown
+# ... and possibly more ...
+```
+
+You can take a quick peek at an upstream branch or work on the branch locally with one of the two following commands, respectively:
+
+```sh
+git checkout origin/static_blog_with_nextjs_and_markdown # to take a quick peak
+# OR
+git checkout static_blog_with_nextjs_and_markdown # to keep it locally
+```
+
+You can run the app like so:
+
+```sh
 npm run dev
-# or
+# OR
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+If you have changes that might be of use to others, PRs are accepted. But if you want to make changes and deploy for the app for your own personal, I'd recommend, from the  branch you want to start with, deleting the git tracking, then creating your own. 
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```sh
+rm -rf .git
+git init
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+This may not be necessary for you unless you are using hosting that is deployed via `git` commands such as [Heroku](https://devcenter.heroku.com/articles/git) because it's best, if not required, that the branch you push to deployment is the `main` or `master` branch. Running the above commands makes the local code become the `main` branch.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Managing Content
 
-## Learn More
+All markdown files should be kept in the  `posts/` directory.  All files with the `.md` extension will be served by the site with URL path ending with the filename (without extension) both in development  (`npm run dev`) and deployment.  The only markdown files to be served in deployment are those with the `.md` extension but in development, files with `.mdown` are also served. 
 
-To learn more about Next.js, take a look at the following resources:
+These `.mdown` files are also not ignored by `.gitignore` (`.md` are ignored) and thus can be used for testing. 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+A convenient way to deactivate a post from public view, such as in deployment, is by changing the file extension to some other common markdown extension such as `.markdown` (which are ignored in `.gitignore`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+> BEWARE: Take care not to have to have multiple markdown files with the filename but different extension. You will get undefined and possibly undesirable results. 
 
-## Deploy on Vercel
+> BEWARE: .png and .jpg are ignored via .gitignore in order to use git tracking for the project but not the instance (one's own website). Files will .jpeg are not ignored as they are used for demonstration purposes.  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Maintainers
+
+[@Jeff-Russ](https://github.com/Jeff-Russ)
+
+## Contributing
+
+PRs accepted.
+
+Small note: If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
+
+## License
+
+MIT © 2021 Jeff Russ
