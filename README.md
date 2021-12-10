@@ -6,7 +6,9 @@
 
 This is a collection of markdown-based personal website templates suitable for any individual comfortable editing their content in markdown files without the aid of interface for doing so build into the website itself. The content of each post may be a blog posts, journal entries, documentation, tutorials, news articles, resumes or really any kind of content one can eke out of markdown files. 
 
-The is build in [Next.js](https://nextjs.org/) and thus can be used to generate a content for a static website or deployed as is. 
+All branches beside those starting with `dev` and `exp` are complete builds. Each differs in complexity so you can use whichever has no more than what you need. Checkout each of these branches and determine which suits your needs. See the [ABOUT.md] for information on this particular branch.
+
+All branches are build in [Next.js](https://nextjs.org/) and thus can be used to generate a content for a static website or deployed as is. 
 
 ## Table of Contents
 
