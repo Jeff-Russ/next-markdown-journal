@@ -1,22 +1,20 @@
 import matter from 'gray-matter'
-import Head from 'next/head'
+import Layout from '../components/Layout' 
 import Post from '../components/Post'
 import { lsDirFilesWithExt, projPath, trimExtension, readProjFile, sortByFrontmatterDate, mdExt } from '../lib'
 
 
 export default function Home({ posts }) {
   return (
-    <div>
-      <Head>
-        <title>Dev Blog</title>
-      </Head>
+    <Layout>
+      <title>Dev Blog</title>
 
       <div className='posts'>
         {posts.map((post, index) => (
           <Post key={index} post={post} />
         ))}
       </div>
-    </div>
+    </Layout>
   )
 }
 
