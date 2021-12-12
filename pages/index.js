@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import matter from 'gray-matter'
 import Layout from '../components/Layout' 
-import Post from '../components/Post'
+import PostPreview from '../components/PostPreview'
 import { lsDirFilesWithExt, projPath, trimExtension, readProjFile, sortByFrontmatterDate, mdExt } from '../lib'
 
 
@@ -12,7 +12,7 @@ export default function HomePage({ posts }) {
 
       <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-5'>
         {posts.map((post, index) => (
-          <Post key={index} post={post} />
+          <PostPreview key={index} post={post} />
         ))}
       </div>
 
