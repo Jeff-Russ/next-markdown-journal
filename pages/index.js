@@ -4,7 +4,7 @@ import Post from '../components/Post'
 import { lsDirFilesWithExt, projPath, trimExtension, readProjFile, sortByFrontmatterDate, mdExt } from '../lib'
 
 
-export default function Home({ posts }) {
+export default function HomePage({ posts }) {
   return (
     <Layout>
       <title>Dev Blog</title>
