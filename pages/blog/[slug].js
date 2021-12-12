@@ -34,7 +34,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  console.log("here")
 
   // determine extension for slug
   let filename
