@@ -1,9 +1,14 @@
 ---
 title: 'Django Crash Course'
-date: 'March 5, 2021'
+date: 'May 5, 2021'
 excerpt: 'Django is a very powerful, high level Python framework for building web applications'
 cover_image: '/images/posts/img3.jpeg'
+category: 'Python'
+author: 'Sam Smith'
+author_image: 'https://randomuser.me/api/portraits/men/12.jpg'
 ---
+
+<!-- Markdown generator - https://jaspervdj.be/lorem-markdownum/ -->
 
 Lorem markdownum fine incustoditam unda factura versum occuluere Aeneas, iuvat
 haec praepes [partes epulae](http://cui.com/), in egisse de. Caecisque ter
@@ -20,7 +25,7 @@ in.
 
 ## Turpius Aegides membris colat volentes fallere
 
-![img1](images/posts/img1.jpeg)
+![img1](/images/posts/img1.jpeg)
 
 Ille fida formosus, et addunt viscera perdidit ad pondere quia tellus
 consequitur et quoque scinditque in. Ratis laborum instabat quaedam partem
