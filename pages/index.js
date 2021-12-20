@@ -2,7 +2,14 @@ import Link from 'next/link'
 import matter from 'gray-matter'
 import Layout from '../components/Layout' 
 import PostPreview from '../components/PostPreview'
-import { lsDirFilesWithExt, projPath, trimExtension, readProjFile, sortByFrontmatterDate, mdExt } from '../lib'
+import {
+  lsDirFilesWithExt,
+  projPath,
+  trimExtension,
+  readProjFile,
+  sortByFrontmatterDate,
+  mdExt,
+} from "../lib"
 
 
 export default function HomePage({ posts }) {

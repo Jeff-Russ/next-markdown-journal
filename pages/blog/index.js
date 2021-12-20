@@ -1,5 +1,5 @@
-import { getStaticProps } from '../index.js'
-import HomePage from '../index.js'
+import { getStaticProps } from './page/[page_index]'
+import BlogPage from './page/[page_index]'
 
 export { getStaticProps }
-export default HomePage
+export default BlogPage
