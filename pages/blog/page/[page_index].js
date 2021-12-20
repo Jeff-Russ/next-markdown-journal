@@ -1,10 +1,7 @@
-import fs from 'fs'
-import path from 'path'
-// import Link from 'next/link'
 import matter from 'gray-matter'
-import Layout from '../../../components/Layout'
-import PostPreview from '../../../components/PostPreview'
-import Pagination from '../../../components/Pagination'
+import Layout from '@/components/Layout'
+import PostPreview from '@/components/PostPreview'
+import Pagination from '@/components/Pagination'
 import {
   lsDirFilesWithExt,
   projPath,

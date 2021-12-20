@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import matter from 'gray-matter'
-import Layout from '../components/Layout' 
-import PostPreview from '../components/PostPreview'
+import Layout from '@/components/Layout' 
+import PostPreview from '@/components/PostPreview'
 import {
   lsDirFilesWithExt,
   projPath,

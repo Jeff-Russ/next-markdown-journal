@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import matter from 'gray-matter'
 import { marked } from 'marked'
-import { lsDirFilesWithExt, projPath, trimExtension, readProjFile, mdExt, fileExists } from '../../lib'
-import Layout from '../../components/Layout'
-import CategoryLabel from '../../components/CategoryLabel'
+import { lsDirFilesWithExt, projPath, trimExtension, readProjFile, mdExt, fileExists } from '@/lib'
+import Layout from '@/components/Layout'
+import CategoryLabel from '@/components/CategoryLabel'
 
 export default function PostPage({
   frontmatter: { title, category, date, cover_image, author, author_image },
