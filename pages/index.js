@@ -9,7 +9,7 @@ import {
   readProjFile,
   sortByFrontmatterDate,
   mdExt,
-} from "../lib"
+} from "@/lib"
 
 
 export default function HomePage({ posts }) {
