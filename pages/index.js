@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import matter from 'gray-matter'
-import Layout from '../components/Layout' 
-import PostPreview from '../components/PostPreview'
+import Layout from '@/components/Layout' 
+import PostPreview from '@/components/PostPreview'
 import {
   lsDirFilesWithExt,
   projPath,
@@ -9,7 +9,7 @@ import {
   readProjFile,
   sortByFrontmatterDate,
   mdExt,
-} from "../lib"
+} from "@/lib"
 
 
 export default function HomePage({ posts }) {
@@ -34,13 +34,13 @@ export default function HomePage({ posts }) {
 
 export async function getStaticProps() {
   // Get files from the posts dir:
-  const filenames = lsDirFilesWithExt(projPath('posts'), mdExt)
+  const filenames = lsDirFilesWithExt(projPath('markdown'), mdExt)
   
-  // Get slug and frontmatter from posts
+  // Get slug and frontmatter from markdown
   const posts = filenames.map((filename) => {
     
     // Get frontmatter
-    const { data: frontmatter } = matter(readProjFile('posts', filename))
+    const { data: frontmatter } = matter(readProjFile('markdown', filename))
 
     return { slug: trimExtension(filename), frontmatter }
   })
