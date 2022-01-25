@@ -12,12 +12,12 @@ import {
 } from "../../../lib"
 import { POSTS_PER_PAGE } from '../../../config'
 
-export default function BlogPage({ posts, numPages, currentPage }) {
+export default function BlogPage({ markdown, numPages, currentPage }) {
   return (
     <Layout>
       <h1 className='text-5xl border-b-4 p-5 font-bold'>Blog</h1>
       <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-5'>
-        {posts.map((post, index) => (
+        {markdown.map((post, index) => (
           <PostPreview key={index} post={post} />
         ))}
       </div>
@@ -27,7 +27,7 @@ export default function BlogPage({ posts, numPages, currentPage }) {
 }
 
 export async function getStaticPaths() {
-  const filenames = lsDirFilesWithExt(projPath('posts'), mdExt)
+  const filenames = lsDirFilesWithExt(projPath('markdown'), mdExt)
   const numPages = Math.ceil(filenames.length / POSTS_PER_PAGE)
   let paths = []
 
@@ -39,14 +39,14 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  // Get files from the posts dir:
-  const filenames = lsDirFilesWithExt(projPath('posts'), mdExt)
+  // Get files from the markdown dir:
+  const filenames = lsDirFilesWithExt(projPath('markdown'), mdExt)
   
-  // Get slug and frontmatter from posts
-  const posts = filenames.map((filename) => {
+  // Get slug and frontmatter from markdown
+  const markdown = filenames.map((filename) => {
     
     // Get frontmatter
-    const { data: frontmatter } = matter(readProjFile('posts', filename))
+    const { data: frontmatter } = matter(readProjFile('markdown', filename))
 
     return { slug: trimExtension(filename), frontmatter }
   })
@@ -54,13 +54,13 @@ export async function getStaticProps({ params }) {
   const page = parseInt((params && params.page_index) || 1)
   const numPages = Math.ceil(filenames.length / POSTS_PER_PAGE)
   const pageIndex = page - 1
-  const orderedPosts = posts
+  const orderedPosts = markdown
     .sort(sortByFrontmatterDate)
     .slice(pageIndex * POSTS_PER_PAGE, (pageIndex + 1) * POSTS_PER_PAGE)
 
   return {
     props: {
-      posts: orderedPosts,
+      markdown: orderedPosts,
       numPages,
       currentPage: page,
     },
