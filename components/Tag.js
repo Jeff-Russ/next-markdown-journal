@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import kebabCase from '@/lib/utils/kebabCase'
 
+// Used only in layouts/ListLayout.js, layouts/PostLayout.js, pages/indes.js, pages/tags.js, pages/tags/[tag].js
 const Tag = ({ text }) => {
   return (
     <Link href={`/tags/${kebabCase(text)}`}>

@@ -36,7 +36,13 @@ export async function getStaticProps({ params }) {
     const rss = generateRss(allPosts)
     fs.writeFileSync('./public/feed.xml', rss)
   }
+  /* When rendering /blog/deriving-ols-estimator (which has LaTeX):
 
+    "Warning: data for page "/blog/[...slug]" is 143 kB, this amount of data can reduce performance.
+     See more info here: https://nextjs.org/docs/messages/large-page-data"
+     
+     The main problem is that post.mdxSource is in the 200KB+ for most posts
+  */
   return { props: { post, authorDetails, prev, next } }
 }
 

@@ -1,5 +1,6 @@
 import Link from '@/components/Link'
 
+// Used only in layouts/ListLayout.js
 export default function Pagination({ totalPages, currentPage }) {
   const prevPage = parseInt(currentPage) - 1 > 0
   const nextPage = parseInt(currentPage) + 1 <= parseInt(totalPages)

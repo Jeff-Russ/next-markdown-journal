@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import siteMetadata from '@/data/siteMetadata'
 
+// Used only in this file?
 const CommonSEO = ({ title, description, ogType, ogImage, twImage }) => {
   const router = useRouter()
   return (
@@ -28,6 +29,8 @@ const CommonSEO = ({ title, description, ogType, ogImage, twImage }) => {
   )
 }
 
+// Used components/AuthorLayout.js, pages/blog.js, pages/index.js,
+// pages/projects.js, pages/tags.js, pages/blog/page/[page].js
 export const PageSEO = ({ title, description }) => {
   const ogImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner
   const twImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner
@@ -42,6 +45,7 @@ export const PageSEO = ({ title, description }) => {
   )
 }
 
+// Used only in pages/tags/[tag].js
 export const TagSEO = ({ title, description }) => {
   const ogImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner
   const twImageUrl = siteMetadata.siteUrl + siteMetadata.socialBanner
@@ -67,6 +71,7 @@ export const TagSEO = ({ title, description }) => {
   )
 }
 
+// Used only in layouts/PostLayout.js, layouts/PostSimple.js
 export const BlogSEO = ({ authorDetails, title, summary, date, lastmod, url, images = [] }) => {
   const router = useRouter()
   const publishedAt = new Date(date).toISOString()

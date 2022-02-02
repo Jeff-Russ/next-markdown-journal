@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 
+// Used only in components/LayoutWrapper.js
 const ThemeSwitch = () => {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme, resolvedTheme } = useTheme()
@@ -19,7 +20,7 @@ const ThemeSwitch = () => {
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
-        className="text-gray-900 dark:text-gray-100"
+        className="text-gray-900 dark:text-orange-100"
       >
         {mounted && (theme === 'dark' || resolvedTheme === 'dark') ? (
           <path

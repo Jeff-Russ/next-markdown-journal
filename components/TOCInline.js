@@ -20,6 +20,8 @@
  * }} props
  *
  */
+// Used only in components/MDXComponents.js and in a
+// sample blog post (new-features-in-vq.mdx)
 const TOCInline = ({
   toc,
   indentDepth = 3,

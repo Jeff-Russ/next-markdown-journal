@@ -7,6 +7,7 @@ import TOCInline from './TOCInline'
 import Pre from './Pre'
 import { BlogNewsletterForm } from './NewsletterForm'
 
+// Used only in pages/blog/[...slug].js, pages/about.js
 export const MDXComponents = {
   Image,
   TOCInline,
@@ -19,6 +20,7 @@ export const MDXComponents = {
   },
 }
 
+// Used only in pages/blog/[...slug].js, pages/about.js
 export const MDXLayoutRenderer = ({ layout, mdxSource, ...rest }) => {
   const MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource])
 

@@ -20,7 +20,7 @@ module.exports = {
       },
       colors: {
         primary: colors.teal,
-        gray: colors.neutral,
+        gray: colors.stone,
       },
       typography: (theme) => ({
         DEFAULT: {
@@ -54,8 +54,8 @@ module.exports = {
               backgroundColor: theme('colors.gray.800'),
             },
             code: {
-              color: theme('colors.pink.500'),
-              backgroundColor: theme('colors.gray.100'),
+              color: theme('colors.orange.100'),
+              backgroundColor: theme('colors.gray.400'),
               paddingLeft: '4px',
               paddingRight: '4px',
               paddingTop: '2px',
@@ -104,19 +104,19 @@ module.exports = {
             h1: {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
-              color: theme('colors.gray.100'),
+              color: theme('colors.gray.300'),
             },
             h2: {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
-              color: theme('colors.gray.100'),
+              color: theme('colors.gray.300'),
             },
             h3: {
               fontWeight: '600',
-              color: theme('colors.gray.100'),
+              color: theme('colors.gray.300'),
             },
             'h4,h5,h6': {
-              color: theme('colors.gray.100'),
+              color: theme('colors.gray.300'),
             },
             pre: {
               backgroundColor: theme('colors.gray.800'),
@@ -135,10 +135,10 @@ module.exports = {
             'ul li::marker': {
               backgroundColor: theme('colors.gray.400'),
             },
-            strong: { color: theme('colors.gray.100') },
+            strong: { color: theme('colors.gray.200') },
             thead: {
               th: {
-                color: theme('colors.gray.100'),
+                color: theme('colors.gray.300'),
               },
             },
             tbody: {
@@ -147,7 +147,7 @@ module.exports = {
               },
             },
             blockquote: {
-              color: theme('colors.gray.100'),
+              color: theme('colors.gray.400'),
               borderLeftColor: theme('colors.gray.700'),
             },
           },

@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 
 import siteMetadata from '@/data/siteMetadata'
 
+// Used only in componets/MDXComponents.js, pages/index.js
 const NewsletterForm = ({ title = 'Subscribe to the newsletter' }) => {
   const inputEl = useRef(null)
   const [error, setError] = useState(false)
@@ -36,7 +37,7 @@ const NewsletterForm = ({ title = 'Subscribe to the newsletter' }) => {
 
   return (
     <div>
-      <div className="pb-1 text-lg font-semibold text-gray-800 dark:text-gray-100">{title}</div>
+      <div className="pb-1 text-lg font-semibold text-gray-800 dark:text-orange-100">{title}</div>
       <form className="flex flex-col sm:flex-row" onSubmit={subscribe}>
         <div>
           <label className="sr-only" htmlFor="email-input">
@@ -75,6 +76,7 @@ const NewsletterForm = ({ title = 'Subscribe to the newsletter' }) => {
 
 export default NewsletterForm
 
+// Used only in componets/MDXComponents.js
 export const BlogNewsletterForm = ({ title }) => (
   <div className="flex items-center justify-center">
     <div className="p-6 bg-gray-100 dark:bg-gray-800 sm:px-14 sm:py-8">

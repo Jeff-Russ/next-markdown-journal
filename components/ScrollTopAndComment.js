@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import smoothscroll from 'smoothscroll-polyfill'
 
+// Used only in layouts/PostLayout.js, layouts/PostSimple.js
 const ScrollTopAndComment = () => {
   const [show, setShow] = useState(false)
 

@@ -2,6 +2,7 @@ import Link from './Link'
 import siteMetadata from '@/data/siteMetadata'
 import SocialIcon from '@/components/social-icons'
 
+// Used only in components/LayoutWrapper.js
 export default function Footer() {
   return (
     <footer>

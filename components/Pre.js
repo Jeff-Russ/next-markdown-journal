@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 
+// Used only in components/MDXComponents.js
 const Pre = (props) => {
   const textInput = useRef(null)
   const [hovered, setHovered] = useState(false)
