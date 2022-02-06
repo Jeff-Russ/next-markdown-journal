@@ -1,3 +1,17 @@
 {
-  "svg.preview.background": "editor"
+  "svg.preview.background": "editor",
+  "files.associations": {
+    "*.js": "javascriptreact",
+    "*.md": "mdx"
+  },
+  "search.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/.next": true
+  },
+  "files.exclude": {
+    "node_modules/": true,
+    "**/.next": true,
+    "**/package-lock.json": true
+  }
 }
