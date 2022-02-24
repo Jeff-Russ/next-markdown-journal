@@ -3,13 +3,23 @@ import Image from '@/components/Image'
 import { PageSEO } from '@/components/SEO'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 
-export default function AuthorLayout({ children, frontMatter }) {
-  const { name, title, avatar, occupation, company, email, twitter, facebook, linkedin, github } =
-    frontMatter
-
+export default function ResumeLayout({ children, frontMatter, authorDetails }) {
+  const {
+    name,
+    summary,
+    title,
+    avatar,
+    occupation,
+    company,
+    email,
+    twitter,
+    facebook,
+    linkedin,
+    github,
+  } = frontMatter
   return (
     <>
-      <PageSEO title={`Resume - ${name} - ${title}`} description={`Resume - ${name} - ${title}`} />
+      <PageSEO title={`Resume`} description={summary} />
       <ScrollTopAndComment />
       <div className="divide-y">
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">

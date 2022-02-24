@@ -7,11 +7,11 @@ import { formatSlug, getAllFilesFrontMatter, getFileBySlug, getFiles } from '@/l
 const DEFAULT_LAYOUT = 'PostLayout'
 
 export async function getStaticPaths() {
-  const posts = getFiles('blog')
+  const pages = getFiles('pages')
   return {
-    paths: posts.map((p) => ({
+    paths: pages.map((p) => ({
       params: {
-        slug: formatSlug(p).split('/'),
+        page_slug: formatSlug(p).split('/'),
       },
     })),
     fallback: false,
@@ -19,12 +19,9 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const allPosts = await getAllFilesFrontMatter('blog')
-  const postIndex = allPosts.findIndex((post) => formatSlug(post.slug) === params.slug.join('/'))
-  const prev = allPosts[postIndex + 1] || null
-  const next = allPosts[postIndex - 1] || null
-  const post = await getFileBySlug('blog', params.slug.join('/'))
-  const authorList = post.frontMatter.authors || ['default']
+  const allPages = await getAllFilesFrontMatter('pages')
+  const page = await getFileBySlug('pages', params.page_slug.join('/'))
+  const authorList = page.frontMatter.authors || ['default']
   const authorPromise = authorList.map(async (author) => {
     const authorResults = await getFileBySlug('authors', [author])
     return authorResults.frontMatter
@@ -32,22 +29,15 @@ export async function getStaticProps({ params }) {
   const authorDetails = await Promise.all(authorPromise)
 
   // rss
-  if (allPosts.length > 0) {
-    const rss = generateRss(allPosts)
+  if (allPages.length > 0) {
+    const rss = generateRss(allPages)
     fs.writeFileSync('./public/feed.xml', rss)
   }
-  /* When rendering /blog/deriving-ols-estimator (which has LaTeX):
-
-    "Warning: data for page "/blog/[...slug]" is 143 kB, this amount of data can reduce performance.
-     See more info here: https://nextjs.org/docs/messages/large-page-data"
-     
-     The main problem is that post.mdxSource is in the 200KB+ for most posts
-  */
-  return { props: { post, authorDetails, prev, next } }
+  return { props: { page, authorDetails } }
 }
 
-export default function Blog({ post, authorDetails, prev, next }) {
-  const { mdxSource, toc, frontMatter } = post
+export default function Blog({ page, authorDetails }) {
+  const { mdxSource, toc, frontMatter } = page
 
   return (
     <>
@@ -58,8 +48,8 @@ export default function Blog({ post, authorDetails, prev, next }) {
           mdxSource={mdxSource}
           frontMatter={frontMatter}
           authorDetails={authorDetails}
-          prev={prev}
-          next={next}
+          // prev={prev}
+          // next={next}
         />
       ) : (
         <div className="mt-24 text-center">
