@@ -14,17 +14,55 @@ import { ClientReload } from '@/components/ClientReload'
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isSocket = process.env.SOCKET
 
-export default function App({ Component, pageProps }) {
-  return (
-    <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
-      <Head>
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-      </Head>
-      {isDevelopment && isSocket && <ClientReload />}
-      <Analytics />
-      <LayoutWrapper>
+import { appOverrides } from '@/data/wrapperOverrides'
+import { useRouter } from 'next/router'
+
+export default function App(props) {
+  const { Component, pageProps } = props
+  const router = useRouter()
+
+  if (appOverrides.pages.includes(router.pathname) || appOverrides.paths.includes(router.asPath)) {
+    // console.log(
+    //   'App:\n\t',
+    //   router.pathname,' is useRouter().pathname\n\t',
+    //   router.asPath,'is router.asPath'
+    // )
+    return (
+      <>
+        <Head>
+          <meta content="width=device-width, initial-scale=1" name="viewport" />
+          {isDevelopment && (
+            <script
+              async
+              src="scripts/log-undefined-css-classes.js"
+              type="text/javascript"
+            ></script>
+          )}
+        </Head>
+        {isDevelopment && isSocket && <ClientReload />}
+        <Analytics />
         <Component {...pageProps} />
-      </LayoutWrapper>
-    </ThemeProvider>
-  )
+      </>
+    )
+  } else {
+    return (
+      <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
+        <Head>
+          <meta content="width=device-width, initial-scale=1" name="viewport" />
+          {isDevelopment && (
+            <script
+              async
+              src="scripts/log-undefined-css-classes.js"
+              type="text/javascript"
+            ></script>
+          )}
+        </Head>
+        {isDevelopment && isSocket && <ClientReload />}
+        <Analytics />
+        <LayoutWrapper>
+          <Component {...pageProps} />
+        </LayoutWrapper>
+      </ThemeProvider>
+    )
+  }
 }
