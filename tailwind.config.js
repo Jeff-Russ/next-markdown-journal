@@ -5,7 +5,15 @@ module.exports = {
   experimental: {
     optimizeUniversalDefaults: true,
   },
-  content: ['./pages/**/*.js', './components/**/*.js', './layouts/**/*.js', './lib/**/*.js'],
+  content: [
+    './pages/**/*.js',
+    './components/**/*.js',
+    './layouts/**/*.js',
+    './lib/**/*.js',
+    './data/**/*.mdx', // https://stackoverflow.com/questions/64657572/production-gatsby-blog-not-rendering-tailwindcss-classes-in-mdx-files
+    // https://stackoverflow.com/questions/61325859/nextjs-tailwindcss-css-classes-are-missing-in-production
+  ],
+
   darkMode: 'class',
   theme: {
     extend: {
