@@ -18,6 +18,8 @@ const isSocket = process.env.SOCKET
 import { appOverrides } from '@/data/wrapperOverrides'
 import { useRouter } from 'next/router'
 
+import HTMLComment from '@/components/HTMLComment'
+
 export default function App(props) {
   const { Component, pageProps } = props
   const router = useRouter()
@@ -30,40 +32,46 @@ export default function App(props) {
     // )
     return (
       <>
+        <HTMLComment text={'START _app.js (with bypass)'} />
         <Head>
           <meta content="width=device-width, initial-scale=1" name="viewport" />
-          {isDevelopment && (
+          {/*isDevelopment && (
             <script
               async
               src="scripts/log-undefined-css-classes.js"
               type="text/javascript"
             ></script>
-          )}
+          )*/}
         </Head>
         {isDevelopment && isSocket && <ClientReload />}
         <Analytics />
         <Component {...pageProps} />
+        <HTMLComment text={'END _app.js (with bypass)'} />
       </>
     )
   } else {
     return (
-      <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
-        <Head>
-          <meta content="width=device-width, initial-scale=1" name="viewport" />
-          {isDevelopment && (
+      <>
+        <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
+          <HTMLComment text={'START _app.js (without bypass)'} />
+          <Head>
+            <meta content="width=device-width, initial-scale=1" name="viewport" />
+            {/*isDevelopment && (
             <script
               async
               src="scripts/log-undefined-css-classes.js"
               type="text/javascript"
             ></script>
-          )}
-        </Head>
-        {isDevelopment && isSocket && <ClientReload />}
-        <Analytics />
-        <LayoutWrapper>
-          <Component {...pageProps} />
-        </LayoutWrapper>
-      </ThemeProvider>
+          )*/}
+          </Head>
+          {isDevelopment && isSocket && <ClientReload />}
+          <Analytics />
+          <LayoutWrapper>
+            <Component {...pageProps} />
+          </LayoutWrapper>
+        </ThemeProvider>
+        <HTMLComment text={'END _app.js (without bypass)'} />
+      </>
     )
   }
 }

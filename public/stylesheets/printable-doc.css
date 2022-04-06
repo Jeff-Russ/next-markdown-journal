@@ -1,0 +1,10 @@
+@media print {
+  .no-print,
+  .no-print *,
+  .site-navbar,
+  .site-navbar *,
+  .site-footer,
+  .site-footer * {
+    display: none !important;
+  }
+}

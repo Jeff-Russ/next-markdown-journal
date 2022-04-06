@@ -21,6 +21,7 @@ module.exports = {
         '9/16': '56.25%',
       },
       lineHeight: {
+        // https://www.viget.com/articles/tips-for-your-tailwind-config/
         11: '2.75rem',
         12: '3rem',
         13: '3.25rem',

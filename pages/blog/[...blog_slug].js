@@ -48,6 +48,11 @@ export async function getStaticProps({ params }) {
   return { props: { post, authorDetails, prev, next } }
 }
 
+/* Required frontmatter:
+  toc?
+  Optional frontmatter:
+  layout
+ */
 export default function Blog({ post, authorDetails, prev, next }) {
   const { mdxSource, toc, frontMatter } = post
 

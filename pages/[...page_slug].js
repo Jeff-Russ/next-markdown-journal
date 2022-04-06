@@ -4,6 +4,8 @@ import generateRss from '@/lib/generate-rss'
 import { MDXLayoutRenderer } from '@/components/MDXComponents'
 import { formatSlug, getAllFilesFrontMatter, getFileBySlug, getFiles } from '@/lib/mdx'
 
+import HTMLComment from '@/components/HTMLComment'
+
 const DEFAULT_LAYOUT = 'EmptyLayout'
 
 export async function getStaticPaths() {
@@ -36,11 +38,12 @@ export async function getStaticProps({ params }) {
   return { props: { page, authorDetails } }
 }
 
-export default function Blog({ page, authorDetails }) {
+export default function Page({ page, authorDetails }) {
   const { mdxSource, toc, frontMatter } = page
 
   return (
     <>
+      <HTMLComment text={'START Page ([...page_slug].js)'} />
       {frontMatter.draft !== true ? (
         <MDXLayoutRenderer
           layout={frontMatter.layout || DEFAULT_LAYOUT}
@@ -61,6 +64,7 @@ export default function Blog({ page, authorDetails }) {
           </PageTitle>
         </div>
       )}
+      <HTMLComment text={'END Page ([...page_slug].js)'} />
     </>
   )
 }

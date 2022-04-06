@@ -11,7 +11,7 @@
 }
 
 .footnotes {
-  @apply pt-8 mt-12 border-t border-gray-200 dark:border-gray-700;
+  @apply mt-12 border-t border-gray-200 pt-8 dark:border-gray-700;
 }
 
 .csl-entry {
@@ -22,4 +22,198 @@
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
   transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+@layer components {
+  .my-border-spacing-x-3 {
+    border-spacing: theme('spacing.2') 0px;
+  }
+}
+
+/** Obfuscation Email and Phone (from bots) 
+
+https://www.nelsonpires.com/development/protect-your-email-and-phone-number-from-spam-bots
+ They will be displayed but not in HTML
+"moc.etisbew"emos"@nhoj :liamE" RESULT-> john@somewebsite.com
+"987 654 "321" 153+ :enohP" RESULT-> +351 123 456 789
+
+As for the <a>'s href='mailto:...' and href='tel:...', see obfuscations.js */
+a.nobot {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+a.nobot.jeff-e-mail:before {
+  content: 'moc.liamg@';
+}
+a.nobot.jeff-e-mail:after {
+  content: 'nnylyerffej';
+}
+a.nobot.jeff-ph-num:before {
+  content: '5433-';
+}
+a.nobot.jeff-ph-num:after {
+  content: '-237';
+}
+
+/** Grid Areas  */
+
+.grid-area-A {
+  grid-area: A;
+} /* .main-head   { grid-area: header; } */
+.grid-area-B {
+  grid-area: B;
+} /* .content     { grid-area: content; } */
+.grid-area-C {
+  grid-area: C;
+} /* .main-nav    { grid-area: nav; } */
+.grid-area-D {
+  grid-area: D;
+} /* .side        { grid-area: sidebar; } */
+.grid-area-E {
+  grid-area: E;
+} /* .ad          { grid-area: ad; } */
+.grid-area-F {
+  grid-area: F;
+} /* .main-footer { grid-area: footer; }  */
+
+/** TestLayout 
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Realizing_common_layouts_using_CSS_Grid_Layout */
+
+/* .grid-area-A { grid-area: A; } is .main-head   { grid-area: header; } */
+/* .grid-area-B { grid-area: B; } is .content     { grid-area: content; } */
+/* .grid-area-C { grid-area: C; } is .main-nav    { grid-area: nav; } */
+/* .grid-area-D { grid-area: D; } is .side        { grid-area: sidebar; } */
+/* .grid-area-E { grid-area: E; } is .ad          { grid-area: ad; } */
+/* .grid-area-F { grid-area: F; } is .main-footer { grid-area: footer; }  */
+
+.test-layout .wrapper {
+  /* .test-layout .wrapper { */
+  display: grid; /* display: grid; */
+  gap: 20px; /* gap: 20px; */
+  grid-template-areas:    /* grid-template-areas: */
+    'A' /* "header" */
+    'C' /* "nav" */
+    'B' /* "content" */
+    'D' /* "sidebar" */
+    'E' /* "ad" */
+    'F'; /* "footer"; */
+} /* } */
+
+@media (min-width: 500px) {
+  /* @media (min-width: 500px) { */
+  .test-layout .wrapper {
+    /* .test-layout  .wrapper { */
+    grid-template-columns: 1fr 3fr; /* grid-template-columns: 1fr 3fr; */
+    grid-template-areas:               /* grid-template-areas: */
+      'A A' /* "header  header" */
+      'C C' /* "nav     nav" */
+      'D B' /* "sidebar content" */
+      'E F'; /* "ad      footer"; */
+  } /* } */
+  .test-layout nav ul {
+    /* .test-layout  nav ul { */
+    display: flex; /* display: flex; */
+    justify-content: space-between; /* justify-content: space-between; */
+  } /* } */
+} /* } */
+
+@media (min-width: 700px) {
+  /* @media (min-width: 700px) { */
+  .test-layout .wrapper {
+    /* .test-layout  .wrapper { */
+    grid-template-columns: 1fr 4fr 1fr; /* grid-template-columns: 1fr 4fr 1fr; */
+    grid-template-areas:                    /* grid-template-areas: */
+      'A A A' /* "header header  header" */
+      'C B D' /* "nav    content sidebar" */
+      'C B E' /* "nav    content ad" */
+      'F F F'; /* "footer footer  footer" */
+  } /* } */
+  .test-layout nav ul {
+    /* .test-layout nav ul { */
+    flex-direction: column; /* flex-direction: column; */
+  } /* } */
+}
+
+/** ResumeLayout  */
+
+.resume-layout-old table {
+  @apply text-left/* */  min-w-full rounded-md border-2 border-gray-500;
+}
+
+.resume-layout-old thead {
+  @apply bg-gray-400 dark:bg-gray-700;
+}
+
+.resume-layout-old tr {
+  @apply /*  */ border-b-2 border-gray-500;
+}
+
+.resume-layout-old tr:nth-child(even) {
+  @apply bg-gray-400/30 dark:bg-gray-700/30;
+}
+
+.resume-layout-old td,
+th {
+  white-space: nowrap;
+  @apply p-1.5;
+}
+
+.resume-layout br.responsive {
+  display: none; /*  Hide BR tag for narrow screens */
+}
+
+@media (min-width: 760px) {
+  .resume-layout br.responsive {
+    display: inline; /* Show BR tag for wider screens */
+  }
+}
+
+.resume-layout ul {
+  all: unset;
+  padding: none;
+}
+
+.resume-layout ul > li {
+  margin-left: 1.5em;
+}
+
+.resume-layout .education-grid-template-areas-wrapper {
+  /* all: unset; */
+  display: grid;
+  gap: 0em;
+  grid-template-areas:
+    'A'
+    'B'
+    'C';
+}
+
+.resume-layout .A {
+  height: fit-content;
+}
+
+@media (min-width: 500px) {
+  .resume-layout .education-grid-template-areas-wrapper {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'A'
+      'B'
+      'C';
+  }
+}
+
+@media (min-width: 760px) {
+  .resume-layout .education-grid-template-areas-wrapper {
+    grid-template-columns: 3fr 4fr;
+    grid-template-rows: min-content auto;
+    /* grid-auto-rows: minmax(auto, auto); */
+
+    grid-template-areas:
+      'A B'
+      'C B';
+  }
+}
+
+.resume-layout .education-grid-template-areas-wrapper > * {
+  /* @apply border-2 border-red-800 */
 }

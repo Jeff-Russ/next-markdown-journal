@@ -3,7 +3,7 @@ import Image from '@/components/Image'
 import { PageSEO } from '@/components/SEO'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 
-export default function ResumeLayout({ children, frontMatter, authorDetails }) {
+export default function OldResumeLayout({ children, frontMatter, authorDetails }) {
   const {
     name,
     summary,
