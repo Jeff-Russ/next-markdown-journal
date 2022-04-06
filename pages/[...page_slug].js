@@ -32,7 +32,7 @@ export async function getStaticProps({ params }) {
 
   // rss
   if (allPages.length > 0) {
-    const rss = generateRss(allPages)
+    const rss = generateRss(allPages) // This requires *.mdx to have title prop in frontmatter!
     fs.writeFileSync('./public/feed.xml', rss)
   }
   return { props: { page, authorDetails } }
