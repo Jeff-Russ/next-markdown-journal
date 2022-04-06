@@ -7,7 +7,8 @@ import TOCInline from './TOCInline'
 import Pre from './Pre'
 import { BlogNewsletterForm } from './NewsletterForm'
 
-// Used only in pages/blog/[...slug].js, pages/about.js
+import HTMLComment from '@/components/HTMLComment'
+
 export const MDXComponents = {
   Image,
   TOCInline,
@@ -16,7 +17,13 @@ export const MDXComponents = {
   BlogNewsletterForm: BlogNewsletterForm,
   wrapper: ({ components, layout, ...rest }) => {
     const Layout = require(`../layouts/${layout}`).default
-    return <Layout {...rest} />
+    return (
+      <>
+        <HTMLComment text={'START MDXComponents (in MDXComponents.js) <Layout {...rest} />'} />
+        <Layout {...rest} />
+        <HTMLComment text={'END MDXComponents (in MDXComponents.js) <Layout {...rest} />'} />
+      </>
+    )
   },
 }
 
@@ -24,5 +31,11 @@ export const MDXComponents = {
 export const MDXLayoutRenderer = ({ layout, mdxSource, ...rest }) => {
   const MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource])
 
-  return <MDXLayout layout={layout} components={MDXComponents} {...rest} />
+  return (
+    <>
+      <HTMLComment text={'START MDXLayoutRenderer (in MDXComponents.js)'} />
+      <MDXLayout layout={layout} components={MDXComponents} {...rest} />
+      <HTMLComment text={'END MDXLayoutRenderer (in MDXComponents.js)'} />
+    </>
+  )
 }

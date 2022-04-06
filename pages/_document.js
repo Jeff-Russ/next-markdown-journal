@@ -1,6 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 import { documentOverrides } from '@/data/wrapperOverrides'
+import HTMLComment from '@/components/HTMLComment'
 
 class MyDocument extends Document {
   render() {
@@ -17,41 +18,54 @@ class MyDocument extends Document {
       bypass = true
     }
     return (
-      <Html lang="en" className="scroll-smooth">
-        <Head>
-          <link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-touch-icon.png" />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/static/favicons/favicon-32x32.png"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/static/favicons/favicon-16x16.png"
-          />
-          <link rel="manifest" href="/static/favicons/site.webmanifest" />
-          <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#5bbad5" />
-          <meta name="msapplication-TileColor" content="#000000" />
-          <meta name="theme-color" content="#000000" />
-          <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-        </Head>
-        {(bypass && (
-          <body>
+      <>
+        <HTMLComment
+          text={
+            'START _document.js ... see https://stackoverflow.com/questions/65415933/head-component-from-next-head-renders-into-body-instead-of-head'
+          }
+        />
+        <Html lang="en" className="scroll-smooth">
+          <Head>
+            <link
+              rel="apple-touch-icon"
+              sizes="76x76"
+              href="/static/favicons/apple-touch-icon.png"
+            />
+            <link
+              rel="icon"
+              type="image/png"
+              sizes="32x32"
+              href="/static/favicons/favicon-32x32.png"
+            />
+            <link
+              rel="icon"
+              type="image/png"
+              sizes="16x16"
+              href="/static/favicons/favicon-16x16.png"
+            />
+            <link rel="manifest" href="/static/favicons/site.webmanifest" />
+            <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#5bbad5" />
+            <meta name="msapplication-TileColor" content="#000000" />
+            <meta name="theme-color" content="#000000" />
+            <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
+          </Head>
+          <body
+            className={`${
+              bypass ? '' : 'bg-white text-black antialiased dark:bg-gray-900 dark:text-orange-100'
+            }`}
+          >
             <Main />
+            <HTMLComment text={'END <Main /> from _document.js'} />
+            <HTMLComment text={'START <NextScript /> from _document.js'} />
             <NextScript />
+            <HTMLComment text={'END <NextScript /> from _document.js'} />
           </body>
-        )) || (
-          <body className="bg-white text-black antialiased dark:bg-gray-900 dark:text-orange-100">
-            <Main />
-            <NextScript />
-          </body>
-        )}
-      </Html>
+        </Html>
+        <HTMLComment text={'END _document.js'} />
+      </>
     )
   }
 }
 
+// {( && ()) || () }
 export default MyDocument
