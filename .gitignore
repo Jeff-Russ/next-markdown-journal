@@ -1,5 +1,6 @@
 ignored/
-**/resume*.mdx
+**/authors/resume*.mdx
+**/blog/resume*.mdx
 **/*-test.mdx
 **/*-tests
 layouts/TestLayout.js
