@@ -1,10 +1,30 @@
 @media print {
-  .no-print,
-  .no-print *,
+  .print-hide,
+  .print-hide *,
   .site-navbar,
   .site-navbar *,
   .site-footer,
   .site-footer * {
     display: none !important;
   }
+  body {
+    display: flex;
+    justify-content: center;
+    padding-left: 0.5in;
+    padding-right: 0.5in;
+    /* background: white;
+    width: 12.75in;
+    height: 16.5in;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0.5cm; */
+  }
+  #printable-page {
+    font-size: 0.65rem;
+  }
+}
+
+@page {
+  /* size: 12.75in 16.5in; */
+  size: 8.5in 11in;
 }

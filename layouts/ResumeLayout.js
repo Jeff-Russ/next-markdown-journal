@@ -33,7 +33,7 @@ export default function ResumeLayout({ frontMatter, authorDetails, next, prev, c
       {/*  </div> */}
       {/* </div> */}
       <script async src="scripts/obfuscations.js" type="text/javascript"></script>
-      {/* <script async src="scripts/printable-doc.js" type="text/javascript"></script> */}
+      <script async src="scripts/printable-doc.js" type="text/javascript"></script>
     </div>
   )
 }

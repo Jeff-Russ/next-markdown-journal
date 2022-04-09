@@ -30,31 +30,6 @@ input:-webkit-autofill:focus {
   }
 }
 
-/** Obfuscation Email and Phone (from bots) 
-
-https://www.nelsonpires.com/development/protect-your-email-and-phone-number-from-spam-bots
- They will be displayed but not in HTML
-"moc.etisbew"emos"@nhoj :liamE" RESULT-> john@somewebsite.com
-"987 654 "321" 153+ :enohP" RESULT-> +351 123 456 789
-
-As for the <a>'s href='mailto:...' and href='tel:...', see obfuscations.js */
-a.nobot {
-  unicode-bidi: bidi-override;
-  direction: rtl;
-}
-a.nobot.jeff-e-mail:before {
-  content: 'moc.liamg@';
-}
-a.nobot.jeff-e-mail:after {
-  content: 'nnylyerffej';
-}
-a.nobot.jeff-ph-num:before {
-  content: '5433-';
-}
-a.nobot.jeff-ph-num:after {
-  content: '-237';
-}
-
 /** Grid Areas  */
 
 .grid-area-A {
@@ -98,10 +73,9 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Realizing_commo
     'D' /* "sidebar" */
     'E' /* "ad" */
     'F'; /* "footer"; */
-} /* } */
+}
 
 @media (min-width: 500px) {
-  /* @media (min-width: 500px) { */
   .test-layout .wrapper {
     /* .test-layout  .wrapper { */
     grid-template-columns: 1fr 3fr; /* grid-template-columns: 1fr 3fr; */
@@ -110,16 +84,15 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Realizing_commo
       'C C' /* "nav     nav" */
       'D B' /* "sidebar content" */
       'E F'; /* "ad      footer"; */
-  } /* } */
+  }
   .test-layout nav ul {
     /* .test-layout  nav ul { */
     display: flex; /* display: flex; */
     justify-content: space-between; /* justify-content: space-between; */
-  } /* } */
-} /* } */
+  }
+}
 
 @media (min-width: 700px) {
-  /* @media (min-width: 700px) { */
   .test-layout .wrapper {
     /* .test-layout  .wrapper { */
     grid-template-columns: 1fr 4fr 1fr; /* grid-template-columns: 1fr 4fr 1fr; */
@@ -128,36 +101,14 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Realizing_commo
       'C B D' /* "nav    content sidebar" */
       'C B E' /* "nav    content ad" */
       'F F F'; /* "footer footer  footer" */
-  } /* } */
+  }
   .test-layout nav ul {
     /* .test-layout nav ul { */
     flex-direction: column; /* flex-direction: column; */
-  } /* } */
+  }
 }
 
 /** ResumeLayout  */
-
-.resume-layout-old table {
-  @apply text-left/* */  min-w-full rounded-md border-2 border-gray-500;
-}
-
-.resume-layout-old thead {
-  @apply bg-gray-400 dark:bg-gray-700;
-}
-
-.resume-layout-old tr {
-  @apply /*  */ border-b-2 border-gray-500;
-}
-
-.resume-layout-old tr:nth-child(even) {
-  @apply bg-gray-400/30 dark:bg-gray-700/30;
-}
-
-.resume-layout-old td,
-th {
-  white-space: nowrap;
-  @apply p-1.5;
-}
 
 .resume-layout br.responsive {
   display: none; /*  Hide BR tag for narrow screens */
@@ -169,14 +120,35 @@ th {
   }
 }
 
+@media (min-width: 1024px) {
+  .resume-layout br.responsive {
+    display: none; /* hide BR tag for very wide screens */
+  }
+}
+
 .resume-layout ul {
   all: unset;
-  padding: none;
+  padding: 0;
 }
 
 .resume-layout ul > li {
-  margin-left: 1.5em;
+  margin-left: 1.5rem;
 }
+
+.resume-layout td {
+  @apply pr-4;
+}
+
+/** ResumeLayout class defs  */
+
+.resume-layout .card-section {
+  @apply w-full overflow-hidden rounded-xl bg-slate-50 px-0 shadow-lg dark:bg-stone-800 dark:shadow-stone-900;
+}
+.resume-layout .card-section header {
+  @apply m-0 p-0 pl-3 font-sans text-xl font-bold not-italic;
+}
+
+/* ResumeLayout - grid template areas */
 
 .resume-layout .education-grid-template-areas-wrapper {
   /* all: unset; */
@@ -192,7 +164,7 @@ th {
   height: fit-content;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 0px) {
   .resume-layout .education-grid-template-areas-wrapper {
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -201,19 +173,36 @@ th {
       'C';
   }
 }
-
-@media (min-width: 760px) {
+@media print {
   .resume-layout .education-grid-template-areas-wrapper {
     grid-template-columns: 3fr 4fr;
     grid-template-rows: min-content auto;
-    /* grid-auto-rows: minmax(auto, auto); */
+    grid-template-areas:
+      'A B'
+      'C B';
+  }
+  .resume-layout .education-grid-template-areas-wrapper li.A span {
+    margin-left: 8rem;
+  }
+  .resume-layout .education-grid-template-areas-wrapper li.C {
+    margin-top: -3rem;
+  }
+}
 
+@media (min-width: 640px) {
+  .resume-layout .education-grid-template-areas-wrapper {
+    grid-template-columns: 3fr 4fr;
+    grid-template-rows: min-content auto;
     grid-template-areas:
       'A B'
       'C B';
   }
 }
 
-.resume-layout .education-grid-template-areas-wrapper > * {
-  /* @apply border-2 border-red-800 */
+/* ResumeLayout - link styles */
+
+.resume-layout a {
+  color: #179d8d;
+  text-decoration: underline;
+  font-weight: 500;
 }

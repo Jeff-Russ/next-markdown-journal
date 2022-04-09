@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   let link = document.createElement('link')
   link.rel = 'stylesheet'
   link.type = 'text/css'
-  link.href = 'stylesheets/printabledoc.css'
+  link.href = 'stylesheets/printable-doc.css'
 
   document.head.appendChild(link)
 })

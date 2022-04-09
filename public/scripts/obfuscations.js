@@ -2,6 +2,12 @@ document.addEventListener('DOMContentLoaded', function (event) {
   // https://stackoverflow.com/questions/799981/document-ready-equivalent-without-jquery
   decodeHrefMailtoEmailAddresses()
   decodeHrefTelNumber()
+  let link = document.createElement('link')
+  link.rel = 'stylesheet'
+  link.type = 'text/css'
+  link.href = 'stylesheets/obfuscations.css'
+
+  document.head.appendChild(link)
 })
 
 /* decodeHrefMailtoEmailAddresses gets all <a> with class names starting with 'username-at-', 
