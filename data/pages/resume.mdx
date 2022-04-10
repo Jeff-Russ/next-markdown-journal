@@ -7,290 +7,158 @@ images: []
 layout: ResumeLayout
 ---
 
-{/_ NOTE: relative links to document on this domain must include the domain in the pdf to be valid
-(they must be full URLs). I've generated the PDF this way and hopefully that will work (I used http
-not https and omitted the www) once the site is up! ALSO TODO TESU Transcript_/ }
-
 <div id='printable-page' className='text-xs flex flex-wrap -mx-1 lg:mx-4 xl:mx-6 font-serif italic align-top -mt-2'>
-
-{' '}
-<div className="block w-full -mt-12 print-hide">
-  <a href="/docs/Jeff-Russ_Resume.pdf" download="Jeff-Russ_Resume.pdf">
-    Download This Resume as PDF
-  </a>
-</div>
-
-{/* Resume Header: Two column row */}
-
-{' '}
-<section className="my-0 px-1 lg:my-2 lg:px-6 w-1/2">
-  <header className="text-xl ml-5 mb-0 text-center">
-    <h1 className="font-black font-serif text-lg sm:text-[2.3rem] text-stone-600 mb-1">
-      Jeff Russ
-    </h1>
-    <h2 className="text-sm">Software Developer</h2>
-  </header>
-</section>
-<section className="mt-3 px-1 lg:my-2 lg:px-4 w-1/2 text-xs sm:text-[0.78rem] font-sans not-italic align-top">
-  <a className="nobot jeff-e-mail username-at-moc-liamg align-top" href="ssurnnylyerffej">
-    ssur
-  </a>
-  <br />
-  <a className="nobot jeff-ph-num area-exchangenum-702-237" href="5433">
-    702
-  </a>{' '}
-  Glen Rock, NJ <br />
-  [LinkedIn](https://www.linkedin.com/in/jeff-russ-a866b648/)
-</section>
-
-{/* Main section 1: Career Objective: One column row */}
-
-{' '}
-<section className="mt-2 mb-3 card-section border-2 border-lime-700/20">
-  <header className="bg-lime-700/20">## Career Objective</header>
-  <p className="py-1 my-0 px-2 md:px-6">
-    With an insatiable appetite for self-learning and creative problem-solving in the area of
-    open-source software projects, followed by formal education in Computer Science earning a 3.978
-    GPA, the next step is to apply these disciplines by engineering software that solves the needs
-    of a particular enterprise and its stakeholders.
-  </p>
-</section>
-{/* Main section 2/4: Formal Education: One column row */}
-<section className="my-2 card-section border-2 border-orange-700/20">
-  <header className="bg-orange-700/20">## Formal Education</header>
-  {/* Responstive grid template areas */}
-  <div className="md:pl-6">
-    <ul className="py-1 education-grid-template-areas-wrapper">
-      <li className="A">
-        [*Thomas Edison State University*,](https://www.tesu.edu/heavin/)
-        <br className="responsive" /> [*Bachelor's in Computer Science*](https://www.tesu.edu/heavin/ba/computer-science)
-        <ul>
-          <li>GPA: 3.978</li>
-          <li>Five President's List Achievements</li>
-          <li>Two honor society invitations</li>
-          <li>Graduated Dec. 2021</li>
-          <li className="print-hide_NOO">
-            View{' '}
-            <a href="/docs/Jeff-Russ_TESU_diploma.pdf" target="_blank">
-              Diploma
-            </a>{' '}
-            and{' '}
-            <a href="/docs/Jeff-Russ_TESU_transcript.pdf" target="_blank">
-              Transcript
-            </a>
-            {/*TODO fix transcript*/}
-          </li>
-        </ul>
-        <br />
-        <span className="mt-4 md:mt-8 md:ml-12">*Career-specific transcript:*</span>
-      </li>
-      <li className="B list-none pl-8 md:md-0">
-        <table>
-          <thead className="font-sans not-italic">
-            <tr>
-              <th>Course</th>
-              <th>Grade</th>
-              <th>Term</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>System Analysis &amp; Design I</td>
-              <td>99%</td>
-              <td>June '21</td>
-            </tr>
-            <tr>
-              <td>Software Engineering</td>
-              <td>100%</td>
-              <td>Mar. '21</td>
-            </tr>
-            <tr>
-              <td>Database Management (SQL)</td>
-              <td>96%</td>
-              <td>Mar. '21</td>
-            </tr>
-            <tr>
-              <td>Artificial Intelligence{/* <br /> **SEE ColumbiaX** */}</td>
-              <td>
-                97%
-                <br />
-              </td>
-              <td>
-                Feb. '21
-                <br />
-              </td>
-            </tr>
-            <tr>
-              <td>Computer Architecture</td>
-              <td>97%</td>
-              <td>Oct '20</td>
-            </tr>
-            <tr>
-              <td>Calculus I</td>
-              <td>94%</td>
-              <td>Oct '20</td>
-            </tr>
-            <tr>
-              <td>Discrete Mathematics</td>
-              <td>93%</td>
-              <td>June '20</td>
-            </tr>
-            <tr>
-              <td>Python Programming</td>
-              <td>94%</td>
-              <td>June '20</td>
-            </tr>
-            <tr>
-              <td>Data Structures (in Python)</td>
-              <td>96%</td>
-              <td>Dec. '19</td>
-            </tr>
-            <tr>
-              <td>Operating Systems</td>
-              <td>93%</td>
-              <td>Dec. '19</td>
-            </tr>
-            <tr>
-              <td>C++ Programming</td>
-              <td>98%</td>
-              <td>Sept. '19</td>
-            </tr>
-          </tbody>
-        </table>
-      </li>
-      <li className="C mt-2 sm:-mt-12">
-        [*Rutgers University*, *Bachelor's of
-        Music*](https://www.masongross.rutgers.edu/degrees-programs/music/programs/bm/), GPA: 3.011,
-        Two Dean's List Achievements, Graduated May 2005
-      </li>
-    </ul>
+  {/* NOTE: relative links to document on this domain must include the domain in the pdf to be valid 
+  (they must be full URLs). I've generated the PDF this way and hopefully that will work (I used http 
+  not https and omitted the www) once the site is up! ALSO TODO TESU Transcript*/ }
+  <div className='block w-full -mt-12 print-hide'>
+    <a href='/docs/Jeff-Russ_Resume.pdf' download='Jeff-Russ_Resume.pdf'>Download This Resume as PDF</a>
   </div>
-</section>
 
-{/* Main section 3/4: Additional Training: One column row */}
+  {/* Resume Header: Two column row */}
+  <section className='my-0 px-1 lg:my-2 lg:px-6 w-1/2'>
+    <header className='text-xl ml-5 mb-0 text-center'>
+      <h1 className='font-black font-serif text-lg sm:text-[2.3rem] text-stone-600 mb-1'>Jeff Russ</h1>
+      <h2 className='text-sm'>Software Developer</h2>
+    </header>
+  </section>
+  <section className='mt-3 px-1 lg:my-2 lg:px-4 w-1/2 text-xs sm:text-[0.78rem] font-sans not-italic align-top'>
+    <a className='nobot jeff-e-mail username-at-moc-liamg align-top' href='ssurnnylyerffej'>ssur</a><br />
+    <a className='nobot jeff-ph-num area-exchangenum-702-237' href='5433'>702</a> Glen Rock, NJ <br />
+    [LinkedIn](https://www.linkedin.com/in/jeff-russ-a866b648/)
+  </section>
 
-{' '}
-<section className="my-2 card-section border-2 border-amber-600/25">
-  <header className="bg-amber-700/20">## Certifications, Additional Coursework and Training</header>
-  <div className="py-1 my-0 md:px-6">
-    <ul>
-      <li>
-        [*Codecademy*, *Full Stack Engineer — Career
-        Path*](https://www.codecademy.com/learn/paths/full-stack-engineer-career-path) (Covering
-        HTML, CSS and JavaScript with the MERN Stack, which includes Node, React and Express), Sept.
-        '21 ~ Feb. '22
-      </li>
-      <li>
-        [ColumbiaX (Columbia University via EdX) CSMM.101x Artificial
-        Intelligence](https://www.edx.org/course/artificial-intelligence-ai) Taken in parallel with
-        Thomas Edison State University's AI course as it uses the same textbook but includes work
-        implementing AI algorithms in Python. Feb. '21 ~ Apr. '21
-      </li>
-      <li>
-        [*C++ Institute*, *CPA – C++ Certified Associate
-        Programmer*](https://cppinstitute.org/cpa-c-certified-associate-programmer-certification),
-        Completed May 2015.{' '}
-        <a href="/docs/Jeff-Russ_CppInstituteCertificate.pdf" target="_blank">
-          View Certificate
-        </a>
-      </li>
-      <li>
-        [*CoderManual, Complete Web Developer Bootcamp with
-        Rails*](https://courses.codermanual.com/) (also covering Git/GitHub, JQuery and Bootstrap)
-        Aug '15 ~ Oct '15
-      </li>
-    </ul>
-  </div>
-</section>
+  {/* Main section 1: Career Objective: One column row */}
+  <section className='mt-2 mb-3 card-section border-2 border-lime-700/20'>
+    <header className='bg-lime-700/20'>
+      ## Career Objective
+    </header>
+    <p className='py-1 my-0 px-2 md:px-6'>With an insatiable appetite for self-learning and creative problem-solving in the area of open-source software projects, 
+    followed by formal education in Computer Science earning a 3.978 GPA, the next step is to apply these disciplines by 
+    engineering software that solves the needs of a particular enterprise and its stakeholders.</p>
+  </section>
+  
+  {/* Main section 2/4: Formal Education: One column row */}
+  <section className='my-2 card-section border-2 border-orange-700/20'>
+    <header className='bg-orange-700/20'>
+      ## Formal Education
+    </header>
+    {/* Responstive grid template areas */} 
+    <div className='md:pl-6'>
+      <ul className='py-1 education-grid-template-areas-wrapper'> 
+        <li className='A'> 
+          [*Thomas Edison State University*,](https://www.tesu.edu/heavin/)<br className='responsive' /> [*Bachelor's in Computer Science*](https://www.tesu.edu/heavin/ba/computer-science)
+          <ul>
+            <li>GPA: 3.978</li>
+            <li>Five President's List Achievements</li>
+            <li>Two honor society invitations</li>
+            <li>Graduated Dec. 2021</li>
+            <li className='print-hide_NOO'>View <a href='/docs/Jeff-Russ_TESU_diploma.pdf' target='_blank'>Diploma</a> and <a href='/docs/Jeff-Russ_TESU_transcript.pdf' target='_blank'>Transcript</a>{/*TODO fix transcript*/}</li>
+          </ul><br />
+          <span className="mt-4 md:mt-8 md:ml-12">*Career-specific transcript:*</span>
+        </li>
+        <li className='B list-none pl-8 md:md-0'>
+          <table>
+            <thead className='font-sans not-italic'><tr><th>Course</th><th>Grade</th><th>Term</th></tr></thead>
+            <tbody>
+              <tr><td>System Analysis &amp; Design I</td><td>99%</td><td>June '21</td></tr>
+              <tr><td>Software Engineering</td><td>100%</td><td>Mar. '21</td></tr>
+              <tr><td>Database Management (SQL)</td><td>96%</td><td>Mar. '21</td></tr>
+              <tr><td>Artificial Intelligence{/* <br /> **SEE ColumbiaX** */}</td><td>97%<br /></td><td>Feb. '21<br /></td></tr>
+              <tr><td>Computer Architecture</td><td>97%</td><td>Oct '20</td></tr>
+              <tr><td>Calculus I</td><td>94%</td><td>Oct '20</td></tr>
+              <tr><td>Discrete Mathematics</td><td>93%</td><td>June '20</td></tr>
+              <tr><td>Python Programming</td><td>94%</td><td>June '20</td></tr>
+              <tr><td>Data Structures (in Python)</td><td>96%</td><td>Dec. '19</td></tr>
+              <tr><td>Operating Systems</td><td>93%</td><td>Dec. '19</td></tr>
+              <tr><td>C++ Programming</td><td>98%</td><td>Sept. '19</td></tr>
+            </tbody>
+          </table>
+        </li>
+        <li className='C mt-2 sm:-mt-12'>
+          [*Rutgers University*, *Bachelor's of Music*](https://www.masongross.rutgers.edu/degrees-programs/music/programs/bm/),
+          GPA: 3.011, Two Dean's List Achievements, Graduated May 2005
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  {/* Main section 3/4: Additional Training: One column row */}
+  <section className='my-2 card-section border-2 border-amber-600/25'>
+    <header className='bg-amber-700/20'>
+      ## Certifications, Additional Coursework and Training 
+    </header>
+    <div className='py-1 my-0 md:px-6'>
+      <ul>
+        <li>[*Codecademy*, *Full Stack Engineer — Career Path*](https://www.codecademy.com/learn/paths/full-stack-engineer-career-path) 
+          (Covering HTML, CSS and JavaScript with the MERN Stack, which includes Node, React and Express), Sept. '21 ~ Feb. '22</li>
+        <li>[ColumbiaX (Columbia University via EdX) CSMM.101x Artificial Intelligence](https://www.edx.org/course/artificial-intelligence-ai) 
+          Taken in parallel with Thomas Edison State University's AI course as it uses the same textbook but includes work 
+          implementing AI algorithms in Python. Feb. '21 ~ Apr. '21</li>
+        <li>[*C++ Institute*, *CPA – C++ Certified Associate Programmer*](https://cppinstitute.org/cpa-c-certified-associate-programmer-certification), 
+          Completed May 2015. <a href='/docs/Jeff-Russ_CppInstituteCertificate.pdf' target='_blank'>View Certificate</a></li>
+        <li>[*CoderManual, Complete Web Developer Bootcamp with Rails*](https://courses.codermanual.com/) 
+          (also covering Git/GitHub, JQuery and Bootstrap) Aug '15 ~ Oct '15</li>
+      </ul>
+    </div>
+  </section>
 
 {/* Main section 4/4: Selected Projects: One column row */}
-
-{' '}
-<section className="my-2 card-section border-2 border-cyan-700/20">
-  <header className="bg-cyan-600/25">## Selected Projects</header>
-  <div className="py-1 my-0 md:px-6">
-    <ul>
-      <li>
-        **JavaScript (Node), React, Next.js and TailwindCSS**
-        <ul>
-          <li className="ml-6">
-            [next-markdown-journal](https://github.com/Jeff-Russ/next-markdown-journal) — A personal
-            journal, blog and portfolio website built in Next.js with content authored in MDX files
-            (Markdown with JSX support) and TailwindCSS. Dec. '21 ~ Present.
-          </li>
-          <li>
-            [spelunker-node-shell](https://github.com/Jeff-Russ/spelunker-node-shell) —
-            “`spelunker()` sends your guy into the shell and brings back the goods quicker than
-            going in and out for each command.” The goal of this project was to limit I/O with the
-            shell and thus increase performance. Last commit: Jun. '16
-          </li>
-        </ul>
-      </li>
-      <li>
-        **CSS/SCSS, Bootstrap and HTML**
-        <ul>
-          <li>
-            [jeffpack-for-wordpress](https://github.com/Jeff-Russ/jeffpack-for-wordpress) — A
-            WordPress Plugin / Theme for editing sites from a local machine with installing &
-            updating the deployed site done via Git. Last commit: Jan. '17
-          </li>
-          <li>
-            [scoped-bootstrap](https://github.com/Jeff-Russ/scoped-bootstrap) — Apply Bootstrap only
-            to specified HTML elements. Last commit: Aug. '16
-          </li>
-          <li>
-            [PlastiCSS](https://github.com/Jeff-Russ/PlastiCSS) — A SCSS (Sass) library to generate
-            CSS for pages without horizontal scrolling. Last commit: Mar. '16
-          </li>
-        </ul>
-      </li>
-      <li>
-        **Ruby and Ruby on Rails**
-        <ul>
-          <li>
-            [markdown.design](https://github.com/Jeff-Russ/markdown.design) — A real-time web page
-            generator assembled from simple markdown documents. Last commit: May '16
-          </li>
-          <li>
-            [gfunc-gem](https://github.com/Jeff-Russ/gfunc-gem) — The gfunc Ruby gem is a small
-            collection of multi-purpose utilities. Last commit: May '16
-          </li>
-        </ul>
-      </li>
-      <li>
-        **C++ & DSP**
-        <ul>
-          <li>
-            [AdlibBlaster](https://github.com/Jeff-Russ/AdlibBlaster) — MacOS port of
-            [bsutherland/JuceOPLVSTi](https://github.com/bsutherland/JuceOPLVSTi) — A VST instrument
-            which emulates the Yamaha OPL sound chip used in PC sound cards from the 90s. Last
-            commit: Feb '16
-          </li>
-          <li>
-            [jATK](https://github.com/Jeff-Russ/jATK) — Jeff's (JUCE) Audio ToolKit — A DSP audio
-            synthesis library. Last commit: Jun. '15
-          </li>
-        </ul>
-      </li>
-      <li>
-        **Git and various Terminal Utilities (Bash Scripts)**
-        <ul>
-          <li>
-            [gits](https://github.com/Jeff-Russ/gits) — Initialize and toggle between multiple Git
-            repositories from the same main working directory. Last commit: Oct. '16
-          </li>
-          <li>
-            [bash-boolean-helpers](https://github.com/Jeff-Russ/bash-boolean-helpers) — Adds
-            'truthy' and 'falsy' to Bash with better, cleaner syntax. Last commit: Jun. '16
-          </li>
-          <li>
-            [bashquicks](https://github.com/Jeff-Russ/bashquicks) — Staple bash scripts for common
-            tasks. Last commit: May '16
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</section>
+  <section className='my-2 card-section border-2 border-cyan-700/20'>
+    <header className='bg-cyan-600/25'>
+      ## Selected Projects
+    </header>
+    <div className='py-1 my-0 md:px-6'>
+      <ul>
+      <li>**JavaScript (Node), React, Next.js and TailwindCSS**<ul>
+          <li className='ml-6'>[next-markdown-journal](https://github.com/Jeff-Russ/next-markdown-journal) 
+            — A personal journal, blog and portfolio website built in Next.js with content authored in MDX 
+            files (Markdown with JSX support) and TailwindCSS. Dec. '21 ~ Present.</li>
+          <li>[spelunker-node-shell](https://github.com/Jeff-Russ/spelunker-node-shell) 
+            — “`spelunker()` sends your guy into the shell and brings back the goods quicker than 
+            going in and out for each command.” The goal of this project was to limit I/O with the shell 
+            and thus increase performance. Last commit: Jun. '16</li></ul></li>
+      <li>**CSS/SCSS, Bootstrap and HTML**<ul>
+          <li>[jeffpack-for-wordpress](https://github.com/Jeff-Russ/jeffpack-for-wordpress) 
+            — A WordPress Plugin / Theme for editing sites from a local machine with installing & updating 
+            the deployed site done via Git. Last commit: Jan. '17</li>
+          <li>[scoped-bootstrap](https://github.com/Jeff-Russ/scoped-bootstrap) 
+            — Apply Bootstrap only to specified HTML elements. Last commit: Aug. '16</li>
+          <li>[PlastiCSS](https://github.com/Jeff-Russ/PlastiCSS) 
+            — A SCSS (Sass) library to generate CSS for pages without horizontal scrolling. 
+            Last commit: Mar. '16</li></ul></li>
+      <li>**Ruby and Ruby on Rails**<ul>
+        <li>[markdown.design](https://github.com/Jeff-Russ/markdown.design) 
+          — A real-time web page generator assembled from simple markdown documents. 
+          Last commit: May '16</li>
+        <li>[gfunc-gem](https://github.com/Jeff-Russ/gfunc-gem) 
+          — The gfunc Ruby gem is a small collection of multi-purpose utilities. 
+          Last commit: May '16</li></ul></li>
+      <li>**C++ & DSP**<ul>
+        <li>[AdlibBlaster](https://github.com/Jeff-Russ/AdlibBlaster) 
+          — MacOS port of [bsutherland/JuceOPLVSTi](https://github.com/bsutherland/JuceOPLVSTi) 
+          — A VST instrument which emulates the Yamaha OPL sound chip used in PC sound cards from the 90s. 
+          Last commit: Feb '16</li>
+        <li>[jATK](https://github.com/Jeff-Russ/jATK) — Jeff's (JUCE) Audio ToolKit 
+          — A DSP audio synthesis library. Last commit: Jun. '15</li></ul></li>
+      <li>**Git and various Terminal Utilities (Bash Scripts)**<ul>
+        <li>[gits](https://github.com/Jeff-Russ/gits) 
+          — Initialize and toggle between multiple Git repositories from the same main working directory.
+          Last commit: Oct. '16</li>
+        <li>[bash-boolean-helpers](https://github.com/Jeff-Russ/bash-boolean-helpers) 
+          — Adds 'truthy' and 'falsy' to Bash with better, cleaner syntax. Last commit: Jun. '16</li>
+        <li>[bashquicks](https://github.com/Jeff-Russ/bashquicks) 
+          — Staple bash scripts for common tasks. Last commit: May '16</li></ul></li>
+      </ul>
+    </div>
+  </section>
 
 </div>
+
+
+
+
+
+
+
+
