@@ -1,5 +1,4 @@
 ignored/
-**/resume*.mdx
 **/*-test.mdx
 **/*-tests
 layouts/TestLayout.js
