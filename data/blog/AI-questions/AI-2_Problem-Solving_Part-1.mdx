@@ -1,0 +1,373 @@
+---
+title: 'AI 2: Logical Agents and First-Order Logic'
+date: '2021-02-22'
+tags: ['AI', 'Artificial Intelligence', 'Problem-Solving Agents', 'Search Algorithms', 'Uniformed Search', 'Heuristic Functions']
+draft: false
+summary: AI questions on Problem-Solving Agents answered by Jeff Russ
+---
+
+## 1\. Problem Formulation
+
+> **3.6** Give a complete problem formulation for each of the following. Choose a formulation that is precise enough to be implemented.
+>
+> **a.** Using only four colors, you have to color a planar map in such a way that no two adjacent regions have the same color (Russell & Norvig, 2010).
+
+- **States:** How the planar map is represented as a data structure would depending on the details of the real-world map. If each colored region has only 1 to 4 neighbors, as would be the case with a grid-like structure, it could be represented by a 2 dimensional array. If it is more complex than that, a node-based graph could be used. I'll assume it's the former and we have a symmetric $3\times 3$ array, or mathematical matrix notated as follows, which shows how each element is subscripted, where each region is $R$, $B$, $G$, or $Y$, for red, blue, green or yellow, respectively.  
+  $\left[\begin{array}{ccc}r_{0,0}&r_{0,1}&r_{0,2}\\ r_{1,0}&r_{1,1}&r_{1,2} \\ r_{2,0}&r_{2,1}&r_{2,2}\end{array}\right]$
+- The **Initial State** could be one where all regions are white, which we can store as:  
+  $\left[\begin{array}{ccc}W & W & W \\ W & W & W \\ W & W & W\end{array}\right]$.
+- **Actions** could be a 3-tuple of integers indices in the form $(row, column)$ which represent the location where we would be changing the color. We also need to specify the color $R$, $B$, $G$, or $Y$ to which we are changing the region. So the action can be represented by the following form:  
+  $[\ (row, column), color\ ]$. 
+- **Transition model**: $\mathrm{RESULT}(s,a)$ will return a state that is like the current state but with the region specified by the action changed to the color specified within the action.  For example, if action $[(0,0), R]$ is performed on the initial state, the resulting state is  
+  $\left[\begin{array}{ccc}R & W & W \\ W & W & W \\ W & W & W\end{array}\right]$.  
+  But in practice, assigning a new color to a region hardly needs formality of action representations and the transition function. The entire process of applying an action to change a state can be as simple as `state[row][col] = new_color`.
+- **Goal test**: returns `True` if for each region, all regions neighboring it including diagonal neighbors, are dissimilar in color to it. This problem is probably best solved by considering it as a constraint satisfaction problem since the goal states are determined to be goal states by the relationships between the variables within the state rather than the value of the state as a whole. 
+- **Path cost**: The cost could simply be 1 per action. 
+
+This specific version of this problem outlined above is quite simple due, in part, by the simplicity of the initial state. The entire problem is solved by the following Python code, which hardly follows the formal structure of a problem solving agent and certainly not a search agent but it solves the problem nonetheless. If we were to solve the more general problem of map coloring, a more robust solution would be needed that would probably require an actual graph or tree data structure. 
+
+```python
+def neighbor_values(s, r, c): 
+    '''gets values of all adjacent cells in 2D data,
+    structure s including those diagonal to s[r][c]'''
+    vals = sum((row[c -(c>0): c+2] for row in s[r -(r>0):r+2]), [])
+    vals.remove(s[r][c]) # rm itself fom list
+    return vals  
+
+def solve(s):
+    '''changes each cell in the 2D data structure to a color dissimalar 
+    to any color neighbor to it,  including those diagonally neighboring'''
+    colors = ['R', 'B', 'G', 'Y']
+    for r in range(len(s)): # iterate rows
+        for c in range(len(s[r])): # and columns
+            if s[r][c] not in colors:
+                adj_colors = neighbor_values(s, r, c)
+                for color in colors:
+                    if color not in adj_colors:
+                        # Here, instead of expanding children we can essentially 
+                        # just grab the first  possible action and do it:
+                        s[r][c] = color # this is an action performed
+    # print solution:
+    for r in range(len(s)): # iterate rows
+        for c in range(len(s[r])): # and columns
+            print(s[r][c], end=' ')
+        print()                   
+```
+
+This works with any size matrix. Running the following,
+
+```python
+solve([['W', 'W', 'W', 'W'],
+       ['W', 'W', 'W' ,'W'],
+       ['W', 'W', 'W', "W"]])
+```
+
+we see the solution:
+
+```
+Y G Y G 
+B R B R 
+Y G Y G 
+```
+
+This implementation works with any size of (symmetrical) 2-dimensional array. One limitation is that it only works for this particular initial state, but a few changes may be all that's need to make it work from any initial state. Another improvement might be made in the area of performance by reducing the list of candidate colors from which to choose a new color rather than searching every possible color to make sure it is not in a neighbor's color and then perhaps selecting from what remains randomly.
+
+
+
+> **b.** A 3-foot-tall monkey is in a room where some bananas are suspended from the 8-foot ceiling. He would like to get the bananas. The room contains two stackable, movable, climbable 3-foot-high crates.
+
+I've found a loophole!  A typical *human* can reach an object that is roughly 1.34 $\times$ their height ([source](https://www.thehoopsgeek.com/standing-reach/#:~:text=Relationship%20between%20standing%20reach%20and%20height%3A&text=This%20means%20the%20average%206,far%20longer%20arms%20than%20others.)) and monkeys have arm lengths in ratio to their heights which are significantly greater than that of humans. I'll estimate the monkey's reach to be $\approx 1.6 \times$ their height (it's actually much more than that) which gives a 3-foot-tall monkey 4.8 foot reach in our case. Add one 3-foot-tall crate and we have a 7.8 foot reach. The average length of a banana is 7 inches ([source](https://healthyeating.sfgate.com/portion-size-bananas-7664.html)), which is $0.58\overline3$ feet, which I'll increase a bit for the string to $0.7$ feet so the monkey's reach only needs to be something like 7.5 feet (I'm adding 2.4 inches for the fingers to grab).  Therefore, the monkey only needs one crate! 
+
+{/* <img src="https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2015/3-chimpanzeess.jpg" style="zoom:20%;" />  */}
+![chimpanzeess](/static/images/AI-x/AI-2_chimpanzeess.png)
+
+- **Actions**: $(1...9)$. The monkey will need to get off of the crate (if already on one) in order to move it and then soon after the monkey will be on top of it in its new position. Therefore, we can compress these actions into one and consider the monkey's position to be synonymous with the crate position. The unneeded second crate *does* still exist but if the monkey needs to move the first crate to the second crate's position, they can just place it on top and thus, we can ignore this detail. So the action need only be a single integer from 1 to 9. 
+- **States:** $n$-tuple. I'll assume the crate is large enough in relation to the area of the floor such that it can only be in a position that is at least close enough to be under a banana. With $n$ bananas in $n$ positions, we need our state to store which of the $n$ position our monkey + crate and are in, and for each of the $n$ position we need to keep track of whether the banana is still there and has not been taken (0) or has already been taken (1). So, say we have nine possible position, meaning $n=9$. Then we need an $10$-tuple where the first element is the index of the monkeys position in the proceeding 9 elements are each boolean (of value 0 or 1). The first element can be of value $1...9$.
+- The **initial state** is $(1,0,0,0,0,0,0,0,0,0)$, which means the monkey is positioned under the first banana, which is the first '$0$' in the remaining elements. Note that the crate may not be at this position so there is an implied first action where the monkey brings one of the crates under this position. This requires separate storage of the crate position just for this first "pre-action" (which I am not specifying here) and thereafter, neither this type of action nor the position of the crate is needed since they become the same. 
+- **Transition model**: From the initial state, the pre-action has already been performed and the monkey and crate are both at position 0 but the banana is not yet taken. From this, the first real action, such as 1, is performed by calling $\mathrm{RESULT}\left(\ (1,0,0,0,0,0,0,0,0,0),\ 1\right)$ which returns the state $(1,1,0,0,0,0,0,0,0,0)$, showing the monkey took the banana. A action involves moving (monkey and crate) to a new position followed by taking the banana at this new position. But the first action is different in that it is from a state in which the monkey and crate are already in position to take a banana no moving is needed. In any case, a next action could be performed via $\mathrm{RESULT}\left(\ (1,1,0,0,0,0,0,0,0,0),\ 2\right)$ returns the state $(2,1,1,0,0,0,0,0,0,0)$, showing the monkey moved with the crate to position 2 and took the banana.
+- **Goal test**: The value first element in the 10-tuple does not need to be any particular value but the remaining 9 elements need to be all 1. So $(x,1,1,1,1,1,1,1,1,1)$ for any $x$ passes the goal test. 
+- **Path cost**: Each action could cost 1 but we could also make there be a greater penalty for moving further away. In this case we would need to re-interpret the last 9 elements in the 10-tuple as a 3x3 2-dimensional array (so that it reflects the geometry of the room) where changing (moving monkey and crate) where any index has by adding or subtracting 1 each has an additional penalty of 1. Adding or subtracting 2 has an additional penalty of 2 for each index that changes, etc.
+
+
+
+> **c.** You have a program that outputs the message “illegal input record” when fed a certain file of input records. You know that processing of each record is independent of the other records. You want to discover what record is illegal.
+
+- **States:**  Each state would be each possible record along with its associated output message, whether present or not. What would need to be observed about each record I cannot say without a more detailed description of the real-life problem. I can only assume that the agent is monitoring the processing of files rather than doing the processing itself. In any case, all that *might* need to be observed in the environment and represented as a state is some file identifier such as a file path, together with any output message for that file, both received as percepts. Furthermore, we only really need the file path for the state representing the file causing the error, which we do not know prior to the detection of the error message. No states other that one with output error message need to be stored as states both prior to any processing and after.
+- **Initial state**: As far as I can tell, this is unknown. Any file could be the first to be processed and might or might not give an error message. 
+- **Actions**: The agent was not described to have any control over the processing of files and thus does not perform any actions in this respect. As currently specified, this problem is trivial enough that a simple reflex agent would be *much more* than sufficient. We could consider the reading of the output message as well as possibly reading file path to be an action even though it has no impact on state of the environment. But these are probably better viewed as percepts which we continuously receive without performing actions until we find the errant file, after which we perform the one and only action this agent performs; storing and displaying the file path of the errant file, for example.
+- **Transition model**: If the action is considered to be the processing of a file, nothing changes externally after each "action" is performed other than the agent recording the file path of the file producing the error in the case of detecting an error. Without an error message, it can assume there was no error in the environment and therefore no action needs to be taken. If we consider the action to be the one action of storing and displaying the file path of the errant file, then nothing happens after the action and the agent has completed its only task. Note that the description state "...when fed ***a*** certain file of input records," meaning there is only one errant file. 
+- **Goal test**: The output message equals “illegal input record” 
+- **Path cost**: The agent should not be penalized for observing that *no* error has occurred, and should not be penalized for observing an error *has* occurred. The cost will always presumably always be 0. 
+
+
+
+> **d.** You have three jugs, measuring 12 gallons, 8 gallons, and 3 gallons, and a water faucet. You can fill the jugs up or empty them out from one to another or onto the ground. You need to measure out exactly one gallon.
+
+- **States:** A 3-tuple showing the number gallons in the $12, 8$ and $3$ gallon jugs respectively. Each of the three elements can contain any number $0...12,$ $0...8$ and $0...3$ respectively, provided there is a legal action which resulting in the particular values. The indexes of each are $0, 1$ and $2$, respectively, which is worth noting so that they can be referred to by the action. 
+- **Actions** can be represented and two integers. 
+  - The first integer is a source of the water which can be $0,1$ or $2$ for the jugs or $3$ which is the faucet. 
+  - The second integer is a destination for the water which can be $0,1$ or 2 for the jugs or $3$ which is the ground.
+  - Pouring into the ground must involve dumping the entire contents of the jug since we have no means to measure. Likewise, filling can only be "to the brim"of the jug being filled. But this means we can perform subtraction from a filled jug's amount of water by pouring it into another jug until that other jug is filled to its brim. 
+- **Initial state**: $(0,0,0)$, which means all jugs are empty. 
+- **Transition model**: Here a few examples:
+  - $\mathrm{RESULT}\left(\ (0,0,0),\ (3,0)\ \right)$ turns on the faucet to fill the 12 gal jug so it returns the state $(12,0,0)$
+  - $\mathrm{RESULT}\left(\ (12,0,0),\ (0,1)\ \right)$ pours from the 12 gal to the 8 gal jug so it returns the state $(4,8,0)$
+  - $\mathrm{RESULT}\left(\ (4,8,0),\ (0,2)\ \right)$ pours from the 12 gal to the 2 gal jug so it returns the state $(1,8,3)$
+  - $\mathrm{RESULT}\left(\ (1,8,3),\ (0,3)\ \right)$ pours from the 12 gal into the ground so it returns the state $(0,8,3)$ 
+- **Goal test**: It is unclear whether "measure out exactly one gallon" refers to having a jug that contains one exactly gallon or pouring out one gallon, such as into the ground. What is interesting about the latter case is that we cannot know from a single state representation that we have achieved the goal but rather we must know the action that got us there was a jug holding one gallon being poured into the ground. The "few examples" above were actually a solution sequence it ended up with pouring one gallon into the ground. It would be easier for the goal test to stop at the state before identifying that $(1,8,3)$ shows a $1$ and then perform the final action $(0,3)$ automatically. 
+- **Path cost**: If each action has a cost of 1, the agent will always reach the goal with a path cost of 3 or 4 (depending on which goal we have). Since we have sequence of actions for a solution it does not need be generated by the agent as it can easily be determined by the programmer, creating a simple non-AI program with some actuators will do. This is probably the optimal solution but one could create a search agent to verify this. Also, if we generalized the problem to three jugs containing $x$, $y$. and $z$ gallons, respectively, an intelligent search-based agent to solve it would be handy. 
+
+
+
+---
+
+## 2\. Search Algorithms
+
+> **3.14** Which of the following are true and which are false? Explain your answers.
+>
+> **a.** Depth-first search always expands at least as many nodes as $A^{*}$ search with an admissible heuristic (Russell & Norvig, 2010).
+
+False. A\*  often expands more nodes than a depth-first search. The A\* search was originally designed in order to guarantee finding a least-cost path when used with an admissible heuristic. But in order to do so, this involves expanding more nodes than a that of a search algorithm without this design goal, such as the depth-first search. 
+
+
+
+> **b.** $h(n)=0$ is an admissible heuristic for the 8-puzzle.
+
+True. The 8-puzzle actions always have non-negative costs (in most versions, cost is greater than zero). A heuristic is admissible if it never overestimates the true cost so, for $h(n)=0$, we can say that $0$ is never greater than any positive number. 
+
+
+
+> **c.** $A^{*}$ is of no use in robotics because percepts, states, and actions are continuous.
+
+A* was created for the Shakey project in order to give Shakey the Robot the motion planning, [as mentioned by Nils J. Nilsson in the section "12.1.1 A* : A New Heuristic Search Method" in the publication "THE QUEST FOR ARTIFICIAL INTELLIGENCE"](https://ai.stanford.edu/~nilsson/QAI/qai.pdf). So it is, of course, false that it is of no use in robotics. A\* is often used in robotics! Continuous states can be approximated with sequences of discrete states, the only kind of states digital computers are capable of representing at all. The robot can still use these discrete actions to perform smooth, continuous actions. For example, digital signals can be ["smoothed out" via analog filtering](https://en.wikipedia.org/wiki/Reconstruction_filter) into continuously changing voltage, which can then be used to control hardware such as servo motors. 
+
+
+
+> **d.** Breadth-first search is complete even if zero step costs are allowed.
+
+True. Cost means nothing to the breadth-first search, which will always find a solution if it exists and, if there are multiple solutions, DFS will return the shallowest one (least depth) without regard to how cost is defined. 
+
+
+
+
+> **e.** Assume that a rook can move on a chessboard any number of squares in a straight line, vertically or horizontally, but cannot jump over other pieces. Manhattan distance is an admissible heuristic for the problem of moving the rook from square A to square $B$ in the smallest number of moves.
+
+False. In the figure below, the Manhattan distance from one black dot to the other is the length of the blue line, and it requires 12 moves. The rook can do this in one move, as shown by the blue line. The figure below is not a chessboard so the numbers would differ but the principal is the same. If our heuristic estimation of the number of moves is based on the Manhattan distance, it would be capable of overestimating it to be more moves than it actually is, and admissible heuristic never does this.
+
+{/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/1200px-Manhattan_distance.svg.png" style="zoom:17%;" />  */}
+![Manhattan distance](/static/images/AI-x/AI-3_Manhattan_distance.png)
+from [Taxicab geometry - Wikipedia](https://en.wikipedia.org/wiki/Taxicab_geometry) 
+
+---
+
+## 3\. Tracing Search Algorithms
+
+> **3.15** Consider a state space where the start state is number 1 and each state $k$ has two successors: numbers $2 k$ and $2 k+1$.  
+> **a.** Draw the portion of the state space for states 1 to 15 (Russell & Norvig, 2010).
+
+{/* <img src="/static/images/AI-x/AI-2_3.15a.png" alt="3.15" style="zoom:67%;" />  */}
+![3.15](/static/images/AI-x/AI-2_3.15a.png) 
+
+As an aside, this tree's state numbers correspond with the indexes a binary heap would be stored in its array, if the array used 1-based indexing.
+
+
+> **b.** Suppose the goal state is 11.​ List the order in which nodes will be visited for breadth-first search, depth-limited search with limit 3, and iterative deepening search.
+
+**Breadth-first search** simply explores level-by-level, from left to right in each level so the order is:
+
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11.
+
+**Depth-limited search** with limit 3 would be exactly the same as depth-first search since we find the solution before exceeding the limit. This is a binary tree so it's relevant to mention that DFS and DLS on a binary tree will explore nodes in a pre-order traversal order. Note that only 8 nodes are visited versus 11 with BFS. The order would be:
+
+ 1, 2, 4, 8, 9, 5, 10, 11.
+
+**Iterative deepening** search is most commonly (Iterative deepening depth-first search (IDDFS), where if solution is at level 3 as we have it, is essentially four depth-limited searches (which themselves are depth-first search with a limit) where the limit is 0, 1, 2, then 3, where it stops due to finding the goal node. Here is the order, where each line is each of these four sub-searches:
+
+1,
+1, 2, 3
+1, 2, 4, 5, 3, 6, 7,
+1, 2, 4, 8, 9, 5, 10, 11.
+
+
+
+> **c.** How well would bidirectional search work on this problem? What is the branching factor in each direction of the bidirectional search?
+
+This is a binary tree so the branching factor is 2 and the branching factor in the reverse direction is 1 since each child has only one parent. I like the idea of the bidirectional search and it would be nice if the textbook gave more (any) information as to how it might be implemented. If it is like any of the other searches covered, the tree is not constructed until the search is performed since the tree *is constructed* by the search itself.  So how would a goal node be linked to a parent node and then each subsequent parent when searching in reverse? Let any child node  be $c$. If $c$ is an even number, then it is a left child and its parent is $\dfrac{c}{2}$. If $c$ is odd then the parent is $\dfrac{c-1}{2}$.  This would be our reverse successor function to find the predecessor. If we consider only the reverse order search and not the forward search that is happening at the same time, the reverse search visits in this order
+
+11, (the goal node)
+5,  $\left(\text{from }\frac{11-1}{2}\right)$
+2,  $\left(\text{from }\frac{5-1}{2}\right)$
+1,  $\left(\text{from }\frac{2}{2}\right)$ 
+
+This would be the same whether it is done as a BFS or DFS since the branching factor in the reverse direction is 1. The last node is the goal node but does the search end here? The textbook states that the "bidirectional search is implemented by replacing the goal test with a check to see whether the frontiers of the two searches intersect; if they do, a solution has been found." In the search above, each node is added to the frontier and then popped or dequeue right away since there are no siblings. So the frontier is empty most of the time and would not intersect with the forward search's frontier unless it contained the root node at the moment when the reverse search adds it. So in order for this to work, the searches must not only omit the goal test but must also omit ever removing anything from the frontier, effectively making it also be the explored set. 
+
+If this is the case, that nodes are never removed from the frontier in this bidirectional search, then the answer to how well this bidirectional search works is that it works quite well. The 4 visited nodes from either direction add up to 8 visits in total which is same as the depth-limited search but it must use more memory (nodes are never removed) in order work. 
+
+
+
+> **d.** Does the answer to (c) suggest a reformulation of the problem that would allow you to solve the problem of getting from state 1 to a given goal state with almost no search?
+
+Yep. What would work even better than the bidirectional search would be to just search in reverse using the reverse successor function I described and replace a goal test with an initial state test. So this would be all it does:
+
+11, (the goal node)
+5,  $\left(\text{from }\frac{11-1}{2}\right)$
+2,  $\left(\text{from }\frac{5-1}{2}\right)$
+1,  $\left(\text{from }\frac{2}{2}\right)$ which passes the initial state test.
+
+
+
+> **e.** Call the action going from $k$ to $2 k$ Left, and the action going to $2 k+1$ Right. Can you find an algorithm that outputs the solution to this problem without any search at all?
+
+I think I got ahead these questions but I can drive home the point by providing an actual implementation. I can simplify the reverse successor function to be $\left[\dfrac{i}{2}\right\rfloor$, which can be `i // 2` in Python since the `//` operator performs integer division, which effectively floors the result. This finds the solution with what probably wouldn't be called a search:
+
+```python
+from collections import deque # to aid in constructing the solution sequence backwards
+
+def getSolution(initial, goal):
+    solution = deque([goal]) # add goal to at (what will be) end of sequence 
+    while True:
+      	# prepend i // 2 (parent of i) to solution sequence:
+        solution.appendleft( solution[0] // 2  ) 
+        if solution[0] == initial: # if we reached the intial state...
+            return list(solution)  # return solution as a normal list
+
+print(getSolution(1, 11))
+```
+
+The last line prints `[1, 2, 5, 11]`, which is the solution in the correct order.
+
+
+
+---
+
+## 4\. Heuristic Functions
+
+> **3.28** Invent a heuristic function for the 8-puzzle that sometimes overestimates, and show how it can lead to a suboptimal solution on a particular problem. (You can use a computer to help if you want.) Prove that if $h$ never overestimates by more than $c, \mathrm{~A}^{*}$ using $h$ returns a solution whose cost exceeds that of the optimal solution by no more than $c$ (Russell & Norvig, 2010).
+
+A heuristic that is sure to fail by being prone to overestimating is one that randomly generates a random integer from $0...n$. 
+As $n$ is raised higher:
+
+1. the likelihood of the solution being suboptimal increases,
+2. the cost of the suboptimal solution increases, and
+3. the performance, in terms number of explored nodes, increases dramatically.
+
+I found that, for puzzles with optimal solutions that have less that 12 steps, the random heuristic search with $n=10$:
+
+1. returns a suboptimal solution 43% of test runs and
+2. generally requires about 2 to 100 times more nodes to be explored.
+
+I have put some key parts of the code here in this document and included the full code as a separate file to be run via `python3 8puzzle.py` in the terminal but, be warned, some of these very unlucky randomly generated heuristic searches can take a very long time!
+
+```python
+# header portion not shown
+
+class EightPuzzleNode:
+    # constructor and other methods not shown here
+
+    def actions(self):
+        """Returns list of legal moves (tuples coordinates 
+        of tiles that can swap location with the empty space)"""
+        row, col = self._find(0) # get row and column of the empty piece
+        actions_list = []
+        if row > 0: actions_list.append((row - 1, col)) # space moves up
+        if col > 0: actions_list.append((row, col - 1)) # space moves left
+        if row < 2: actions_list.append((row + 1, col)) # space moves down
+        if col < 2: actions_list.append((row, col + 1)) # space moves right
+        return actions_list
+
+    def children_nodes(self):
+        """Expands node by returning list child nodes"""
+        actions_list = self.actions()
+        zero = self._find(0)
+        def swap_to_copy(a, b): # not shown here
+        return [swap_to_copy(zero, pair) for pair in actions_list]
+
+    def solution(self, solution_seq):
+        if self.parent == None:
+            solution_seq.reverse()
+            return solution_seq
+        else:
+            solution_seq.append(self)
+            return self.parent.solution(solution_seq)
+
+    def solve(self, h_fn):
+        """Runs A* search for goal state with heuristic function h_fn
+        in the form h_fn(puzzle), which should return an integer"""
+        frontier = [self] # aka open list or fringe queue
+        explored = []     # aka closed list
+        step_count = 0    # cost is 1 per step
+
+        while len(frontier) != 0:
+            node = frontier.pop(0)
+            step_count += 1
+            if node.state == self.goal_state: # GOAL-TEST
+                if len(explored) > 0:
+                    solution_seq = node.solution([])
+                    return solution_seq, step_count  
+                else:
+                    return [node]
+
+            children = node.children_nodes()
+            frontier_idx = explored_idx = -1
+            for child in children:
+                frontier_idx = index(child, frontier)
+                explored_idx = index(child, explored)
+                h_value = h_fn(child) # calculate heuristic
+                f_value = child.depth + h_value # (child.depth is g(child))
+                # if child is...
+                if explored_idx == frontier_idx == -1: # new to us...
+                    child.h_value = h_value
+                    frontier.append(child)
+                elif frontier_idx > -1: # part of frontier...
+                    node = frontier[frontier_idx] 
+                    if f_value < node.depth + node.h_value:
+                        node.h_value = h_value
+                        node.parent = child.parent
+                        node.depth = child.depth
+                elif explored_idx > -1: # already explored...
+                    node = explored[explored_idx]
+                    if f_value < node.depth + node.h_value:
+                        child.h_value = h_value
+                        explored.remove(node)
+                        frontier.append(child)
+            
+            explored.append(node)
+            frontier = sorted(frontier, key=lambda p: p.h_value + p.depth) # sort frontier by h+g
+
+        return [], 0 # (FAILURE) finished state not found
+
+    # additional helper methods not shown here
+
+def eight_puzzle_heuristic(puzzle, item_total_calc, total_calc):
+    t = 0
+    for row in range(3):
+        for col in range(3):
+            val = puzzle.state[row][col] - 1
+            target_col = val % 3
+            target_row = val / 3
+            if target_row < 0: target_row = 2 # account for 0 as blank
+            t += item_total_calc(row, target_row, col, target_col)
+    return total_calc(t)
+
+def h_manhattan(puzzle): # Manhattan distance
+    return eight_puzzle_heuristic(puzzle, lambda r,tr,c,tc: abs(tr-r) + abs(tc-c), lambda t: t)
+
+def h_random(puzzle): return random.randint(0, 10)
+```
+
+First let me outline why A\*  (with an admissible heuristic) will always return an optimal cost solution.
+
+Suppose we have an A\* tree search where both nodes $X$ and $Y$ are goal nodes, representing different paths to the same state where path to $X$ is of optimal cost and $Y$ is of suboptimal cost.
+
+* Let's say $Y$ is on the frontier. It has not been returned as a solution since, crucially, A\* search does not apply the goal test before a node would be enqueued to the frontier but rather after it has been dequeued. 
+* At this point in time, $X$ may or may not be on the frontier but there is a guarantee that some ancestor of $X$ we'll call $W$, is. Why? The children of the root node, which are the ancestor of all terminal nodes, were put the frontier when the root was explored and if they aren't there any longer than some other more immediate ancestor of $X$ (or $X$ itself) is. 
+* Nodes with the lowest $f = g + h$ values are dequeued from the frontier before those with higher $f$ values. This means that if $f(Y)\le f(W)$, the search will sadly return $Y$ as the solution before every considering ancestors of $W$ where the optimal solution resides. This is all because the $h$ forward cost estimation portion of $f(W)=g(W)+h(W)$ is larger than the actual forward cost, denoted by $h^*(W)$. 
+
+Now I will prove that if $h$ never overestimates by more than $c, \mathrm{~A}^{*}$ using $h$ returns a solution whose cost exceeds that of the optimal solution by no more than $c$.
+
+Suppose that $g(Y)>g(X)+c$ and $g(Y)>C^*+c$, meaning the suboptimal goal $Y$'s actual cost is exceeding the optimal cost C\* by a value greater than $c$. This is the direct result of $h(W) \leq h^{*}(W)+c$, where $W$ is the never-explored-ancestor of the optimal goal $X$. If $c=0$, there would be no overestimation of the cost of $W$ and $f(W)<f(Y)$ and $W$ would be explored before $Y$, preventing $Y$ from being prematurely expanded and declared the optimal solution before exploring the optimal path to the solution via the node $W$.
+
+# References
+
+* Russell, S., & Norvig, P. (2010). *Artificial Intelligence: A Modern Approach* (3rd ed.). Pearson Prentice Hall.
+

@@ -1,0 +1,200 @@
+---
+title: 'AI 3: Logical Agents and First-Order Logic'
+date: '2021-03-14'
+tags: ['AI', 'Artificial Intelligence', 'Adversarial Search', 'CSP', 'Constrain Satisfaction']
+draft: false
+summary: AI questions on Adversarial Search and Constrain Satisfaction Problems answered by Jeff Russ
+---
+
+First, I've included Exercise 3.3, since it is referenced in Exercise 5.3.
+
+> **3.3** *Suppose two friends live in different cities on a map, such as the Romania map shown in Figure 3.2. On every turn, we can simultaneously move each friend to a neighboring city on the map. The amount of time needed to move from city $i$ to neighbor $j$ is equal to the road distance $d(i, j)$ between the cities, but on each turn the friend that arrives first must wait until the other one arrives (and calls the first on his/her cell phone) before the next turn can begin. We want the two friends to meet as quickly as possible* (Russell & Norvig, 2010).
+> 
+> ![Figure3.2](/static/images/AI-x/AI-3_Figure3.2.png)
+
+
+## 1. Two-Player Pursuit–Evasion Game
+
+> **5.3** *Imagine that, in Exercise 3.3, one of the friends wants to avoid the other. The problem then becomes a two-player **pursuit–evasion** game. We assume now that the players take turns moving. The game ends only when the players are on the same node; the terminal payoff to the pursuer is minus the total time taken. (The evader “wins” by never losing.) An example is shown in Figure 5.16* 
+>
+> {/* <img src="https://media.cheggcdn.com/media/e79/e79fa141-25cc-49dd-8c43-d211d678696b/phpG9B9es.png" style="zoom:33%;" /> */}
+> ![Figure 5.16](/static/images/AI-x/AI-3_Figure5.16.png)
+> 
+> **Figure 5.16** **(a)** A map where the cost of every edge is 1. Initially the pursuer $P$ is at node (b) and the evader $E$ is at node (d). **(b)** A partial game tree for this map. Each node is labeled with the $P$, $E$ positions. $P$ moves first. Branches marked “?” have yet to be explored 
+> (Russell & Norvig, 2010).
+
+Before I answer part **a.**, the full state space is not that large if drawn as a graph and it is useful to look at below. The grey nodes are one's not in Figure 5.16 and the red square nodes are terminal nodes where the pursuing (AI) agent succeeds in capturing the evader.  Note that the entire right subtree, descending from `ad` is not worth pursing and, if we (MAX) took it every single time, the evader would win with an infinite game. Hence, the maximizing agent must always choose the left subtree with `cd`. 
+
+![5.3 full graph](/static/images/AI-x/AI-3_5.3_full_graph.png)
+
+
+
+> **a.** *Copy the game tree and mark the values of the terminal nodes* (Russell & Norvig, 2010).
+
+First note the following:
+
+1. The example given is a map where the cost of every edge is 1. 
+2. However, the exercise says the terminal payoff to the pursuer is minus the total time taken, which implies the cost for a given edge is the distance traveled for which ever player moved. This requires the lowercase letters to be assigned to actual cities.
+
+It's unclear which we're expected to answer. It if should be an edge cost of 1, why they are having us apply it to the Romania map example and define the terminal payoff? So, I will answer this question both ways with *1*. in pink and *2*. in green. The key on the smaller tree on the upper left shows what city I've chosen to assign each letter to and what the distances are between the cities. These distances are also labeled on the connections in the large tree. 
+
+![5.3a](/static/images/AI-x/AI-3_5.3a.png)
+
+
+> **b.** *Next to each internal node, write the strongest fact you can infer about its value (a number, one or more inequalities such as “≥ 14”, or a “?”).*
+> **c.** *Beneath each question mark, write the name of the node reached by that branch*(Russell & Norvig, 2010).
+
+I wrote them inside the node and again, I answered this question both ways with *1*. in pink and *2*. in green. Note that rather than writing the node reached beneath the question marks I've replaced the question marks with the node reached. I've also written a node or two reachable thereafter. 
+
+![5.3b](/static/images/AI-x/AI-3_5.3b.png)
+
+
+> **d.** *Explain how a bound on the value of the nodes in (c) can be derived from consideration of shortest-path lengths on the map, and derive such bounds for these nodes. Remember the cost to get to each leaf as well as the cost to solve it* (Russell & Norvig, 2010).
+
+I've already provided bounds on values for all nodes on the tree, both in terms of number of steps and lengths on the map in part **b**, but now I'll explain how they were derived. The nodes expressed in terms of bounds with $\le -x$ indicated that the shortest path length between the two players is $+x$ (in pink; this is in terms of steps and in green;k this is in terms of distance–I think in kilometers). One might think to call anything with $\le$ and upper bound but we have negative $x$ shown in  $\le -x$, positive $x$ is a lower bound, meaning it expresses the minimum steps or distance to capture. It's a bit confusing because we are forcing a maximizing agent to minimize a number (the path cost or distance) by making it negative. Note that these numbers reflect play against a suboptimal evader that chooses `cc` node after looping back because this is what the minimal path would be. Also, none of these nodes originally labeled with "?" would be chosen if we, the pursuer agent are optimal because the lead to infinite loops and thus the upper bound for $+x$ is infinite steps or distance to capture provided that we are suboptimal by choosing them each time we loop and the evader is optimal. 
+
+
+
+> **e.** *Now suppose that the tree as given, with the leaf bounds from (d), is evaluated from left to right. Circle those “?” nodes that would not need to be expanded further, given the bounds from part (d), and cross out those that need not be considered at all* (Russell & Norvig, 2010).
+
+![5.3d](/static/images/AI-x/AI-3_5.3d.png)
+
+
+> **f.** *Can you prove anything in general about who wins the game on a map that is a tree?* (Russell & Norvig, 2010)
+
+I think I've gotten ahead of the questioning in this exercise but, to reiterate, there are paths where the pursuer will loose because they are infinite paths. To state the obvious, our pursuing agent looking is for a finite path because the state at which the path ends is where the pursuing agent win. *The pursuing agent always has a win of some kind with any finite path*, but for a greatest win, the agent looks for a shortest path in terms of edges on the tree (moves) or, more ideally, in terms of minimizing kilometer distance traveled on the map. There are three terminal nodes where our pursuer agent wins:
+
+* The one ending in the state `cc` is the most ideal way for our pursuing agent since it's the biggest win with only 2 edges and 234 kilometers. But this will ***not*** happen with an optimal opponent.
+* The two other wins, both made in 4 edges, can happen with an optimal opponent and the choice between them ***is*** within the pursuing agent's control. 
+  * If we evaluate by path cost as number of edges, they are equally good wins and the agent will choose the first `de` (on the left), which is 430 kilometers by my particular assignment to actual cities.
+  * But the second  `de` (on the right) ***is a better win*** with 404 kilometers (by my particular assignment to actual cities), which would only be achieved if the agent considered kilometers for cost rather than path cost as number of edges (or if the order of child expansion place this `de` before the other).
+
+The proof of this is definitively demonstrated by tree diagrams together with the complete graph I provided before part **a.**
+
+
+
+
+
+---
+
+
+
+## 2. Adversarial Search
+
+> ![Figure5.17](/static/images/AI-x/AI-3_Figure5.17.png)
+> 
+> **Figure 5.17** *The starting position of a simple game. Player $A$ moves first. The two players take turns moving, and each player must move his token to an open adjacent space in either direction. If the opponent occupies an adjacent space, then a player may jump over the opponent to the next open space if any. (For example, if $A$ is on 3 and $B$ is on $2,$ then $A$ may move back to 1.) The game ends when one player reaches the opposite end of the board. If player $A$ reaches space 4 first, then the value of the game to $A$ is $+1 ;$ if player $B$ reaches space 1 first, then the value of the game to $A$ is -1* (Russell & Norvig, 2010).
+
+
+
+> **5.8** *Consider the two-player game described in Figure 5.17.*
+> **a.** *Draw the complete game tree, using the following conventions:*
+> *• Write each state as $\left(s_{A}, s_{B}\right),$ where $s_{A}$ and $s_{B}$ denote the token locations.*
+> *• Put each terminal state in a square box and write its game value in a circle.* 
+> *• Put **loop states** (states that already appear on the path to the root) in double square boxes. Since their value is unclear, annotate each with a "?" in a circle.*
+> 
+> **b.** *Now mark each node with its backed-up minimax value (also in a circle). Explain how you handled the “?” values and why* (Russell & Norvig, 2010).
+
+Below is the answer for both part **a** and **b**, with **b** shown in the color blue. As for  how you handle the “?” values:
+
+* Of course, the '?' values are not desirable to our minimizing agent compared to winning so `MIN(+1,'?')` should return +1. 
+* The adversary would also choose a win for them over looping forever with '?' so `MAX(+1,'?')` should return +1.
+* In order to back-up "?" `MAX('?')` or `MIN('?')` should return '?' no matter how many '?' there are (if '?' is the only argument value).
+
+![3_5.8ab](/static/images/AI-x/AI-3_5.8ab.png)
+
+> **c.** *Explain why the standard minimax algorithm would fail on this game tree and briefly sketch how you might fix it, drawing on your answer to (b). Does your modified algorithm give optimal decisions for all games with loops?* (Russell & Norvig, 2010)
+
+Even with this way of handling the '?' with `MAX` and `MIN`, the standard minimax algorithm would still fail by entering an infinite loop or infinite recursion since it would have no way to detecting '?' in the first place, which is basically our way of avoiding infinite paths since a '?' would signal to not explore any further. So we would need to detect the potential for infinite paths by keeping a data structure of explored nodes, or to use more appropriate terminology, a *transposition table* and, if a node to be explored is in this table, we treat it as if it is a terminal node and evaluate it the value of '?.'  
+
+This modification would work for this particular example but the rules about how to deal with '?' in terms of how it is propagated up the tree, as I've specified for part **b**, would have to differ for some other games. If this was a certain type of pursuit–evasion game, for example, the MIN function (the pursued agent) might actually a '?' node if their highest goal is to prolong the duration of the game.  So, in summation, our modified algorithm would not give optimal decisions for all games.
+
+
+
+> **d.** *This 4-square game can be generalized to $n$ squares for any $n$ > 2. Prove that $A$ wins if $n$ is even and loses if $n$ is odd* (Russell & Norvig, 2010).
+
+In something like ten years this will be a problem for artificial intelligence and not human intelligence to solve but it's fun to do so here we go...
+
+First note that the stated implication can only be proven for an optimal opponent because for a suboptimal opponent, the implication is false. The proof must also be limited to games where $A$ always has the first move, as was the case for this 4-square game example. 
+
+*  Here are two base cases:
+  * $A$ looses for $n=3$ because $A$ has only one option for their first move after which $B$ has a winning move.
+  * $A$ wins for $n=4$ because $A$ has only one option for their first move as does $B$, after which $A$ has a winning move.
+* For games where $n>4$, these first moves would be the same as for $n=4$, leaving us in the state $\boxed{\phantom{0}}\  \boxed A\ \cdots\ \boxed B\ \boxed{\phantom{0}}$ where "$\cdots$ " could be any number of squares. Let that number be $m$ so $m=n-2$. 
+* Pretend for a moment that we have an $m$-square game where the first and $n$^th^ squares don't exist and the goal for $A$ is to get to square $m$...
+  * As demonstrated in the base cases, $A$ looses for $n=4$  and wins for $3$ which is even and odd respectively. This is also true for our inner-game with $m=4$ and $m=3$ as well and this extends recursive to any arbitrarily large value of $m$ since we can keep defining smaller and smaller inner-games: $m=n-2,\ o=m-2,\ p=o-2,\ q=p-2,\ ....$
+* But we need to rewind our reasoning a bit because the first and $n$^th^ squares *do* in fact exist which means in the either player could move back to their home position at after the  $\boxed{\phantom{0}}\  \boxed A\ \cdots\ \boxed B\ \boxed{\phantom{0}}$ state, something that we pretended to not possible "inner-game" concept. But this does not effect the outcome since, if the predicted winner does so, one boundary of the inner game is shifted outward which means if the size of the inner game was even, it is now odd and visa-versa, turning the tables and making them loose instead of win.
+
+---
+
+## 3. Pruning
+
+{/* <img src="https://media.cheggcdn.com/study/49a/49a8073b-b7b9-442c-9a36-2bee2ca62789/7445-5-16EEI1.png" style="zoom:70%;" />  */}
+
+> ![Figure5.19](/static/images/AI-x/AI-3_Figure5.19.png)
+> 
+> **Figure 5.19** The complete game tree for a trivial game with chance nodes (Russell & Norvig, 2010).
+
+> **5.16** *This question considers pruning in games with chance nodes. Figure 5.19 shows the complete game tree for a trivial game. Assume that the leaf nodes are to be evaluated in left-to-right order, and that before a leaf node is evaluated, we know nothing about its value — the range of possible values is $-\infty$ to $\infty$.*
+>
+> **a.** *Copy the figure, mark the value of all the internal nodes, and indicate the best move at the root with an arrow* (Russell & Norvig, 2010).
+
+
+![5.16a](/static/images/AI-x/AI-3_5.16a.png)
+
+The circle shaped chance node's values are the averages of their children's values (sum of two child values, each multiplied by $0.5$), which are MIN values determined normally. The root will choose the left subtree as the average 1.5 is greater than -0.5.
+
+
+
+> **b.** *Given the values of the first six leaves, do we need to evaluate the seventh and eighth leaves? Given the values of the first seven leaves, do we need to evaluate the eighth leaf? Explain your answers* (Russell & Norvig, 2010).
+
+We can't stop evaluating until we can infer a value for the MAX root node. After first sixth leaves (I'll call $L_1...L_6$), the root node would have to be $max(1.5,\ \ 0.5{\times}(min(L_7, L_8))\ )$ and, since the range of possible values is $-\infty$ to $\infty$, there is no way to infer a value for the root so we must at least evaluate the seventh leaf. 
+
+But after evaluating the first seven, we do not need the eighth leaf since the root node can be given an inferred value of $-1$ since $1.5 \ge (\ 0.5{\times}min(-1, L_8)\ )$ for any value of $L_8$. More precisely, this is handled by giving the rightmost of the four MIN nodes the value of $\le-1$ rather than $-1$, which propagates up to give the right-hand chance node a value of $\le -0.5$, which gives the root the same value of 1.5. 
+
+
+
+> **c.** *Suppose the leaf node values are known to lie between -2 and 2 inclusive. After the first two leaves are evaluated, what is the value range for the left-hand chance node?* (Russell & Norvig, 2010)
+
+For this I'm going to have to assume the agent is aware this is a binary tree (always two children). After the first two leaves are evaluated, the value range for the left-hand chance node is :
+
+$\dfrac{min(2,2)-2}{2}...\dfrac{min(2,2)+2}{2}\Longrightarrow \dfrac{0}{2}...\dfrac{4}{2}\Longrightarrow[0.0\ ...\ 2.0]$ 
+
+Therefore, the left-hand chance node is at least 0 and no more than 2.
+
+
+
+> **d.** *Circle all the leaves that need not be evaluated under the assumption in (c)* (Russell & Norvig, 2010).
+
+After reading the fifth leaf, the right-hand chance node's value equates to $\dfrac{min(0,L_6)+min(L_7,L_8)}{2}$, where $L_i=[-2.0\ ...\ 2.0]$ .
+
+So we have at least $\dfrac{0-2}{2}=-2$ and no more that  $\dfrac{0+2}{2}=1$. The MAX root node will always choose the left-hand chance node since it is 1.5, which is larger than any number in this range. Therefore, the last 3 leaf nodes do not need to be evaluated.
+
+![5.16d](/static/images/AI-x/AI-3_5.16d.png)
+
+---
+
+## 4. Solutions to a Map-Coloring CSP 
+
+> **6.1** *How many solutions are there for the map-coloring problem in Figure 6.1? How many solutions if four colors are allowed? Two colors?* 
+>
+>
+> ![Figure6.1](/static/images/AI-x/AI-3_Figure6.1.png)
+> 
+> **Figure 6.1** *(a) The principal states and territories of Australia. Coloring this map can be viewed as a constraint satisfaction problem (CSP). The goal is to assign colors to each region so that no neighboring regions have the same color. (b) The map-coloring problem represented as a constraint graph* (Russell & Norvig, 2010).
+
+According to [The article "Four color theorem" on Wikipedia](https://en.wikipedia.org/wiki/Four_color_theorem), "in mathematics, the *four color theorem*, or the four color map theorem, states that, given any separation of a plane into contiguous regions, producing a figure called a map, no more than four colors are required to color the regions of the map so that no two adjacent regions have the same color" (Wikipedia contributors, 2021c). This means **with only two colors there are no solutions**. Four color theorem doesn't mean this problem can't be solved with three colors. In fact, it can.
+
+Starting with the most constrained variable, SA has 3 possible colors. One other mainland territory can have 2 possible colors and the remaining mainland territories are each only 1 possible color. So for the mainland we have 3 × 2 × 1 × 1 × 1 × 1 = 6, but this needs to be multiplied by the 3 possible colors for Tasmania so we have 6 × 3 = 18 possible solutions with three colors.
+
+But the question is for four colors. The routine is similar here. 
+
+Starting with the most constrained variable, SA has 4 possible colors. One other mainland territory can have 3 possible colors and one more, which neighbors both so far has 2 possible colors and the rest of the mainland territories are each only 1 possible color. So for the mainland we have 4 × 3 × 2 × 1 × 1 × 1 = 24, but this needs to be multiplied by the 4 possible colors for Tasmania so we have 24 × 4 = **96 possible solutions with four colors**.
+
+---
+
+# References
+
+* Russell, S., & Norvig, P. (2010). *Artificial Intelligence: A Modern Approach* (3rd ed.). Pearson Prentice Hall.
+* Wikipedia contributors. (2021c, March 8). *Four color theorem*. Wikipedia. https://en.wikipedia.org/wiki/Four_color_theorem
+

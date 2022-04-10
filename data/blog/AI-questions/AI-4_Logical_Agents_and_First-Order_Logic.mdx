@@ -1,0 +1,213 @@
+---
+title: 'AI 4: Logical Agents and First-Order Logic'
+date: '2021-04-09'
+tags: ['AI', 'Artificial Intelligence', 'Logical Agents', 'First-Order Logic']
+draft: false
+summary: AI questions on Logical Agents and First-Order Logic answered by Jeff Russ
+---
+
+## 1\.  Proving Logical Entailment
+
+> ***7.4*** "*Which of the following are correct*" (Russell & Norvig, 2010)?
+
+* "***a.*** *False* $\models$ *True*" is **true**, or more accurately it can be considered "vacuously true."  $A \models B$ is only false when $B$ is false.
+* "***b.*** *True* $\models$ *False*." is **false**. Fundamental to semantic entailment is that $A \models B$  says "if $A$ is true then $B$ must also be true". *True* $\models$ *False* violates this and is therefore false.  
+* "***c.*** $(A \wedge B) \models(A \Leftrightarrow B)$." is **true** because all the models where $(A \wedge B)$ is true (there is only one, seen in green below), $(A \Leftrightarrow B)$ is also true. <br />
+  $\begin{array}{|r|r|c|c|}
+  \hline  A & B & (A \wedge B) & (A \leftrightarrow B) \\
+  \hline \mathrm{F} & \mathrm{F} & \mathrm{F} & \mathrm{T} \\
+  \hline \mathrm{F} & \mathrm{T} & \mathrm{F} & \mathrm{F} \\
+  \hline \mathrm{T} & \mathrm{F} & \mathrm{F} & \mathrm{F} \\
+  \hline \mathrm{T} & \mathrm{T} & \color{green}{\mathrm{T}} & \color{green}{\mathrm{T}} \\ \hline
+  \end{array}$ 
+* "***d.*** $A \Leftrightarrow B \models A \vee B$." is **false** because there is one model where $A \Leftrightarrow B$ is true but $A \vee B$ is false, which is shown in red below.<br />
+  $\begin{array}{|r|r|c|c|}
+  \hline  A & B & A \Leftrightarrow B & A \vee B \\
+  \hline \mathrm{F} & \mathrm{F} & \color{green}{\mathrm{T}} & \color{red}{\mathrm{F}} \\
+  \hline \mathrm{F} & \mathrm{T} & \mathrm{F} & \mathrm{T} \\
+  \hline \mathrm{T} & \mathrm{F} & \mathrm{F} & \mathrm{T} \\
+  \hline \mathrm{T} & \mathrm{T} & \color{green}{\mathrm{T}} & \color{green}{\mathrm{T}} \\ \hline
+  \end{array}$ 
+* "***e.*** $A \Leftrightarrow B \models \neg A \vee B$." is **true**, for the same reasons as in part **c.**<br />
+  $\begin{array}{|r|r|c|c|}
+  \hline  A & B & A \Leftrightarrow B &  \neg A \vee B \\
+  \hline \mathrm{F} & \mathrm{F} & \color{green}{\mathrm{T}} & \color{green}{\mathrm{T}} \\
+  \hline \mathrm{F} & \mathrm{T} & \mathrm{F} & \mathrm{T} \\
+  \hline \mathrm{T} & \mathrm{F} & \mathrm{F} & \mathrm{F} \\
+  \hline \mathrm{T} & \mathrm{T} & \color{green}{\mathrm{T}} & \color{green}{\mathrm{T}} \\ \hline
+  \end{array}$ 
+* "***f.*** $(A \wedge B) \Rightarrow C \models(A \Rightarrow C) \vee(B \Rightarrow C)$" is **true**, for the same reasons.<br />
+  $\begin{array}{|r|r|c|c|}
+  \hline  A & B & C & (A \wedge B) \Rightarrow C & (A \Rightarrow C) \vee(B \Rightarrow C) \\
+  \hline \mathrm{F} & \mathrm{F} & \mathrm{F} & \color{green}{\mathrm{T}} & \color{green}{\mathrm{T}} \\
+  \hline \mathrm{F} & \mathrm{F} & \mathrm{T} & \color{green}{\mathrm{T}} & \color{green}{\mathrm{T}} \\
+  \hline \mathrm{F} & \mathrm{T} & \mathrm{F} & \color{green}{\mathrm{T}} & \color{green}{\mathrm{T}} \\
+  \hline \mathrm{F} & \mathrm{T} & \mathrm{T} & \color{green}{\mathrm{T}} & \color{green}{\mathrm{T}} \\ 
+  \hline \mathrm{T} & \mathrm{F} & \mathrm{F} & \color{green}{\mathrm{T}} & \color{green}{\mathrm{T}} \\
+  \hline \mathrm{T} & \mathrm{F} & \mathrm{T} & \color{green}{\mathrm{T}} & \color{green}{\mathrm{T}} \\
+  \hline \mathrm{T} & \mathrm{T} & \mathrm{F} & \mathrm{F} & \mathrm{F} \\
+  \hline \mathrm{T} & \mathrm{T} & \mathrm{T} & \color{green}{\mathrm{T}} & \color{green}{\mathrm{T}} \\ \hline
+  \end{array}$ 
+* "**g.** $(C \vee(\neg A \wedge \neg B)) \equiv((A \Rightarrow C) \wedge(B \Rightarrow C))$" is **true**, for the same reasons.<br />
+  $\begin{array}{|r|r|c|c|}
+  \hline  A & B & C & (C \vee(\neg A \wedge \neg B)) & ((A \Rightarrow C) \wedge(B \Rightarrow C))  \\
+  \hline \mathrm{F} & \mathrm{F} & \mathrm{F} & \color{green}{\mathrm{T}} & \color{green}{\mathrm{T}} \\
+  \hline \mathrm{F} & \mathrm{F} & \mathrm{T} & \color{green}{\mathrm{T}} & \color{green}{\mathrm{T}} \\
+  \hline \mathrm{F} & \mathrm{T} & \mathrm{F} & \color{green}{\mathrm{F}} & \color{green}{\mathrm{F}} \\
+  \hline \mathrm{F} & \mathrm{T} & \mathrm{T} & \color{green}{\mathrm{T}} & \color{green}{\mathrm{T}} \\ 
+  \hline \mathrm{T} & \mathrm{F} & \mathrm{F} & \color{green}{\mathrm{F}} & \color{green}{\mathrm{F}} \\
+  \hline \mathrm{T} & \mathrm{F} & \mathrm{T} & \color{green}{\mathrm{T}} & \color{green}{\mathrm{T}} \\
+  \hline \mathrm{T} & \mathrm{T} & \mathrm{F} & \color{green}{\mathrm{F}} & \color{green}{\mathrm{F}} \\
+  \hline \mathrm{T} & \mathrm{T} & \mathrm{T} & \color{green}{\mathrm{T}} & \color{green}{\mathrm{T}} \\ \hline
+  \end{array}$ 
+* "***h.*** $(A \vee B) \wedge(\neg C \vee \neg D \vee E) \models(A \vee B)$." is **true** because $(A \vee B)$ will always be true when $(A \vee B) \wedge(\neg C \vee \neg D \vee E)$ is, since the conjunction with $(\neg C \vee \neg D \vee E)$ doesn't adds models that are true when $(A \vee B)$ is not. 
+* "***j.*** $(A \vee B) \wedge \neg(A \Rightarrow B)$ *is satisfiable.*" This is **correct**, the expression is satisfiable because it is true when $A$ is true and $B$ is false. 
+* "***k.*** $(A \Leftrightarrow B) \wedge(\neg A \vee B)$ *is satisfiable.*" This is **correct**, the expression is satisfiable because it is true when both $A$ and $B$ are true and when both are false. 
+* "***l.*** $(A \Leftrightarrow B) \Leftrightarrow C$ *has the same number of models as* $(A \Leftrightarrow B)$ *for any fixed set of proposition symbols that includes* $A, B, C$." This is **correct**, because the fixed set of propositions includes all symbols found in both expressions.
+
+---
+
+## 2\. Using Resolution to Prove a Sentence
+
+> ***7.12***  "*Use resolution to prove the sentence* $¬A∧¬B$ *from the clauses in Exercise 7.20*."
+
+We start off with a KB that is a conjunction of sentences as in Exercise 7.20 below:
+
+> **7.20** Convert the following set of sentences to clausal form.
+> S1: $A \Leftrightarrow(B \vee E) .$
+>  S2: $E \Rightarrow D .$
+>  S3: $C \wedge F \Rightarrow \neg B .$
+>  S4: $E \Rightarrow B .$
+>  S5: $B \Rightarrow F$
+>  S6: $B \Rightarrow C$
+>  Give a trace of the execution of DPLL on the conjunction of these clauses (Russell & Norvig, 2010).
+
+We want the contents of KB in CNF so we convert each sentence to CNF. Since S1 has OR operators after converting, it will be broken up into three clauses. The others are one CNF clause each, as shown in boxes below. 
+
+
+$$
+\begin{array}{rrll}
+\text{S1:}&& A \Leftrightarrow(B \vee E) \\
+&\equiv& (A \Rightarrow(B \vee E)) \wedge((B \vee E) \Rightarrow A) 
+&\text{By }\alpha \Leftrightarrow \beta\equiv(\alpha \Rightarrow \beta) \wedge(\beta \Rightarrow \alpha)\\
+&\equiv& (\neg A \vee B \vee E) \wedge(\neg(B \vee E) \vee A)
+&\text{By }\alpha \Rightarrow \beta \equiv \neg \alpha \vee \beta\\
+&\equiv& (\neg A \vee B \vee E) \wedge((\neg B \wedge \neg E) \vee A) &\text{By De Morgan}\\ 
+&\equiv&\boxed{(\neg A \vee B \vee E)} \wedge\boxed{(\neg B \vee A)} \wedge\boxed{(\neg E \vee A)}
+&\textbf{S1 in CNF}\text{, by distributivity of $∨$ over $∧$}\\
+\hline
+\text{S2:}&& E \Rightarrow D \\
+&\equiv&  \boxed{\neg E \vee D}
+&\textbf{S3 in CNF}\text{, by }\alpha \Rightarrow \beta \equiv \neg \alpha \vee \beta\\
+\hline
+\text{S3:}&& C \wedge F \Rightarrow \neg B \\
+&\equiv& \neg(C \wedge F) \vee \neg B
+&\text{By }\alpha \Rightarrow \beta \equiv \neg \alpha \vee \beta\\
+&\equiv& \boxed{\neg C \vee \neg F \vee \neg B}
+&\textbf{S3 in CNF}\text{, by De Morgan}\\
+\hline
+\text{S4:}&& E \Rightarrow B \\
+&\equiv& \boxed{\neg E \vee B}
+&\textbf{S4 in CNF}\text{, by }\alpha \Rightarrow \beta \equiv \neg \alpha \vee \beta\\
+\hline
+\text{S5:}&& B \Rightarrow F \\
+&\equiv& \boxed{\neg B \vee F}
+&\textbf{S5 in CNF}\text{, by }\alpha \Rightarrow \beta \equiv \neg \alpha \vee \beta\\
+\hline
+\text{S6:}&& B \Rightarrow C \\
+&\equiv& \boxed{\neg B \vee C}
+&\textbf{S6 in CNF}\text{, by }\alpha \Rightarrow \beta \equiv \neg \alpha \vee \beta
+\end{array}
+$$
+
+
+
+We are trying to prove KB $\models\neg A \wedge \neg B$ so we have $\alpha = \neg A \wedge \neg B$  so $\neg \alpha$ is $\neg(\neg A \wedge \neg B)$, which, by De Morgan's law, is logically equivalent to $(A \vee B)$. We start with a set of $clauses$ from the CNF clauses in boxes along $¬α$ which is $(A{∨}B)$
+
+We iteratively select a pair from $clauses$ and perform the resolution on each. For example, $\color{orange}{\mathbf{(a)}}$ below shows resolving clauses pairs with complementary literals $A ∨ B$ and $¬A ∨ B ∨ E$ by the process $\dfrac{A ∨ B,\ ¬A ∨ B ∨ E}{B ∨ E}$, which cancels the $A$ because $A$ and  $\neg A$ are complementary literals and leaves the $resolvent$ $B ∨ E$ shown labeled with $\color{orange}{\mathbf{(b)}}$ below. If the calculated resolvent is ever empty, we have proven KB $\models \alpha$. 
+
+I started to answer this using a full trace using the official Python code but the trace was way too long to list here. But there is more than one way to answer this depending on the order of the pairs being passed PL-RESOLVE so I rearranged the order of the clauses to make the trace short, along with not showing some iterations that don't matter to the result, shown as "$//...$" below.
+
+**function** PL-RESOLUTION$(KB, α)$<br />
+$\quad clauses ← \left\{\ (A{∨}B),\ \boxed{¬A{∨}B{∨}E},\ \boxed{¬C{∨}¬F{∨}¬B},\ \boxed{¬B{∨}F},\ \boxed{¬E{∨}B},\ \boxed{¬B{∨}C},\ \boxed{¬B{∨}A},\ \boxed{¬E{∨}A},\ \boxed{¬E{∨}D}\ \right\}$<br />
+$\quad$**for each** pair in clauses // (the loop iterations are expanded below):<br />
+$\quad\quad resolvents ← $ PL-RESOLVE$(A{∨}B,\ ¬A{∨}B{∨}E)$ $\phantom{0000}\color{orange}{\mathbf{(a)}}\text{ in graph}$<br />
+$\quad\quad clauses ← clauses ∪ \{\ B{∨}E\ \}$  $\phantom{000000000000000000}\color{orange}{\mathbf{(b)}}\text{ in graph}$<br />
+$\quad\quad resolvents ←$ PL-RESOLVE$(¬C{∨}¬F{∨}¬B,\ ¬B{∨}F$) $\ \color{orange}{\mathbf{(c)}}\text{ in graph}$<br />
+$\quad\quad clauses ← clauses ∪ \{\ ¬B∨¬C\ \}$  $\phantom{000000000000000}\color{orange}{\mathbf{(d)}}\text{ in graph}$<br />
+$\quad\quad //...$ <br />
+$\quad\quad resolvents ←$ PL-RESOLVE$(B{∨}E,\ ¬E{∨}B)$ $\phantom{0000000}\color{orange}{\mathbf{(e)}}\text{ in graph}$<br />
+$\quad\quad clauses ← clauses ∪ \{\ B\ \}$  $\phantom{000000000000000000000}\color{orange}{\mathbf{(f)}}\text{ in graph}$<br />
+$\quad\quad //...$<br />
+$\quad\quad resolvents ←$ PL-RESOLVE$(¬B{∨}C, ¬B{∨}¬C)$ $\phantom{0000}\color{orange}{\mathbf{(g)}}\text{ in graph}$<br />
+$\quad\quad clauses ← clauses ∪ \{\ C\ \}$ $\phantom{000000000000000000000}\color{orange}{\mathbf{(h)}}\text{ in graph}$<br />
+$\quad\quad //...$<br />
+$\quad\quad resolvents ←$ PL-RESOLVE$(B, ¬B)\ //\text{ empty!}$ $\phantom{0000}\color{orange}{\mathbf{(i)}}\text{ in graph}$<br />
+$\quad\quad$**if** $resolvents$ contains the empty clause **then return** $true$ $// \color{green}{true\ \text{is returned!}}$<br />
+
+Below is the trace shown as a graph. The empty set at $\color{orange}{\mathbf{(i)}}$ proves that KB $\models\neg A \wedge \neg B$
+
+![7.14](/static/images/AI-x/AI-4_7.14.png) 
+
+---
+
+## 3\.  Map Coloring Problem
+
+> **8.9** This exercise uses the function $MapColor$ and predicates ${In}(x, y)$, $Borders(x, y)$, and $Country(x),$ whose arguments are geographical regions, along with constant symbols for various regions. In each of the following we give an English sentence and a number of candidate logical expressions. For each of the logical expressions, state whether it (1) correctly expresses the English sentence; (2) is syntactically invalid and therefore meaningless; or (3) is syntactically valid but does not express the meaning of the English sentence (Russell & Norvig, 2010)
+
+* "**a**. *Paris and Marseilles are both in France".*
+  * "(i) $In(Paris ∧ Marseilles, France )$" is **(2), is syntactically invalid** because of the conjunction's placement.
+  * "(ii) $In(Paris , France ) ∧ In(Marseilles, France )$" is **(1), correctly expressed**.
+  * "(iii) $In(Paris , France ) ∨ In(Marseilles, France )$" is **(3), not expressing English meaning** of "both."
+* "**b**. *There is a country that borders both Iraq and Pakistan.*"
+  * "(i) $∃\ c\ Country (c) ∧ Border (c, Iraq ) ∧ Border (c, Pakistan )$" is **(1), correctly expressed**.
+  * "(ii) $∃\ c\ Country (c) ⇒ [Border (c, Iraq ) ∧ Border (c, Pakistan )]$" is **(3), not expressing English meaning**.
+  * "(iii) $[∃\ c\ Country (c)] ⇒ [Border (c, Iraq ) ∧ Border (c, Pakistan )]$" is **(2), is syntactically invalid** because of the conjunction's placement.
+  * "(iv) $∃\ c\ Border (Country(c), Iraq ∧ Pakistan)$" is **(2), is syntactically invalid** because of the conjunction's placement.
+* "**c**. *All countries that border Ecuador are in South America.*"
+  * "(i) $∀\ c\ Country(c) ∧ Border (c, Ecuador ) ⇒ In(c, SouthAmerica )$" is **(1), correctly expressed**.
+  * "(ii) $∀\ c\ Country (c) ⇒ [Border (c, Ecuador ) ⇒ In(c, SouthAmerica )]$" is **(1), correctly expressed**.
+  * "(iii) $∀\ c\ [Country (c) ⇒ Border (c, Ecuador )] ⇒ In(c, SouthAmerica )$" is **(3), not expressing English meaning**.
+  * "(iv) $∀\ c\ Country(c) ∧ Border (c, Ecuador ) ∧ In(c, SouthAmerica )$" is **(3), not expressing English meaning**.
+* "**d**. No region in South America borders any region in Europe."
+  * "(i) $¬[∃\ c, d\ In(c, SouthAmerica ) ∧ In(d, Europe ) ∧ Borders (c, d)]$" is **(1) correctly expressed**.
+  * "(ii) $∀\ c, d\ [In(c, SouthAmerica ) ∧ In(d, Europe )] ⇒ ¬Borders (c, d)]$" is **(1) correctly expressed**.
+  * "(iii) $¬c\ In(c, SouthAmerica ) ⇒ ∃\ d\ In(d, Europe ) ∧ ¬Borders (c, d)$" is **(3), not expressing English meaning**.
+  * "(iv) $∀\ c\ In(c, SouthAmerica ) ⇒ ∀\ d\ In(d, Europe ) ⇒ ¬Borders (c, d)$" is **(1) correctly expressed**.
+* "**e**. *No two adjacent countries have the same map color.*"
+  * "(i) $∀\ x, y\ ¬Country(x) ∨ ¬Country (y) ∨ ¬Borders (x, y) ∨ ¬(MapColor (x) = MapColor (y))$" is **(1) correctly expressed**.
+  * "(ii) $∀\ x, y\ (Country (x) ∧ Country (y) ∧ Borders (x, y) ∧ ¬(x = y)) ⇒ ¬(MapColor (x) = MapColor (y))$" is **(1) correctly expressed** but (i) is more simplified (better) since no country can border itself! 
+  * "(iii) $∀\ x,\ y\ Country (x) ∧ Country (y) ∧ Borders (x, y) ∧ ¬(MapColor (x) = MapColor (y))$" is **(3), not expressing English meaning**.
+  * "(iv) $∀\ x, y\ (Country (x) ∧ Country (y) ∧ Borders (x, y)) ⇒ MapColor (x = y)$" is **(2), is syntactically invalid** because of the inequality's placement.
+
+---
+
+## 4\.  Writing Assertions in First-Order Logic
+
+> ***8.10***  *Consider a vocabulary with the following symbols:*  
+> $Occupation(p, o)$: *Predicate. Person* $p$ *has occupation* $o$.  
+> $Customer (p1, p2)$: *Predicate. Person* $p1$ *is a customer of person* $p2$.  
+> $Boss(p1, p2)$: *Predicate. Person* $p1$ *is a boss of person* $p2$.  
+> $Doctor, Surgeon, Lawyer, Actor$: *Constants denoting occupations.*
+> $Emily, Joe$: *Constants denoting people*.  
+> *Use these symbols to write the following assertions in first-order logic (Russell & Norvig, 2010):*  
+
+* "***a.*** *Emily is either a surgeon or a lawyer.*" 
+  * $Occupation(Emily,\ Surgeon) \vee Occupation(Emily,\ Lawyer)$
+* ***b.*** *Joe is an actor, but he also holds another job.*" 
+  * $Occupation(Joe,\ Actor) \wedge \exists\ p \ \ p \neq Actor \wedge Occupation(Joe,\ p)$
+* "***c.*** *All surgeons are doctors.*" 
+  * $\forall\ p\ \  Occupation(p,\ Surgeon) \Rightarrow Occupation(p,\ Doctor)$
+* "***d.*** *Joe does not have a lawyer (i.e., is not a customer of any lawyer).*" 
+  * $\neg \exists\ p\ \  Customer(Joe,\ p) \wedge Occupation(p,\ Lawyer)$
+* "***e.*** *Emily has a boss who is a lawyer.*" 
+  * $\exists\ p\ \  Boss(p,\ Emily) \wedge Occupation(p,\ Lawyer)$
+* "***f.*** *There exists a lawyer all of whose customers are doctors.*" 
+  * $\exists\ p_1\ \ Occupation(p_1,\ Lawyer) \wedge \forall\ p_2\ \ Customer(p_2,\ p_1) \Rightarrow Occupation(p_2,\ Doctor)$
+* "***g.*** *Every surgeon has a lawyer.*" 
+  * $\forall\ p_1\ \ Occupation(p_1,\ Surgeon) \Rightarrow \exists\ p_2\ \ Occupation(p_2,\ Lawyer) \wedge Customer(p_1,\ p_2)$
+
+# References
+
+* Russell, S., & Norvig, P. (2010). *Artificial Intelligence: A Modern Approach* (3rd ed.). Pearson Prentice Hall.
+
