@@ -7,7 +7,7 @@ images: []
 layout: ResumeLayout
 ---
 
-<div id='printable-page' className='text-xs flex flex-wrap -mx-1 lg:mx-4 xl:mx-6 font-serif italic align-top -mt-2'>
+<div id='printable-page' className='text-md flex flex-wrap -mx-1 lg:mx-4 xl:mx-6 font-serif italic align-top -mt-2'>
   {/* NOTE: relative links to document on this domain must include the domain in the pdf to be valid 
   (they must be full URLs). I've generated the PDF this way and hopefully that will work (I used http 
   not https and omitted the www) once the site is up! ALSO TODO TESU Transcript*/ }
@@ -54,10 +54,10 @@ layout: ResumeLayout
             <li>Two honor society invitations</li>
             <li>Graduated Dec. 2021</li>
             <li className='print-hide_NOO'>View <a href='/docs/Jeff-Russ_TESU_diploma.pdf' target='_blank'>Diploma</a> and <a href='/docs/Jeff-Russ_TESU_transcript.pdf' target='_blank'>Transcript</a>{/*TODO fix transcript*/}</li>
-          </ul><br />
-          <span className="mt-4 md:mt-8 md:ml-12">*Career-specific transcript:*</span>
+          </ul>
+          <p className="transcript-label mt-0 pt-0 ml-10 lg:mt-3">*Career-specific transcript:*</p>
         </li>
-        <li className='B list-none pl-8 md:md-0'>
+        <li className='B list-none pl-8 sm:pl-0 sm:ml-0 md:ml-0 md:pl-4'>
           <table>
             <thead className='font-sans not-italic'><tr><th>Course</th><th>Grade</th><th>Term</th></tr></thead>
             <tbody>
@@ -75,7 +75,7 @@ layout: ResumeLayout
             </tbody>
           </table>
         </li>
-        <li className='C mt-2 sm:-mt-12'>
+        <li className='C mt-0 sm:-mt-24 md:-mt-24'>
           [*Rutgers University*, *Bachelor's of Music*](https://www.masongross.rutgers.edu/degrees-programs/music/programs/bm/),
           GPA: 3.011, Two Dean's List Achievements, Graduated May 2005
         </li>

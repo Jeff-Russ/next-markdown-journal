@@ -34,96 +34,29 @@ input:-webkit-autofill:focus {
 
 .grid-area-A {
   grid-area: A;
-} /* .main-head   { grid-area: header; } */
+}
 .grid-area-B {
   grid-area: B;
-} /* .content     { grid-area: content; } */
+}
 .grid-area-C {
   grid-area: C;
-} /* .main-nav    { grid-area: nav; } */
+}
 .grid-area-D {
   grid-area: D;
-} /* .side        { grid-area: sidebar; } */
+}
 .grid-area-E {
   grid-area: E;
-} /* .ad          { grid-area: ad; } */
+}
 .grid-area-F {
   grid-area: F;
-} /* .main-footer { grid-area: footer; }  */
-
-/** TestLayout 
-
-https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Realizing_common_layouts_using_CSS_Grid_Layout */
-
-/* .grid-area-A { grid-area: A; } is .main-head   { grid-area: header; } */
-/* .grid-area-B { grid-area: B; } is .content     { grid-area: content; } */
-/* .grid-area-C { grid-area: C; } is .main-nav    { grid-area: nav; } */
-/* .grid-area-D { grid-area: D; } is .side        { grid-area: sidebar; } */
-/* .grid-area-E { grid-area: E; } is .ad          { grid-area: ad; } */
-/* .grid-area-F { grid-area: F; } is .main-footer { grid-area: footer; }  */
-
-.test-layout .wrapper {
-  /* .test-layout .wrapper { */
-  display: grid; /* display: grid; */
-  gap: 20px; /* gap: 20px; */
-  grid-template-areas:    /* grid-template-areas: */
-    'A' /* "header" */
-    'C' /* "nav" */
-    'B' /* "content" */
-    'D' /* "sidebar" */
-    'E' /* "ad" */
-    'F'; /* "footer"; */
-}
-
-@media (min-width: 500px) {
-  .test-layout .wrapper {
-    /* .test-layout  .wrapper { */
-    grid-template-columns: 1fr 3fr; /* grid-template-columns: 1fr 3fr; */
-    grid-template-areas:               /* grid-template-areas: */
-      'A A' /* "header  header" */
-      'C C' /* "nav     nav" */
-      'D B' /* "sidebar content" */
-      'E F'; /* "ad      footer"; */
-  }
-  .test-layout nav ul {
-    /* .test-layout  nav ul { */
-    display: flex; /* display: flex; */
-    justify-content: space-between; /* justify-content: space-between; */
-  }
-}
-
-@media (min-width: 700px) {
-  .test-layout .wrapper {
-    /* .test-layout  .wrapper { */
-    grid-template-columns: 1fr 4fr 1fr; /* grid-template-columns: 1fr 4fr 1fr; */
-    grid-template-areas:                    /* grid-template-areas: */
-      'A A A' /* "header header  header" */
-      'C B D' /* "nav    content sidebar" */
-      'C B E' /* "nav    content ad" */
-      'F F F'; /* "footer footer  footer" */
-  }
-  .test-layout nav ul {
-    /* .test-layout nav ul { */
-    flex-direction: column; /* flex-direction: column; */
-  }
 }
 
 /** ResumeLayout  */
 
-.resume-layout br.responsive {
-  display: none; /*  Hide BR tag for narrow screens */
-}
-
-@media (min-width: 760px) {
-  .resume-layout br.responsive {
-    display: inline; /* Show BR tag for wider screens */
-  }
-}
-
-@media (min-width: 1024px) {
-  .resume-layout br.responsive {
-    display: none; /* hide BR tag for very wide screens */
-  }
+.resume-layout a {
+  color: #179d8d;
+  text-decoration: underline;
+  font-weight: 500;
 }
 
 .resume-layout ul {
@@ -132,11 +65,27 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Realizing_commo
 }
 
 .resume-layout ul > li {
-  margin-left: 1.5rem;
+  margin-left: 0.7rem;
 }
 
 .resume-layout td {
-  @apply pr-4;
+  @apply pr-3; /* spacing between colummns of table */
+}
+
+.resume-layout br.responsive {
+  display: none; /*  Hide BR tag for narrow screens */
+}
+
+@media (min-width: 768px) {
+  .resume-layout br.responsive {
+    display: inline; /* Show BR tag for wider screens */
+  }
+}
+
+@media (min-width: 1024px) {
+  .resume-layout br.responsive {
+    display: none; /* Hide BR tag for very wide screens */
+  }
 }
 
 /** ResumeLayout class defs  */
@@ -150,6 +99,13 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Realizing_commo
 
 /* ResumeLayout - grid template areas */
 
+/*
+.resume-layout .A { @apply border-2 border-blue-900; }
+.resume-layout .B { @apply border-2 border-red-900; }
+.resume-layout .B table { @apply border-2 border-red-300; }
+.resume-layout .C { @apply border-2 border-green-900 top-0; } 
+*/
+
 .resume-layout .education-grid-template-areas-wrapper {
   /* all: unset; */
   display: grid;
@@ -158,6 +114,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Realizing_commo
     'A'
     'B'
     'C';
+  float: left;
 }
 
 .resume-layout .A {
@@ -173,6 +130,22 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Realizing_commo
       'C';
   }
 }
+
+@media (min-width: 640px) {
+  .resume-layout .education-grid-template-areas-wrapper {
+    grid-template-columns: 7fr 10fr;
+    grid-template-rows: min-content auto;
+    grid-template-areas:
+      'A B'
+      'C B';
+  }
+  /* .resume-layout .education-grid-template-areas-wrapper .A,
+  .resume-layout .education-grid-template-areas-wrapper .B,
+  .resume-layout .education-grid-template-areas-wrapper .C {
+    @apply inline-block align-bottom;
+  } */
+}
+
 @media print {
   .resume-layout .education-grid-template-areas-wrapper {
     grid-template-columns: 3fr 4fr;
@@ -181,28 +154,16 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Realizing_commo
       'A B'
       'C B';
   }
-  .resume-layout .education-grid-template-areas-wrapper li.A span {
-    margin-left: 8rem;
-  }
-  .resume-layout .education-grid-template-areas-wrapper li.C {
+  /* .resume-layout .education-grid-template-areas-wrapper .A .transcript-label {
+    margin-left: 4rem;
+  } */
+  .resume-layout .education-grid-template-areas-wrapper .C {
     margin-top: -3rem;
   }
 }
 
-@media (min-width: 640px) {
-  .resume-layout .education-grid-template-areas-wrapper {
-    grid-template-columns: 3fr 4fr;
-    grid-template-rows: min-content auto;
-    grid-template-areas:
-      'A B'
-      'C B';
+@media print {
+  .resume-layout #printable-page {
+    @apply text-[0.67rem];
   }
-}
-
-/* ResumeLayout - link styles */
-
-.resume-layout a {
-  color: #179d8d;
-  text-decoration: underline;
-  font-weight: 500;
 }
