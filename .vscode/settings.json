@@ -13,5 +13,7 @@
     "node_modules/": true,
     "**/.next": true,
     "**/package-lock.json": true
-  }
+  },
+  "explorer.openEditors.sortOrder": "editorOrder",
+  "explorer.sortOrder": "mixed"
 }
