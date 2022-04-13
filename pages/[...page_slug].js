@@ -6,6 +6,8 @@ import { formatSlug, getAllFilesFrontMatter, getFileBySlug, getFiles } from '@/l
 
 import HTMLComment from '@/components/HTMLComment'
 
+const isDevelopment = process.env.NODE_ENV === 'development'
+
 const DEFAULT_LAYOUT = 'EmptyLayout'
 
 export async function getStaticPaths() {
@@ -43,7 +45,7 @@ export default function Page({ page, authorDetails }) {
 
   return (
     <>
-      <HTMLComment text={'START Page ([...page_slug].js)'} />
+      {isDevelopment && <HTMLComment text={'START Page ([...page_slug].js)'} />}
       {frontMatter.draft !== true ? (
         <MDXLayoutRenderer
           layout={frontMatter.layout || DEFAULT_LAYOUT}
@@ -64,7 +66,7 @@ export default function Page({ page, authorDetails }) {
           </PageTitle>
         </div>
       )}
-      <HTMLComment text={'END Page ([...page_slug].js)'} />
+      {isDevelopment && <HTMLComment text={'END Page ([...page_slug].js)'} />}
     </>
   )
 }

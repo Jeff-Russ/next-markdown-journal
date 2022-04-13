@@ -3,6 +3,8 @@ import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { documentOverrides } from '@/data/wrapperOverrides'
 import HTMLComment from '@/components/HTMLComment'
 
+const isDevelopment = process.env.NODE_ENV === 'development'
+
 class MyDocument extends Document {
   render() {
     // https://stackoverflow.com/questions/62893647/how-to-get-url-params-when-using-custom-document-in-nextjs
@@ -19,11 +21,6 @@ class MyDocument extends Document {
     }
     return (
       <>
-        <HTMLComment
-          text={
-            'START _document.js ... see https://stackoverflow.com/questions/65415933/head-component-from-next-head-renders-into-body-instead-of-head'
-          }
-        />
         <Html lang="en" className="scroll-smooth">
           <Head>
             <link
@@ -55,17 +52,15 @@ class MyDocument extends Document {
             }`}
           >
             <Main />
-            <HTMLComment text={'END <Main /> from _document.js'} />
-            <HTMLComment text={'START <NextScript /> from _document.js'} />
+            {isDevelopment && <HTMLComment text={'END <Main /> from _document.js'} />}
+            {isDevelopment && <HTMLComment text={'START <NextScript /> from _document.js'} />}
             <NextScript />
-            <HTMLComment text={'END <NextScript /> from _document.js'} />
+            {isDevelopment && <HTMLComment text={'END <NextScript /> from _document.js'} />}
           </body>
         </Html>
-        <HTMLComment text={'END _document.js'} />
+        {isDevelopment && <HTMLComment text={'END _document.js'} />}
       </>
     )
   }
 }
-
-// {( && ()) || () }
 export default MyDocument

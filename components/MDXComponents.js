@@ -9,6 +9,8 @@ import { BlogNewsletterForm } from './NewsletterForm'
 
 import HTMLComment from '@/components/HTMLComment'
 
+const isDevelopment = process.env.NODE_ENV === 'development'
+
 export const MDXComponents = {
   Image,
   TOCInline,
@@ -19,9 +21,13 @@ export const MDXComponents = {
     const Layout = require(`../layouts/${layout}`).default
     return (
       <>
-        <HTMLComment text={'START MDXComponents (in MDXComponents.js) <Layout {...rest} />'} />
+        {isDevelopment && (
+          <HTMLComment text={'START MDXComponents (in MDXComponents.js) <Layout {...rest} />'} />
+        )}
         <Layout {...rest} />
-        <HTMLComment text={'END MDXComponents (in MDXComponents.js) <Layout {...rest} />'} />
+        {isDevelopment && (
+          <HTMLComment text={'END MDXComponents (in MDXComponents.js) <Layout {...rest} />'} />
+        )}
       </>
     )
   },
@@ -33,9 +39,9 @@ export const MDXLayoutRenderer = ({ layout, mdxSource, ...rest }) => {
 
   return (
     <>
-      <HTMLComment text={'START MDXLayoutRenderer (in MDXComponents.js)'} />
+      {isDevelopment && <HTMLComment text={'START MDXLayoutRenderer (in MDXComponents.js)'} />}
       <MDXLayout layout={layout} components={MDXComponents} {...rest} />
-      <HTMLComment text={'END MDXLayoutRenderer (in MDXComponents.js)'} />
+      {isDevelopment && <HTMLComment text={'END MDXLayoutRenderer (in MDXComponents.js)'} />}
     </>
   )
 }

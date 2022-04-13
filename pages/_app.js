@@ -32,7 +32,7 @@ export default function App(props) {
     // )
     return (
       <>
-        <HTMLComment text={'START _app.js (with bypass)'} />
+        {isDevelopment && <HTMLComment text={'START _app.js (with bypass)'} />}
         <Head>
           <meta content="width=device-width, initial-scale=1" name="viewport" />
           {/*isDevelopment && (
@@ -46,14 +46,14 @@ export default function App(props) {
         {isDevelopment && isSocket && <ClientReload />}
         <Analytics />
         <Component {...pageProps} />
-        <HTMLComment text={'END _app.js (with bypass)'} />
+        {isDevelopment && <HTMLComment text={'END _app.js (with bypass)'} />}
       </>
     )
   } else {
     return (
       <>
         <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
-          <HTMLComment text={'START _app.js (without bypass)'} />
+          {isDevelopment && <HTMLComment text={'START _app.js (without bypass)'} />}
           <Head>
             <meta content="width=device-width, initial-scale=1" name="viewport" />
             {/*isDevelopment && (
@@ -70,7 +70,7 @@ export default function App(props) {
             <Component {...pageProps} />
           </LayoutWrapper>
         </ThemeProvider>
-        <HTMLComment text={'END _app.js (without bypass)'} />
+        {isDevelopment && <HTMLComment text={'END _app.js (without bypass)'} />}
       </>
     )
   }
