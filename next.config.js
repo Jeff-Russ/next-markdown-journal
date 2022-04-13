@@ -53,6 +53,20 @@ const securityHeaders = [
 ]
 
 module.exports = withBundleAnalyzer({
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/blog',
+        permanent: true,
+      },
+      // {
+      //   source: '/',
+      //   destination: '/about',
+      //   permanent: true,
+      // },
+    ]
+  },
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'md', 'mdx'],
   eslint: {

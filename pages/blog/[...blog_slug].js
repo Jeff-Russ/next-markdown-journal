@@ -8,12 +8,13 @@ const DEFAULT_LAYOUT = 'PostLayout'
 
 export async function getStaticPaths() {
   const posts = getFiles('blog')
+  const paths = posts.map((p) => ({
+    params: {
+      blog_slug: formatSlug(p).split('/'),
+    },
+  }))
   return {
-    paths: posts.map((p) => ({
-      params: {
-        blog_slug: formatSlug(p).split('/'),
-      },
-    })),
+    paths,
     fallback: false,
   }
 }

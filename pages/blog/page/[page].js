@@ -2,7 +2,9 @@ import { PageSEO } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
 import { getAllFilesFrontMatter } from '@/lib/mdx'
 import ListLayout from '@/layouts/ListLayout'
-import { POSTS_PER_PAGE } from '../../blog'
+// import { POSTS_PER_PAGE } from '../../blog'
+
+export const POSTS_PER_PAGE = 5
 
 export async function getStaticPaths() {
   const totalPosts = await getAllFilesFrontMatter('blog')
@@ -11,10 +13,7 @@ export async function getStaticPaths() {
     params: { page: (i + 1).toString() },
   }))
 
-  return {
-    paths,
-    fallback: false,
-  }
+  return { paths, fallback: false }
 }
 
 export async function getStaticProps(context) {
@@ -32,13 +31,7 @@ export async function getStaticProps(context) {
     totalPages: Math.ceil(posts.length / POSTS_PER_PAGE),
   }
 
-  return {
-    props: {
-      posts,
-      initialDisplayPosts,
-      pagination,
-    },
-  }
+  return { props: { posts, initialDisplayPosts, pagination } }
 }
 
 export default function PostPage({ posts, initialDisplayPosts, pagination }) {
