@@ -1,7 +1,12 @@
 ignored/
+**/*-ignored.*
 **/*-test.mdx
 **/*-tests
 layouts/TestLayout.js
+
+# Sensitive Data:
+
+data/siteMetadata.js
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
