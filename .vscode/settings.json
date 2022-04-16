@@ -11,8 +11,9 @@
   },
   "files.exclude": {
     "node_modules/": true,
-    "**/.next": true
-    // "**/package-lock.json": true
+    "**/.next": true,
+    "**/package-lock.json": true,
+    "**/.eslintignore": true
   },
   "explorer.openEditors.sortOrder": "editorOrder",
   "explorer.sortOrder": "mixed"
