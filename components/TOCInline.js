@@ -16,6 +16,7 @@
  *  fromHeading?: number,
  *  toHeading?: number,
  *  asDisclosure?: boolean,
+ *  closed? = boolean,
  *  exclude?: string|string[]
  * }} props
  *
@@ -28,6 +29,7 @@ const TOCInline = ({
   fromHeading = 1,
   toHeading = 6,
   asDisclosure = false,
+  closed = false,
   exclude = '',
 }) => {
   const re = Array.isArray(exclude)
@@ -39,10 +41,16 @@ const TOCInline = ({
       heading.depth >= fromHeading && heading.depth <= toHeading && !re.test(heading.value)
   )
 
+  const min_header = Math.min(...toc.map((heading) => heading.depth))
+  const rem_mult = indentDepth / 2
+
   const tocList = (
     <ul>
       {filteredToc.map((heading) => (
-        <li key={heading.value} className={`${heading.depth >= indentDepth && 'ml-6'}`}>
+        <li
+          key={heading.value}
+          style={{ marginLeft: `${(heading.depth - min_header) * rem_mult}rem` }}
+        >
           <a href={heading.url}>{heading.value}</a>
         </li>
       ))}
@@ -52,7 +60,7 @@ const TOCInline = ({
   return (
     <>
       {asDisclosure ? (
-        <details open>
+        <details open={!closed}>
           <summary className="ml-6 pt-2 pb-2 text-xl font-bold">Table of Contents</summary>
           <div className="ml-6">{tocList}</div>
         </details>

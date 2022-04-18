@@ -9,7 +9,7 @@ const ScrollTopAndComment = () => {
     document.getElementById('comment').scrollIntoView()
   }
   return (
-    <VisibleIfScrolling>
+    <VisibleIfScrolling timeout_ms={4000}>
       <div className="fixed right-8 bottom-8 z-50 flex flex-col gap-3">
         {siteMetadata.comment.provider && (
           <button

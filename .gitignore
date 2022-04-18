@@ -2,7 +2,6 @@ ignored/
 **/*-ignored.*
 **/*-test.mdx
 **/*-tests
-layouts/TestLayout.js
 
 # Sensitive Data:
 
