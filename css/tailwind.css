@@ -30,6 +30,36 @@ input:-webkit-autofill:focus {
   }
 }
 
+/** Printable Documents  */
+
+@media print {
+  .print-hide,
+  .print-hide *,
+  .site-navbar,
+  .site-navbar *,
+  .site-footer,
+  .site-footer * {
+    display: none !important;
+  }
+  body {
+    display: flex;
+    justify-content: center;
+    padding-left: 0.35in;
+    padding-right: 0.35in;
+    /* background: white;
+    width: 12.75in;
+    height: 16.5in;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0.5cm; */
+  }
+}
+
+@page {
+  /* size: 12.75in 16.5in; */
+  size: 8.5in 11in;
+}
+
 /** Grid Areas  */
 
 .grid-area-A {
@@ -49,6 +79,31 @@ input:-webkit-autofill:focus {
 }
 .grid-area-F {
   grid-area: F;
+}
+
+/** Obfuscation Email and Phone (from bots) 
+
+https://www.nelsonpires.com/development/protect-your-email-and-phone-number-from-spam-bots
+ They will be displayed but not in HTML
+"moc.etisbew"emos"@nhoj :liamE" RESULT-> john@somewebsite.com
+"987 654 "321" 153+ :enohP" RESULT-> +351 123 456 789
+
+As for the <a>'s href='mailto:...' and href='tel:...', see obfuscations.js */
+a.nobot {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+a.nobot.jeff-e-mail:before {
+  content: 'moc.liamg@';
+}
+a.nobot.jeff-e-mail:after {
+  content: 'nnylyerffej';
+}
+a.nobot.jeff-ph-num:before {
+  content: '5433-';
+}
+a.nobot.jeff-ph-num:after {
+  content: '-237';
 }
 
 /** ResumeLayout  */

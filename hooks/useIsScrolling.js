@@ -4,14 +4,16 @@ import { useEffect, useState } from 'react'
 const useIsScrolling = (timeout_ms) => {
   const [isScrolling, setIsScrolling] = useState(false)
 
+  let timer = null
   const onScroll = () => {
     setIsScrolling(true)
-    clearTimeout(timeout)
+    if (timer !== null) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(() => {
+      setIsScrolling(false)
+    }, timeout_ms ?? 1500)
   }
-
-  const timeout = setTimeout(() => {
-    setIsScrolling(false)
-  }, timeout_ms ?? 1500)
 
   useEffect(() => {
     window.addEventListener('scroll', onScroll)
