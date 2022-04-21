@@ -2,8 +2,6 @@ import PageTitle from '@/components/PageTitle'
 import { PageSEO } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
 
-import Script from 'next/script'
-
 const editUrl = (fileName) => `${siteMetadata.siteRepo}/blob/master/data/blog/${fileName}`
 const discussUrl = (slug) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(
@@ -34,7 +32,6 @@ export default function ResumeLayout({ frontMatter, authorDetails, next, prev, c
       </div>
       {/*  </div> */}
       {/* </div> */}
-      <Script src="scripts/obfuscations.js"></Script>
     </div>
   )
 }

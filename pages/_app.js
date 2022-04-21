@@ -20,6 +20,8 @@ import { useRouter } from 'next/router'
 
 import HTMLComment from '@/components/HTMLComment'
 
+import Script from 'next/script'
+
 export default function App(props) {
   const { Component, pageProps } = props
   const router = useRouter()
@@ -46,6 +48,7 @@ export default function App(props) {
         {isDevelopment && isSocket && <ClientReload />}
         <Analytics />
         <Component {...pageProps} />
+        <Script src="scripts/obfuscations.js"></Script>
         {isDevelopment && <HTMLComment text={'END _app.js (with bypass)'} />}
       </>
     )
@@ -70,6 +73,7 @@ export default function App(props) {
             <Component {...pageProps} />
           </LayoutWrapper>
         </ThemeProvider>
+        <Script src="scripts/obfuscations.js"></Script>
         {isDevelopment && <HTMLComment text={'END _app.js (without bypass)'} />}
       </>
     )
