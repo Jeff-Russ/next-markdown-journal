@@ -124,7 +124,7 @@ a.nobot.jeff-ph-num:after {
 }
 
 .resume-layout td {
-  @apply pr-3; /* spacing between colummns of table */
+  @apply pr-1; /* spacing between colummns of table */
 }
 
 .resume-layout br.responsive {
