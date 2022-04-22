@@ -4,7 +4,6 @@ avatar: /static/images/avatar.png
 occupation: Musician and Software Developer
 company: Thomas Edison Unisversity
 email: jeffreylynnruss@gmail.com
-twitter: https://twitter.com/Twitter
 linkedin: https://www.linkedin.com/in/jeff-russ-a866b648/
 github: https://github.com/Jeff-Russ/
 ---

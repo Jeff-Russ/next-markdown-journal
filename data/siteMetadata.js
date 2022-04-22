@@ -12,8 +12,8 @@ const siteMetadata = {
   socialBanner: '/static/images/twitter-card.png',
   email: 'jeffreylynnruss@gmail.com',
   github: 'https://github.com/Jeff-Russ/',
-  twitter: 'https://twitter.com/Twitter',
-  facebook: 'https://www.facebook.com/jeffreylynnruss',
+  twitter: '',
+  facebook: '', // 'https://www.facebook.com/jeffreylynnruss'
   youtube: 'https://www.youtube.com/c/JeffRuss-shebang',
   linkedin: 'https://www.linkedin.com/in/jeff-russ-a866b648/',
   locale: 'en-US',
