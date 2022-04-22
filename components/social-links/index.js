@@ -22,18 +22,33 @@ const components = {
   twitch: Twitch,
 }
 
-const SocialIcon = ({ kind, href, size = 8 }) => {
-  if (!href || (kind === 'mail' && !/^mailto:\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/.test(href)))
-    return null
+const SocialLink = ({ textOnly, kind, href, size = 8 }) => {
+  if (!href) return null
 
   const SocialSvg = components[kind]
 
+  let hrefValue = href
+  if (kind == 'mail') hrefValue = `mailto:${href}`
+  else if (kind == 'phone') hrefValue = `tel:+1${href}`
+
+  if (textOnly) {
+    return (
+      <a
+        className="text-sm text-primary-500 underline hover:text-primary-600 dark:hover:text-primary-400"
+        target="_blank"
+        rel="noopener noreferrer"
+        href={hrefValue}
+      >
+        {href}
+      </a>
+    )
+  }
   return (
     <a
       className="text-sm text-gray-500 transition hover:text-gray-600"
       target="_blank"
       rel="noopener noreferrer"
-      href={href}
+      href={hrefValue}
     >
       <span className="sr-only">{kind}</span>
       <SocialSvg
@@ -43,4 +58,4 @@ const SocialIcon = ({ kind, href, size = 8 }) => {
   )
 }
 
-export default SocialIcon
+export default SocialLink

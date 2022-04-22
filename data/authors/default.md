@@ -2,10 +2,11 @@
 name: Jeff Russ
 avatar: /static/images/avatar.png
 occupation: Musician and Software Developer
-company: Thomas Edison Unisversity
+company: Thomas Edison University
 email: jeffreylynnruss@gmail.com
 linkedin: https://www.linkedin.com/in/jeff-russ-a866b648/
 github: https://github.com/Jeff-Russ/
+preferredSocials: ['linkedin','github']
 ---
 
 Jeff Russ is a Graduate of Music Performace at [Rutgers University's Mason Gross School of the Arts](https://www.masongross.rutgers.edu/) and a graduate of Computer Science at [Thomas Edison University](https://www.tesu.edu/). His interests in music and sound design has informed his work in computer science and vise versa.

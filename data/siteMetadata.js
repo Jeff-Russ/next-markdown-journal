@@ -10,7 +10,7 @@ const siteMetadata = {
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
   socialBanner: '/static/images/twitter-card.png',
-  email: 'jeffreylynnruss@gmail.com',
+  email: '', // 'jeffreylynnruss@gmail.com'
   github: 'https://github.com/Jeff-Russ/',
   twitter: '',
   facebook: '', // 'https://www.facebook.com/jeffreylynnruss'
