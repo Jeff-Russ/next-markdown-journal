@@ -17,6 +17,7 @@ const siteMetadata = {
   youtube: 'https://www.youtube.com/c/JeffRuss-shebang',
   linkedin: 'https://www.linkedin.com/in/jeff-russ-a866b648/',
   locale: 'en-US',
+  defaultAuthorSlug: 'jeffruss',
   analytics: {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.

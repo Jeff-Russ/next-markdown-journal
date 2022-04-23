@@ -109,14 +109,14 @@ or with TypeScript (community support)
 npx degit timlrx/tailwind-nextjs-starter-blog#typescript
 ```
 
-2. Personalize `siteMetadata.js` (site related information)
-3. Modify the content security policy in `next.config.js` if you want to use
+1. Personalize `siteMetadata.js` (site related information), 
+2. Modify the content security policy in `next.config.js` if you want to use
    any analytics provider or a commenting solution other than giscus.
-4. Personalize `authors/default.md` (main author)
-5. Modify `projectsData.js`
-6. Modify `headerNavLinks.js` to customize navigation links
-7. Add blog posts
-8. Deploy on Vercel
+3. Personalize `` `authors/${siteMetadata.defaultAuthorSlug}.md|mdx` `` (main author as set in siteMetadata)
+4. Modify `projectsData.js`
+5. Modify `headerNavLinks.js` to customize navigation links
+6. Add blog posts
+7. Deploy on Vercel
 
 ## Installation
 
@@ -146,7 +146,7 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 `data/siteMetadata.js` - contains most of the site related information which should be modified for a user's need.
 
-`data/authors/default.md` - default author information (required). Additional authors can be added as files in `data/authors`.
+`` `authors/${siteMetadata.defaultAuthorSlug}.md|mdx` `` - default author information (required). Additional authors can be added as files in `data/authors`.
 
 `data/projectsData.js` - data used to generate styled card on the projects page.
 
@@ -188,7 +188,7 @@ lastmod (optional)
 draft (optional)
 summary (optional)
 images (optional, if none provided defaults to socialBanner in siteMetadata config)
-authors (optional list which should correspond to the file names in `data/authors`. Uses `default` if none is specified)
+authors (optional list which should correspond to the file names in `data/authors`. Uses `` `data/authors/${siteMetadata.defaultAuthorSlug}.md|mdx` `` if none is specified)
 layout (optional list which should correspond to the file names in `data/layouts`)
 canonicalUrl (optional, canonical url for the post for SEO)
 ```
@@ -204,7 +204,7 @@ tags: ['next-js', 'tailwind', 'guide']
 draft: false
 summary: 'Looking for a performant, out of the box template, with all the best in web technology to support your blogging needs? Checkout the Tailwind Nextjs Starter Blog template.'
 images: ['/static/images/canada/mountains.jpg', '/static/images/canada/toronto.jpg']
-authors: ['default', 'sparrowhawk']
+authors: ['jeffruss', 'sparrowhawk']
 layout: PostLayout
 canonicalUrl: https://tailwind-nextjs-starter-blog.vercel.app/blog/introducing-tailwind-nextjs-starter-blog
 ---

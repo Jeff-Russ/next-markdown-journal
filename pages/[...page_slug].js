@@ -3,6 +3,7 @@ import PageTitle from '@/components/PageTitle'
 import generateRss from '@/lib/generate-rss'
 import { MDXLayoutRenderer } from '@/components/MDXComponents'
 import { formatSlug, getAllFilesFrontMatter, getFileBySlug, getFiles } from '@/lib/mdx'
+import siteMetadata from '@/data/siteMetadata'
 
 import HTMLComment from '@/components/HTMLComment'
 
@@ -23,9 +24,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const allPages = await getAllFilesFrontMatter('pages')
   const page = await getFileBySlug('pages', params.page_slug.join('/'))
-  const authorList = page.frontMatter.authors || ['default']
+  const authorList = page.frontMatter.authors || [siteMetadata.defaultAuthorSlug]
   const authorPromise = authorList.map(async (author) => {
     const authorResults = await getFileBySlug('authors', [author])
     return authorResults.frontMatter
@@ -33,6 +33,7 @@ export async function getStaticProps({ params }) {
   const authorDetails = await Promise.all(authorPromise)
 
   // rss
+  const allPages = await getAllFilesFrontMatter('pages')
   if (allPages.length > 0) {
     const rss = generateRss(allPages) // This requires *.mdx to have title prop in frontmatter!
     fs.writeFileSync('./public/feed.xml', rss)

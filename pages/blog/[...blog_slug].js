@@ -3,6 +3,7 @@ import PageTitle from '@/components/PageTitle'
 import generateRss from '@/lib/generate-rss'
 import { MDXLayoutRenderer } from '@/components/MDXComponents'
 import { formatSlug, getAllFilesFrontMatter, getFileBySlug, getFiles } from '@/lib/mdx'
+import siteMetadata from '@/data/siteMetadata'
 
 const DEFAULT_LAYOUT = 'PostLayout'
 
@@ -27,7 +28,7 @@ export async function getStaticProps({ params }) {
   const prev = allPosts[postIndex + 1] || null
   const next = allPosts[postIndex - 1] || null
   const post = await getFileBySlug('blog', params.blog_slug.join('/'))
-  const authorList = post.frontMatter.authors || ['default']
+  const authorList = post.frontMatter.authors || [siteMetadata.defaultAuthorSlug]
   const authorPromise = authorList.map(async (author) => {
     const authorResults = await getFileBySlug('authors', [author])
     return authorResults.frontMatter
