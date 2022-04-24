@@ -25,7 +25,7 @@
 // sample blog post (new-features-in-vq.mdx)
 const TOCInline = ({
   toc,
-  indentDepth = 3,
+  indentRem = 1,
   fromHeading = 1,
   toHeading = 6,
   asDisclosure = false,
@@ -42,14 +42,13 @@ const TOCInline = ({
   )
 
   const min_header = Math.min(...toc.map((heading) => heading.depth))
-  const rem_mult = indentDepth / 2
 
   const tocList = (
     <ul>
       {filteredToc.map((heading) => (
         <li
           key={heading.value}
-          style={{ marginLeft: `${(heading.depth - min_header) * rem_mult}rem` }}
+          style={{ marginLeft: `${(heading.depth - min_header) * indentRem}rem` }}
         >
           <a href={heading.url}>{heading.value}</a>
         </li>
