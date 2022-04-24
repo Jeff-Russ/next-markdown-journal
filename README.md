@@ -6,9 +6,9 @@
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/timlrx/tailwind-nextjs-starter-blog)
 
-This is a personal or professional journal/blog starter build on [Next.js](https://nextjs.org/), a [React](https://reactjs.org) framework, with [Tailwind CSS](https://tailwindcss.com) and content provided as markdown or [MDX](https://mdxjs.com) files by one or more authors. It is adapted from [Tailwind Nextjs Starter Blog](https://github.com/timlrx/tailwind-nextjs-starter-blog) template by [Timothy Lin](https://github.com/timlrx), extended to include a resume and support non-blog pages (also authored in MD or MDX), among other features. It is the source code for [jeffruss.com](https://www.jeffruss.com/blog) but, like the Tailwind Nextjs Starter Blog, can be used as a template as well.  Here are some other features:
+This is a personal or professional journal/posts starter build on [Next.js](https://nextjs.org/), a [React](https://reactjs.org) framework, with [Tailwind CSS](https://tailwindcss.com) and content provided as markdown or [MDX](https://mdxjs.com) files by one or more authors. It is adapted from [Tailwind Nextjs Starter Blog](https://github.com/timlrx/tailwind-nextjs-starter-blog) template by [Timothy Lin](https://github.com/timlrx), extended to include a resume and support non-blog pages (also authored in MD or MDX), among other features. It is the source code for [jeffruss.com](https://www.jeffruss.com/posts) but, like the Tailwind Nextjs Starter Blog, can be used as a template as well.  Here are some other features:
 
-- Light and dark theme with easy styling customization with [Tailwind 3.0](https://tailwindcss.com/blog/tailwindcss-v3).
+- Light and dark theme with easy styling customization with [Tailwind 3.0](https://tailwindcss.com/posts/tailwindcss-v3).
 - Mobile-friendly and responsive
 - SEO friendly with RSS feed, sitemaps, etc.
 - Preconfigured security headers
@@ -90,8 +90,8 @@ Overall, you'll at least need to create or modify the following files:
 * Create `` `authors/${siteMetadata.defaultAuthorSlug}.md|mdx` `` which is the default author information. Additional authors can be added as files in `data/authors/`.
 * Modify `data/projectsData.js`  to generate styled cards on the `/projects` page.
 * Replace images in `public/static/favicons/` with your own logo.
-* Replace/add images in  `public/static/images/` referenced in `data/siteMetadata.js` as well in author files in `data/authors/` and any posts you may create in `data/blog` and `data/pages`.
-* Replace files in `data/blog`  with your own posts.
+* Replace/add images in  `public/static/images/` referenced in `data/siteMetadata.js` as well in author files in `data/authors/` and any posts you may create in `data/posts` and `data/pages`.
+* Replace files in `data/posts`  with your own posts.
 
 Additionally you may need or want to do the following:
 
@@ -368,7 +368,7 @@ First, configure `siteMetadata.js` with the settings that correspond with the de
 ```js
 	analytics: {
     // supports plausible, simpleAnalytics or googleAnalytics
-    plausibleDataDomain: '', // e.g. tailwind-nextjs-starter-blog.vercel.app
+    plausibleDataDomain: '', // e.g. next-markdown-journal.vercel.app
     simpleAnalytics: false, // true or false
     umamiWebsiteId: process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID, // e.g. 123e4567-e89b-12d3-a456-426614174000
     googleAnalyticsId: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID, // e.g. UA-000000-2 or G-XXXXXXX
@@ -443,7 +443,7 @@ Here is a quick overview to important items in the menu:
   * [Settings](https://buttondown.email/settings) is where you can change your **Username**, **Newsletter name** and **Newsletter description**, among other things.  
   * [Subscribing](https://buttondown.email/settings/subscribing) is where you can modify how people sign up (confirmation and welcome emails, etc).
 
-Sometimes email confirmations from Buttondown are identified as spam by Gmail and possibly others. [Here is advice from Buttondown on this](https://blog.buttondown.email/2019/05/16/sending-newsletters-that-get-delivered).
+Sometimes email confirmations from Buttondown are identified as spam by Gmail and possibly others. [Here is advice from Buttondown on this](https://posts.buttondown.email/2019/05/16/sending-newsletters-that-get-delivered).
 
 ### Deployment
 

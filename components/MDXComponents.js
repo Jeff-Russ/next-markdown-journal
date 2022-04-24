@@ -33,7 +33,7 @@ export const MDXComponents = {
   },
 }
 
-// Used only in pages/blog/[...slug].js, pages/about.js
+// Used only in pages/posts/[...slug].js, pages/about.js
 export const MDXLayoutRenderer = ({ layout, mdxSource, ...rest }) => {
   const MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource])
 

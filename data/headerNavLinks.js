@@ -1,5 +1,5 @@
 const headerNavLinks = [
-  { href: '/blog/page/1', title: 'Blog' },
+  { href: '/posts/page/1', title: 'Posts' },
   { href: '/tags', title: 'Tags' },
   { href: '/projects', title: 'Projects' },
   { href: '/about', title: 'About' },
