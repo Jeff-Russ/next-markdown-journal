@@ -1,7 +1,7 @@
 ---
 title: My fancy title
 date: '2021-01-31'
-tags: ['hello']
+tags: ['hello', 'example-post']
 draft: true
 summary:
 images: []
