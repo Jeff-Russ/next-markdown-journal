@@ -18,25 +18,23 @@
   @apply my-5;
 }
 
+/******************************************************************************
+FIXES */
+
 /* https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied */
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
   transition: background-color 600000s 0s, color 600000s 0s;
 }
 
-@layer components {
-  .my-border-spacing-x-3 {
-    border-spacing: theme('spacing.2') 0px;
-  }
-}
-
-/** IMPORTANT: Prevent large (wide) blocks math 
-  from widening the page by making them horizontally scrollable: */
+/* IMPORTANT: Prevent large (wide) blocks math from widening 
+   the page by making them horizontally scrollable: */
 .math {
   @apply overflow-x-scroll;
 }
 
-/** Printable Documents  */
+/******************************************************************************
+ PRINTING */
 
 @media print {
   .print-hide,
@@ -66,7 +64,28 @@ input:-webkit-autofill:focus {
   size: 8.5in 11in;
 }
 
-/** Grid Areas  */
+/******************************************************************************
+MODIFICATIONS OF DEFAULTS */
+
+.prose {
+  @apply font-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-display;
+}
+
+/* .prose h1 {
+  @apply font-display;
+} */
+
+/******************************************************************************
+GRID AREAS (to be reused elsewhere) */
 
 .grid-area-A {
   grid-area: A;
@@ -87,7 +106,8 @@ input:-webkit-autofill:focus {
   grid-area: F;
 }
 
-/** Obfuscation Email and Phone (from bots) 
+/******************************************************************************
+OBFUSCATION OF EMAIL AND PHONE (from bots) 
 
 https://www.nelsonpires.com/development/protect-your-email-and-phone-number-from-spam-bots
  They will be displayed but not in HTML
@@ -112,7 +132,18 @@ a.nobot.jeff-ph-num:after {
   content: '-237';
 }
 
-/** ResumeLayout  */
+/******************************************************************************
+TARGETING LAYOUTS */
+
+/*.................................................................
+  PostLayout  */
+
+/* .post-layout p {
+  @apply font-serif;
+} */
+
+/*.................................................................
+  ResumeLayout  */
 
 .resume-layout a {
   color: #179d8d;
@@ -159,13 +190,6 @@ a.nobot.jeff-ph-num:after {
 }
 
 /* ResumeLayout - grid template areas */
-
-/*
-.resume-layout .A { @apply border-2 border-blue-900; }
-.resume-layout .B { @apply border-2 border-red-900; }
-.resume-layout .B table { @apply border-2 border-red-300; }
-.resume-layout .C { @apply border-2 border-green-900 top-0; } 
-*/
 
 .resume-layout .education-grid-template-areas-wrapper {
   /* all: unset; */

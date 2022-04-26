@@ -36,6 +36,7 @@ This is a personal or professional journal/posts starter build on [Next.js](http
     * [Code blocks](#code-block-line-highlighting-and-line-numbers)
     * [Bibliography and Citations](#bibliography-and-citations )
   - [Environment Variables and Secrets](#environment-variables-and-secrets)
+  - [Self-hosted fonts](#self-hosted-fonts)
   - [Blog comments system](#blog-comments-system)
     * [Giscus Setup](#giscus-setup)
   - [Analytics](#analytics)
@@ -102,8 +103,7 @@ Additionally you may need or want to do the following:
 * Add other icons to `components/social-links`  such as from [Simple Icons](https://simpleicons.org/) or [heroicons](https://heroicons.com/).and map them in `index.js`. 
 * Modify `data/headerNavLinks.js` if you'd like to change the links in the navbar. 
 * Modify `./components/Pre.js` to customize how all code blocks (rendered as `<pre>` elements) are rendered.
-
-
+* Install and use a self-hosted font from [Fontsource](https://fontsource.org/). 
 
 ### Authoring Content
 
@@ -197,6 +197,39 @@ According to [next.js/docs/basic-features/environment-variables.md on GitHub](ht
 In all likelihood, You will need to create the file `.env.local`. as a duplicate of `.env.example` and then fill in the values as needed as per the instructions below.   
 
 For more information on the required variables, check out `.env.example` and [this guide](https://nextjs.org/docs/basic-features/environment-variables) 
+
+### Self-hosted fonts
+
+Fonts can be added from [Fontsource](https://fontsource.org/). These are self-hosted fonts which have [advantages](https://fontsource.org/docs/introduction):
+
+> Self-hosting brings significant performance gains as loading fonts from hosted services, such as Google Fonts, lead to an extra (render blocking) network request. To provide perspective, for simple websites it has been seen to double visual load times.
+>
+> Fonts remain version locked. Google often pushes updates to their fonts without notice, which may interfere with your live production projects. Manage your fonts like any other NPM dependency.
+>
+> Commit to privacy. Google does track the usage of their fonts and for those who are extremely privacy concerned, self-hosting is an alternative.
+
+This leads to a smaller font bundle and a 0.1s faster load time ([webpagetest comparison](https://www.webpagetest.org/video/compare.php?tests=220201_AiDcFH_f68a69b758454dd52d8e67493fdef7da,220201_BiDcMC_bf2d53f14483814ba61e794311dfa771)).
+
+The default font is [Fontsource's 'inter' font](https://fontsource.org/fonts/inter). You can see the dependency `"@fontsource/inter"` is added to `package.json`. 
+
+To change the default font ([here](https://www.tailwindtoolbox.com/guides/adding-fonts-to-tailwind-css) is another good guide if you need further details):
+
+
+1. Pick a font at [Fontsource](https://fontsource.org/fonts). Here are some notable ones:
+   * `abril-fatface` is good for attention-grabbing headings.
+   * For: mono fonts: `fira-mono`, `source-code-pro` are decent.
+   * Regular looking for paragraphs: `inter`, `poppins` and `abel` (both sans)
+   * Interesting looking for paragraphs: `alice` (serif)
+   * Very interesting looking for paragraphs: `advent-pro`, `aldrich` (both sans)
+   * A versatile collection: The `ibm-plex-*` fonts.
+2. Install the preferred [font](https://fontsource.org/fonts) - `npm install -save @fontsource/<font-name>`
+
+You might need to do some sleuthing inside `node_modules/@fontsource/<font-name>/` to do the next two steps.  
+
+3. Update the import at `pages/_app.js`- `import '@fontsource/<font-name*>'`. Do you sleuthing: If you want to import `node_modules/@fontsource/alice/index.css`, the `*` in `<font-name*>` would be nothing; you would just:`import '@fontsource/alice'`. But you may want to import different files such as  `node_modules/@fontsource/inter/variable-full.css` in which case the import statement would be `import '@fontsource/inter/variable-full.css'` 
+4. Update the `fontfamily` property in the `tailwind.config.js` file. Read [this](https://tailwindcss.com/docs/font-family#customizing-your-theme) and [this](https://tailwindcss.com/docs/font-family#customizing-the-default-font) for help. Again, you'll need to do some sleuthing. Taking the example of the `inter` font where we did `'@fontsource/inter/variable-full.css'` we see in that file the line `font-family: 'InterVariable'` which means we add `sans: ['InterVariable', ...defaultTheme.fontFamily.sans],` to  `tailwind.config.js` because we found `'InterVariable'` is the font family and it is a sans serif font. 
+
+Of course, if you are not using any particular font such as `@fontsource/<unused-font-name>`, you can then delete it with `npm uninstall -save @fontsource/<unused-font-name>`.
 
 ### Blog comments system
 

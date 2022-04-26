@@ -29,6 +29,8 @@ module.exports = {
       },
       fontFamily: {
         sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
+        serif: ['Alice', ...defaultTheme.fontFamily.serif],
+        display: ['Abril Fatface', ...defaultTheme.fontFamily.serif],
       },
       colors: {
         primary: colors.teal,
@@ -37,6 +39,8 @@ module.exports = {
       typography: (theme) => ({
         DEFAULT: {
           css: {
+            fontFamily: theme('fontFamily.serif'),
+            fontWeight: '400',
             color: theme('colors.gray.700'),
             a: {
               color: theme('colors.primary.500'),
@@ -45,6 +49,9 @@ module.exports = {
               },
               code: { color: theme('colors.primary.400') },
             },
+            // 'h1,h2,h3,h4,h5,h6': {
+            //   fontFamily: 'font-display',
+            // },
             h1: {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
