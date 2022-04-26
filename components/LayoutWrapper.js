@@ -6,13 +6,18 @@ import SectionContainer from './SectionContainer'
 import Footer from './Footer'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
+// import { VisibleIfScrolling } from '@/hooks/useIsScrolling'
 
 // Used only in pages/_app.js
 const LayoutWrapper = ({ children }) => {
   return (
     <SectionContainer>
       <div className="flex h-screen flex-col justify-between">
-        <header className="site-navbar flex items-center justify-between">
+        {/* <VisibleIfScrolling timeout_ms={4000}> */}
+        <header
+          className="site-navbar border-grey-200 fixed top-0 left-1 right-0 flex w-screen 
+              items-center justify-between border-b-2 bg-white font-display font-light opacity-90 dark:bg-gray-900"
+        >
           <div className="py-2">
             <Link href="/" aria-label={siteMetadata.headerTitle}>
               <div className="flex items-center justify-between">
@@ -20,9 +25,7 @@ const LayoutWrapper = ({ children }) => {
                   <Logo />
                 </div>
                 {typeof siteMetadata.headerTitle === 'string' ? (
-                  <div className="hidden h-6 text-2xl font-semibold sm:block">
-                    {siteMetadata.headerTitle}
-                  </div>
+                  <div className="hidden h-6 text-2xl sm:block">{siteMetadata.headerTitle}</div>
                 ) : (
                   siteMetadata.headerTitle
                 )}
@@ -45,7 +48,8 @@ const LayoutWrapper = ({ children }) => {
             <MobileNav />
           </div>
         </header>
-        <main className="mb-auto">{children}</main>
+        {/* </VisibleIfScrolling> */}
+        <main className="mb-auto mt-[65px]">{children}</main>
         <Footer />
       </div>
     </SectionContainer>
