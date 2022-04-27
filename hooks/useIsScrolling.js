@@ -6,13 +6,15 @@ const useIsScrolling = (timeout_ms) => {
 
   let timer = null
   const onScroll = () => {
+    clearTimeout(timer)
     setIsScrolling(true)
-    if (timer !== null) {
-      clearTimeout(timer)
-    }
+    // if (timer !== null) {
+    //   clearTimeout(timer)
+    //   console.log("clearing timeout")
+    // }
     timer = setTimeout(() => {
       setIsScrolling(false)
-    }, timeout_ms ?? 1500)
+    }, timeout_ms ?? 4000)
   }
 
   useEffect(() => {

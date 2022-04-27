@@ -33,6 +33,10 @@ input:-webkit-autofill:focus {
   @apply overflow-x-scroll;
 }
 
+/* IMPORTANT: Added because mobile dropdown navigation menu was bing covered by code blocks! */
+pre {
+  @apply -z-10;
+}
 /******************************************************************************
  PRINTING */
 
