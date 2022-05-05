@@ -1,9 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 import { documentOverrides } from '@/data/wrapperOverrides'
-import HTMLComment from '@/components/HTMLComment'
-
-const isDevelopment = process.env.NODE_ENV === 'development'
 
 class MyDocument extends Document {
   render() {
@@ -47,18 +44,15 @@ class MyDocument extends Document {
             <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
           </Head>
           <body
-            className={`${
+            className={`margin-0 p-x h-full w-full overflow-x-hidden antialiased ${
               bypass ? '' : 'bg-white text-black antialiased dark:bg-gray-900 dark:text-orange-100'
-            }`}
+            }  bg-image-light bg-fixed dark:bg-image-dark
+            `}
           >
             <Main />
-            {isDevelopment && <HTMLComment text={'END <Main /> from _document.js'} />}
-            {isDevelopment && <HTMLComment text={'START <NextScript /> from _document.js'} />}
             <NextScript />
-            {isDevelopment && <HTMLComment text={'END <NextScript /> from _document.js'} />}
           </body>
         </Html>
-        {isDevelopment && <HTMLComment text={'END _document.js'} />}
       </>
     )
   }

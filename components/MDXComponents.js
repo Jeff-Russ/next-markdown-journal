@@ -7,8 +7,6 @@ import TOCInline from './TOCInline'
 import Pre from './Pre'
 import { BlogNewsletterForm } from './NewsletterForm'
 
-import HTMLComment from '@/components/HTMLComment'
-
 const isDevelopment = process.env.NODE_ENV === 'development'
 
 export const MDXComponents = {
@@ -19,17 +17,7 @@ export const MDXComponents = {
   BlogNewsletterForm: BlogNewsletterForm,
   wrapper: ({ components, layout, ...rest }) => {
     const Layout = require(`../layouts/${layout}`).default
-    return (
-      <>
-        {isDevelopment && (
-          <HTMLComment text={'START MDXComponents (in MDXComponents.js) <Layout {...rest} />'} />
-        )}
-        <Layout {...rest} />
-        {isDevelopment && (
-          <HTMLComment text={'END MDXComponents (in MDXComponents.js) <Layout {...rest} />'} />
-        )}
-      </>
-    )
+    return <Layout {...rest} />
   },
 }
 
@@ -37,11 +25,5 @@ export const MDXComponents = {
 export const MDXLayoutRenderer = ({ layout, mdxSource, ...rest }) => {
   const MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource])
 
-  return (
-    <>
-      {isDevelopment && <HTMLComment text={'START MDXLayoutRenderer (in MDXComponents.js)'} />}
-      <MDXLayout layout={layout} components={MDXComponents} {...rest} />
-      {isDevelopment && <HTMLComment text={'END MDXLayoutRenderer (in MDXComponents.js)'} />}
-    </>
-  )
+  return <MDXLayout layout={layout} components={MDXComponents} {...rest} />
 }

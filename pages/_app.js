@@ -5,6 +5,7 @@ import 'katex/dist/katex.css'
 import '@fontsource/inter/variable-full.css'
 import '@fontsource/alice'
 import '@fontsource/abril-fatface'
+import '@fontsource/material-icons'
 
 import { ThemeProvider } from 'next-themes'
 import Head from 'next/head'
@@ -20,8 +21,6 @@ const isSocket = process.env.SOCKET
 import { appOverrides } from '@/data/wrapperOverrides'
 import { useRouter } from 'next/router'
 
-import HTMLComment from '@/components/HTMLComment'
-
 import Script from 'next/script'
 
 export default function App(props) {
@@ -36,7 +35,6 @@ export default function App(props) {
     // )
     return (
       <>
-        {isDevelopment && <HTMLComment text={'START _app.js (with bypass)'} />}
         <Head>
           <meta content="width=device-width, initial-scale=1" name="viewport" />
           {/*isDevelopment && (
@@ -51,14 +49,12 @@ export default function App(props) {
         <Analytics />
         <Component {...pageProps} />
         <Script src="scripts/obfuscations.js"></Script>
-        {isDevelopment && <HTMLComment text={'END _app.js (with bypass)'} />}
       </>
     )
   } else {
     return (
       <>
         <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
-          {isDevelopment && <HTMLComment text={'START _app.js (without bypass)'} />}
           <Head>
             <meta content="width=device-width, initial-scale=1" name="viewport" />
             {/*isDevelopment && (
@@ -71,12 +67,11 @@ export default function App(props) {
           </Head>
           {isDevelopment && isSocket && <ClientReload />}
           <Analytics />
-          <LayoutWrapper>
+          <LayoutWrapper {...pageProps}>
             <Component {...pageProps} />
           </LayoutWrapper>
         </ThemeProvider>
         <Script src="scripts/obfuscations.js"></Script>
-        {isDevelopment && <HTMLComment text={'END _app.js (without bypass)'} />}
       </>
     )
   }

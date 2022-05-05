@@ -1,3 +1,6 @@
+const isDevelopment = process.env.NODE_ENV === 'development'
+
 export default function HTMLComment({ text }) {
-  return <div dangerouslySetInnerHTML={{ __html: `<!-- ${text} -->` }} />
+  if (isDevelopment) return <div dangerouslySetInnerHTML={{ __html: `<!-- ${text} -->` }} />
+  else return null
 }

@@ -28,9 +28,27 @@ input:-webkit-autofill:focus {
 }
 
 /* IMPORTANT: Prevent large (wide) blocks math from widening 
-   the page by making them horizontally scrollable: */
-.math {
-  @apply overflow-x-scroll;
+   the page by making them horizontally scrollable: 
+   
+  Content between $$ and $$ is rendered spans in...
+
+  <div class="math math-display">
+    <span class="katex-display">
+      ...HERE
+    </span>
+  </div>
+
+  Content between $ and $ is rendered as spans in...
+
+  <span class="math math-inline">
+    <span class="katex">
+      ...HERE
+    </span>
+  </span>
+*/
+.math-display, 
+.math-inline /* erm... I had to! */ {
+  @apply inline-block max-w-full overflow-y-visible overflow-x-scroll whitespace-nowrap;
 }
 
 /* IMPORTANT: Added because mobile dropdown navigation menu was bing covered by code blocks! */
