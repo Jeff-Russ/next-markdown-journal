@@ -1,14 +1,16 @@
+import { useRouter } from 'next/router'
 import SectionContainer from './SectionContainer'
 import Footer from './Footer'
 import Navbar from './Navbar'
 
 // Used only in pages/_app.js
-const LayoutWrapper = ({ children }) => {
+const LayoutWrapper = (props) => {
+  const { children, noNavbar } = props
   return (
     <SectionContainer>
       <div className="flex h-screen flex-col justify-between">
-        <Navbar />
-        <main className="mb-auto mt-[65px]">{children}</main>
+        {!noNavbar && <Navbar />}
+        <main className="mb-auto">{children}</main>
         <Footer />
       </div>
     </SectionContainer>

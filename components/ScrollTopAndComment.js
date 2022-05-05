@@ -1,5 +1,7 @@
 import siteMetadata from '@/data/siteMetadata'
-import { VisibleIfScrolling } from '@/hooks/useIsScrolling'
+// import { VisibleIfScrolling } from '@/hooks/useIsScrolling'
+
+import { VisibleIfScrolling } from '@/hooks/useScrollY'
 
 const ScrollTopAndComment = () => {
   const handleScrollTop = () => {

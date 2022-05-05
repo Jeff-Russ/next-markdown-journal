@@ -101,7 +101,7 @@ Additionally you may need or want to do the following:
 * Modify or add files to `layouts/` to change the layout and styling pages. The component filenames must match what it specified in the markdown frontmatter `layout` field. 
 * Modify `css/prism.css` to change the styles associated with the code blocks, such as by using your preferred [prism theme](https://github.com/PrismJS/prism-themes).
 * Add other icons to `components/social-links`  such as from [Simple Icons](https://simpleicons.org/) or [heroicons](https://heroicons.com/).and map them in `index.js`. 
-* Modify `data/headerNavLinks.js` if you'd like to change the links in the navbar. 
+* Modify `data/navLinks.js` if you'd like to change the links in the navbar. 
 * Modify `./components/Pre.js` to customize how all code blocks (rendered as `<pre>` elements) are rendered.
 * Install and use a self-hosted font from [Fontsource](https://fontsource.org/). 
 
@@ -289,11 +289,11 @@ If you scroll down the page at after seeing "Success! This repository meets all 
 
 The **Page ↔ Discussions Mapping** section (after 'Repository') at https://giscus.app/ is where we choose the mapping between the embedding page and the embedded discussion.   
 
-> <mark>☑</mark> *Discussion title contains page* `pathname` — Giscus will search for a discussion whose title contains the page's `pathname` URL component. 
+> ☑ *Discussion title contains page* `pathname` — Giscus will search for a discussion whose title contains the page's `pathname` URL component. 
 > ☐ *Discussion title contains page* `URL` —  Giscus will search for a discussion whose title contains the page's URL.
-> ☐  *Discussion title contains page* `<title>` —  Giscus will search for a discussion whose title contains the page's `<title>` HTML tag.
-> ☐  *Discussion title contains page* `og:title` — Giscus will search for a discussion whose title contains the page's [`<meta property="og:title">`](https://ogp.me/) HTML tag.
-> ☐  *Discussion title contains a specific term* —  Giscus will search for a discussion whose title contains a specific term.
+> ☐ *Discussion title contains page* `<title>` —  Giscus will search for a discussion whose title contains the page's `<title>` HTML tag.
+> ☐ *Discussion title contains page* `og:title` — Giscus will search for a discussion whose title contains the page's [`<meta property="og:title">`](https://ogp.me/) HTML tag.
+> ☐ *Discussion title contains a specific term* —  Giscus will search for a discussion whose title contains a specific term.
 > ☐ *Specific discussion number* —  Giscus will load a specific discussion by number. This option **does not** support automatic discussion creation.
 
 Choose the `pathname` option since others might not be distinct. <mark>But beware of modifying the site to change paths!</mark> I'm not sure that this would be a problem but it certainly may be.  In any case, we don't need to fill this out here as we will set this in:     
@@ -453,8 +453,6 @@ and can be used in a blog post:
 ```jsx
 <BlogNewsletterForm title="Like what you are reading?" />
 ```
-
-<BlogNewsletterForm title="Like what you are reading?" />
 
 The component relies on nextjs's [API routes](https://nextjs.org/docs/api-routes/introduction) which requires a server-side instance of nextjs to be setup and is not compatible with a 100% static site export. Users should either self-host or use a compatible platform like Vercel or Netlify which supports this functionality.
 
