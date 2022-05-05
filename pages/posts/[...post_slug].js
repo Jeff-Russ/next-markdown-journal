@@ -55,7 +55,7 @@ export async function getStaticProps({ params }) {
   Optional frontmatter:
   layout
  */
-export default function Blog({ post, authorDetails, prev, next }) {
+export default function Post({ post, authorDetails, prev, next }) {
   const { mdxSource, toc, frontMatter } = post
 
   return (

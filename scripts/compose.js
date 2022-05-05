@@ -115,7 +115,7 @@ inquirer
       if (err) {
         throw err
       } else {
-        console.log(`Blog post generated successfully at ${filePath}`)
+        console.log(`Post generated successfully at ${filePath}`)
       }
     })
   })
