@@ -18,6 +18,7 @@ const siteMetadata = {
   linkedin: 'https://www.linkedin.com/in/jeff-russ-a866b648/',
   locale: 'en-US',
   defaultAuthorSlug: 'jeffruss',
+  whoamiHTML: 'Jeff is a software developer and musician.',
   analytics: {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.
