@@ -64,10 +64,17 @@ input:-webkit-autofill:focus {
   @apply inline-block max-w-full overflow-y-visible overflow-x-scroll whitespace-nowrap;
 }
 
-/* IMPORTANT: Added because mobile dropdown navigation menu was bing covered by code blocks! */
+/* Wide inline code was also widening the page
+  this makes them scrollable and/or breaks them if sensible places are found*/
+code {
+  @apply inline-block max-w-full overflow-y-visible overflow-x-scroll break-normal;
+}
+
+/* IMPORTANT: Added because mobile dropdown navigation menu was being covered by code blocks! */
 pre {
   @apply -z-10;
 }
+
 /******************************************************************************
  PRINTING */
 

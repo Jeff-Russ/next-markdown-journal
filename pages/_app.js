@@ -21,8 +21,6 @@ const isSocket = process.env.SOCKET
 import { appOverrides } from '@/data/wrapperOverrides'
 import { useRouter } from 'next/router'
 
-import Script from 'next/script'
-
 export default function App(props) {
   const { Component, pageProps } = props
   const router = useRouter()
@@ -36,7 +34,7 @@ export default function App(props) {
     return (
       <>
         <Head>
-          <meta content="width=device-width, initial-scale=1" name="viewport" />
+          {<meta name="viewport" content="width=device-width, initial-scale=0.9" />}
           {/*isDevelopment && (
             <script
               async
@@ -48,7 +46,6 @@ export default function App(props) {
         {isDevelopment && isSocket && <ClientReload />}
         <Analytics />
         <Component {...pageProps} />
-        <Script src="scripts/obfuscations.js"></Script>
       </>
     )
   } else {
@@ -56,7 +53,7 @@ export default function App(props) {
       <>
         <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
           <Head>
-            <meta content="width=device-width, initial-scale=1" name="viewport" />
+            {<meta name="viewport" content="width=device-width, initial-scale=0.9" />}
             {/*isDevelopment && (
             <script
               async
@@ -71,7 +68,6 @@ export default function App(props) {
             <Component {...pageProps} />
           </LayoutWrapper>
         </ThemeProvider>
-        <Script src="scripts/obfuscations.js"></Script>
       </>
     )
   }
