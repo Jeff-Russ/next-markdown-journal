@@ -63,7 +63,7 @@ const Navbar = () => {
     // console.log('\nstate changed at', scrollPosition)
     let scollTimer = null
     if (!showNavbar) {
-      console.log('\ncurrently not showing navbar')
+      // console.log('\ncurrently not showing navbar')
       if (isScrolling || scrollPosition <= 55) {
         clearTimeout(scollTimer)
         setShowNavbar(true)

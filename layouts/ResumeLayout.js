@@ -1,6 +1,7 @@
-import PageTitle from '@/components/PageTitle'
+// import PageTitle from '@/components/PageTitle'
 import { PageSEO } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
+import Script from 'next/script'
 
 const editUrl = (fileName) => `${siteMetadata.siteRepo}/blob/master/data/posts/${fileName}`
 const discussUrl = (slug) =>
@@ -12,7 +13,7 @@ const postDateTemplate = { weekday: 'long', year: 'numeric', month: 'long', day:
 
 export default function ResumeLayout({ frontMatter, authorDetails, next, prev, children }) {
   // console.log(frontMatter)
-  const { summary, title } = frontMatter
+  const { summary /* , title */ } = frontMatter
 
   return (
     <div className="resume-layout">
@@ -32,6 +33,7 @@ export default function ResumeLayout({ frontMatter, authorDetails, next, prev, c
       </div>
       {/*  </div> */}
       {/* </div> */}
+      <Script src="scripts/obfuscations.js"></Script>
     </div>
   )
 }

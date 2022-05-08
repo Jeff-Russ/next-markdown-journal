@@ -33,18 +33,18 @@ export default function Home({ posts, initialDisplayPosts }) {
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
 
-      <header className="flex items-center">
+      <header className="flex items-center justify-between">
         <div className="m-4">
           <Logo />
         </div>
         {typeof siteMetadata.headerTitle === 'string' ? (
-          <h2 className="left-0 font-display text-4xl tracking-wide text-gray-900 dark:text-orange-100">
+          <h2 className="left-0 mr-auto whitespace-nowrap font-display text-4xl tracking-wide text-gray-900 dark:text-orange-100">
             {siteMetadata.headerTitle}
           </h2>
         ) : (
           siteMetadata.headerTitle
         )}
-        <div className="ml-auto">
+        <div className="right-0">
           <ThemeSwitch />
         </div>
       </header>
