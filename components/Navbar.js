@@ -197,7 +197,7 @@ const Navbar = () => {
           </div>
         </div>
       </header>
-      <div id="site-navbar-dummy-spacer" className="m-0 h-0 w-full p-0"></div>
+      <div id="site-navbar-dummy-spacer" className="print-hide m-0 h-0 w-full p-0"></div>
     </>
   )
 }

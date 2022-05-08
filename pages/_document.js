@@ -6,6 +6,7 @@ class MyDocument extends Document {
   render() {
     // https://stackoverflow.com/questions/62893647/how-to-get-url-params-when-using-custom-document-in-nextjs
 
+    const dir = '/static/favicons'
     let bypass = false
     if (
       documentOverrides.pages.includes(this.props.__NEXT_DATA__.page) ||
@@ -20,27 +21,13 @@ class MyDocument extends Document {
       <>
         <Html lang="en" className="scroll-smooth">
           <Head>
-            <link
-              rel="apple-touch-icon"
-              sizes="76x76"
-              href="/static/favicons/apple-touch-icon.png"
-            />
-            <link
-              rel="icon"
-              type="image/png"
-              sizes="32x32"
-              href="/static/favicons/favicon-32x32.png"
-            />
-            <link
-              rel="icon"
-              type="image/png"
-              sizes="16x16"
-              href="/static/favicons/favicon-16x16.png"
-            />
-            <link rel="manifest" href="/static/favicons/site.webmanifest" />
-            <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#5bbad5" />
-            <meta name="msapplication-TileColor" content="#000000" />
-            <meta name="theme-color" content="#000000" />
+            <link rel="apple-touch-icon" sizes="76x76" href={`${dir}/apple-touch-icon.png`} />
+            <link rel="icon" type="image/png" sizes="32x32" href={`${dir}/favicon-32x32.png`} />
+            <link rel="icon" type="image/png" sizes="16x16" href={`${dir}/favicon-16x16.png`} />
+            <link rel="manifest" href={`${dir}/site.webmanifest`} />
+            <link rel="mask-icon" href={`${dir}/safari-pinned-tab.svg" color="#7a8b43`} />
+            <meta name="msapplication-TileColor" content="#444422" />
+            <meta name="theme-color" content="#bbbbaa"></meta>
             <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
           </Head>
           <body
