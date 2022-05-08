@@ -70,7 +70,7 @@ const Navbar = () => {
         // console.log('now showing')
       }
     } else {
-      // console.log('\ncurrently showing navbar')
+      // console.log('\ncurrently showing navbar', `${!showMobileDropNav} && ${!isScrolling} && ${scrollPosition > 55}`)
       if (!showMobileDropNav && !isScrolling && scrollPosition > 55) {
         // console.log('scheduled to hide...')
         scollTimer = setTimeout(() => {
@@ -98,8 +98,10 @@ const Navbar = () => {
         id="site-navbar"
         className={`site-navbar fixed top-0 left-1 right-0 z-10
           flex w-screen transform items-center justify-between border-b-2 
-          border-gray-300 bg-white opacity-90 dark:border-gray-700 dark:bg-gray-900`}
-        // duration-300  ease-in-out ${showNavbar ? 'translate-y-0 ' : '-translate-y-full'}`}
+          border-gray-300 bg-white opacity-90 duration-300 ease-in-out
+          dark:border-gray-700  dark:bg-gray-900 ${
+            showNavbar ? 'translate-y-0 ' : '-translate-y-full'
+          }`}
       >
         <div className="py-2 font-display font-light">
           <Link href="/" aria-label={siteMetadata.headerTitle}>
