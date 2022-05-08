@@ -80,11 +80,13 @@ pre {
   .site-footer * {
     display: none !important;
   }
+
   body {
     display: flex;
     justify-content: center;
     padding-left: 0.35in;
     padding-right: 0.35in;
+    background-image: none !important;
     /* background: white;
     width: 12.75in;
     height: 16.5in;
@@ -196,7 +198,10 @@ TARGETING LAYOUTS */
 }
 
 .resume-layout td {
-  @apply pr-1; /* spacing between colummns of table */
+  @apply py-0 pr-2 sm:pr-2 md:pr-4; /* spacing between colummns and rows of table, respectively */
+}
+.resume-layout table {
+  @apply mb-1;
 }
 
 .resume-layout br.responsive {
@@ -218,10 +223,59 @@ TARGETING LAYOUTS */
 /** ResumeLayout class defs  */
 
 .resume-layout .card-section {
-  @apply w-full overflow-hidden rounded-xl bg-slate-50 px-0 shadow-lg dark:bg-stone-800 dark:shadow-stone-900;
+  @apply my-2 w-full overflow-hidden rounded-2xl border-4 bg-slate-50 px-0 dark:bg-stone-800;
+}
+
+.resume-layout #objective.card-section {
+  @apply border-lime-700/20;
+}
+.resume-layout #objective.card-section header {
+  @apply bg-lime-700/20;
+}
+
+.resume-layout #education.card-section {
+  @apply border-yellow-600/10;
+}
+.resume-layout #education.card-section header {
+  @apply bg-yellow-700/10;
+}
+
+.resume-layout #additional.card-section {
+  @apply border-red-900/10;
+}
+.resume-layout #additional.card-section header {
+  @apply bg-red-900/10;
+}
+
+.resume-layout #projects.card-section {
+  @apply border-cyan-700/10;
+}
+.resume-layout #projects.card-section header {
+  @apply bg-cyan-700/10;
+}
+
+@media not print {
+  .resume-layout .card-section {
+    @apply shadow-lg dark:shadow-stone-900;
+  }
 }
 .resume-layout .card-section header {
   @apply m-0 p-0 pl-3 font-sans text-xl font-bold not-italic;
+}
+
+@media print {
+  .resume-layout .card-section {
+    @apply my-1;
+  }
+  .resume-layout h1 {
+    @apply -mb-2 text-4xl font-bold;
+  }
+  .resume-layout #resume-header {
+    @apply -mb-1 mt-1;
+  }
+  .resume-layout #objective {
+    @apply mt-2;
+  }
 }
 
 /* ResumeLayout - grid template areas */
@@ -274,16 +328,16 @@ TARGETING LAYOUTS */
       'A B'
       'C B';
   }
-  /* .resume-layout .education-grid-template-areas-wrapper .A .transcript-label {
-    margin-left: 4rem;
-  } */
   .resume-layout .education-grid-template-areas-wrapper .C {
     margin-top: -3rem;
   }
-}
-
-@media print {
   .resume-layout #printable-page {
-    @apply text-[0.67rem];
+    @apply text-[0.69rem];
+  }
+  .resume-layout #transcript-label {
+    @apply ml-16 mt-4 after:content-['→'];
+  }
+  .resume-layout section header + * {
+    @apply mx-8;
   }
 }

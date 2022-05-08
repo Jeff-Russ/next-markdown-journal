@@ -31,6 +31,7 @@ This is a personal or professional journal/posts starter build on [Next.js](http
 - [Installation](#installation)
 - [Customized Usage](#customized-usage)
   - [Overview](#overview)
+  - [Tips for favicons](#tips-for-favicons)
   - [Authoring Content](#authoring-content)
     * [Table of Contents component](#table-of-contents-component)
     * [Code blocks](#code-block-line-highlighting-and-line-numbers)
@@ -104,6 +105,44 @@ Additionally you may need or want to do the following:
 * Modify `data/navLinks.js` if you'd like to change the links in the navbar. 
 * Modify `./components/Pre.js` to customize how all code blocks (rendered as `<pre>` elements) are rendered.
 * Install and use a self-hosted font from [Fontsource](https://fontsource.org/). 
+
+### Tips for favicons
+
+#### Which Icons are used where?
+
+Chrome (at least on macOS) appears to use this for the tab:
+
+```html
+<link
+  rel="icon"
+  type="image/png"
+  sizes="32x32"
+  href="/static/favicons/favicon-32x32.png"
+/>
+```
+
+Safari (at least on macOS) appears to use this for the tab (whether they are show as website tiles or not) and not just for "pinned tabs."
+
+```html
+<link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#7a8b43" />
+```
+
+This SVG get cached in  `~/Library/Safari/Template Icons/`. What also gets cached is the same `/static/favicons/favicon-32x32.png` that Chrome uses, and for macOS Safari it gets cached in   `~/Library/Safari/Favicon Cache/`. This will be shown in the address bar of Safari while typing and seeing autocomplete. 
+
+The icon should follow [these](https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/pinnedTabs/pinnedTabs.html) specifications. 
+
+When testing on Mac Safari, you may need to delete the contents of `~/Library/Safari/Favicon Cache/`, `~/Library/Safari/Template Icons/` and `~/Library/Safari/Touch Icons Cache` peridically.
+
+#### Making an Icon
+
+I recommend starting with an SVG file of your site logo, which must be square. 
+
+Alternatively, you can create one with a simple paint app with  then open it with Inkscape and vectorize it. The image must be square ideally, the image should be made of simple lines and curves (avoid freehand if possible) and only one or two colors (plus a transparent background). `/static/favicons/safari-pinned-tab.svg` can only be black, to varying degrees of opacity 
+
+* After opening the image in inkscape, Change the "W"idth and "H"eight on the top bar both to 16 px (this is for the Safari Pinned Tab icon requirement but should work for all version of your icon, provided it isn't too complex).
+* Then in File > Document Properties open the drop-down for "Resize page to content..." and hit the "Resize page to drawing or selection."
+* Then in Path > Trace Bitmap, click on "Multiple scans." We'll do this by Colors and there should be 3 scans if you have two colors + bg or 2 scans if you have one color + background. I found (for two colors) that de-selecting "Remove Background" worked best. I had "Smooth" but not "Stack" both selected. Setting "Speckles" all the way to 5.00 make tweaking the nodes easier later. For "Speckles" I selected 400 and for "Smooth Corners" I selected 1.12 but your results may vary. 
+* Select the entire image and hit "Apply." Now you can choose the "Edit Paths by Node" tool and tweak them.
 
 ### Authoring Content
 

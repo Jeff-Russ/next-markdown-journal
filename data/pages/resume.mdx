@@ -10,41 +10,42 @@ layout: ResumeLayout
 <div id='printable-page' className='text-md flex flex-wrap -mx-1 lg:mx-4 xl:mx-6 font-serif italic align-top -mt-2'>
   {/* NOTE: relative links to document on this domain must include the domain in the pdf to be valid 
   (they must be full URLs). I've generated the PDF this way and hopefully that will work (I used http 
-  not https and omitted the www) once the site is up! ALSO TODO TESU Transcript*/ }
-  <div className='block w-full -mt-8 print-hide'>
-    <a href='/docs/Jeff-Russ_Resume.pdf' download='Jeff-Russ_Resume.pdf'>Download this Resume as PDF</a>
+  not https and omitted the www) once the site is up!*/ }
+  <div className='block w-full -mt-8 mb-6 print-hide'>
+    <a className='text-lg' href='http://jeffruss.com/docs/Jeff-Russ_Resume.pdf' download='Jeff-Russ_Resume.pdf'>Download this Resume as PDF</a>
   </div>
 
   {/* Resume Header: Two column row */}
-  <section className='my-0 px-1 lg:my-2 lg:px-6 w-1/2'>
-    <header className='text-xl ml-5 mb-0 text-center'>
-      <h1 className='font-black font-display tracking-wide text-lg sm:text-[2.3rem] text-stone-600 mb-1'>Jeff Russ</h1>
-      <h2 className='text-sm'>Software Developer</h2>
+  <section id="resume-header" className='my-0 px-1 lg:my-2 lg:px-6 w-1/2'>
+    <header className='text-xl ml-5 mb-0 text-center not-italic'>
+      <h1 className='font-black font-display tracking-wider text-lg sm:text-[2.8rem] mb-1'>Jeff Russ</h1>
+      <h2 className='text-sm -mb-1'>Software Developer</h2>
     </header>
   </section>
-  <section className='mt-3 px-1 lg:my-2 lg:px-4 w-1/2 text-xs sm:text-[0.78rem] font-sans not-italic align-top'>
+  <section id="resume-contact" className='mt-3 px-1 lg:my-2 lg:px-4 w-1/2 text-xs sm:text-[0.78rem] font-sans not-italic align-top'>
     <a className='nobot jeff-e-mail username-at-moc-liamg align-top' href='ssurnnylyerffej'>ssur</a><br />
     <a className='nobot jeff-ph-num area-exchangenum-702-237' href='5433'>702</a> Glen Rock, NJ <br />
     [LinkedIn](https://www.linkedin.com/in/jeff-russ-a866b648/)
   </section>
 
   {/* Main section 1: Career Objective: One column row */}
-  <section className='mt-2 mb-3 card-section border-2 border-lime-700/20'>
-    <header className='bg-lime-700/20'>
+  <section id='objective' className='card-section'>
+    <header>
       ## Career Objective
     </header>
-    <p className='py-1 my-0 px-2 md:px-6'>With an insatiable appetite for self-learning and creative problem-solving in the area of open-source software projects, 
-    followed by formal education in Computer Science earning a 3.978 GPA, the next step is to apply these disciplines by 
-    engineering software that solves the needs of a particular enterprise and its stakeholders.</p>
+    <p className='py-1 my-0 px-2 md:px-8 lg:px-20'>Driven by an insatiable appetite for exploration and creative problem-solving 
+      in the area of open-source software projects and after years of self-learning, followed by formal education in 
+      Computer Science earning a 3.978 GPA, the next step is to apply these disciplines learned toward 
+      engineering software that solves the needs of a particular enterprise and its stakeholders.</p>
   </section>
   
   {/* Main section 2/4: Formal Education: One column row */}
-  <section className='my-2 card-section border-2 border-orange-700/20'>
-    <header className='bg-orange-700/20'>
+  <section id='education' className='card-section'>
+    <header>
       ## Formal Education
     </header>
     {/* Responstive grid template areas */} 
-    <div className='pl-2 md:pl-6'>
+    <div className='pl-2 md:pl-6 lg:px-20'>
       <ul className='py-1 education-grid-template-areas-wrapper'> 
         <li className='A'> 
           [*Thomas Edison State University*,](https://www.tesu.edu/heavin/)<br className='responsive' /> [*Bachelor's in Computer Science*](https://www.tesu.edu/heavin/ba/computer-science)
@@ -53,9 +54,9 @@ layout: ResumeLayout
             <li>Five President's List Achievements</li>
             <li>Two honor society invitations</li>
             <li>Graduated Dec. 2021</li>
-            <li className='print-hide_NOO'>View <a href='/docs/Jeff-Russ_TESU_diploma.pdf' target='_blank'>Diploma</a> and <a href='/docs/Jeff-Russ_TESU_transcript.pdf' target='_blank'>Transcript</a>{/*TODO fix transcript*/}</li>
+            <li className='print-hide_NOO'>View <a href='http://jeffruss.com/docs/Jeff-Russ_TESU_diploma.pdf' target='_blank'>Diploma</a>, <a href='http://jeffruss.com/docs/Jeff-Russ_TESU_transcript_etc.pdf' target='_blank'>Transcript, etc.</a></li>
           </ul>
-          <p className="transcript-label mt-0 pt-0 ml-10 lg:mt-3">*Career-specific transcript:*</p>
+          <p id='transcript-label' className="mt-0 pt-0 ml-10 lg:mt-3 after:content-[':'] sm:after:content-['→']">*Career-specific transcript*</p>
         </li>
         <li className='B list-none pl-2 sm:pl-0 sm:ml-0 md:ml-0 md:pl-4'>
           <table className=''>
@@ -84,19 +85,20 @@ layout: ResumeLayout
   </section>
 
   {/* Main section 3/4: Additional Training: One column row */}
-  <section className='my-2 card-section border-2 border-amber-600/25'>
-    <header className='bg-amber-700/20'>
+  <section id='additional' className='card-section'>
+    <header>
       ## Certifications, Additional Coursework and Training 
     </header>
-    <div className='pl-2 py-1 my-0 md:px-6'>
+    <div className='pl-2 py-1 my-0 md:px-6 lg:px-20'>
       <ul>
         <li>[*Codecademy*, *Full Stack Engineer — Career Path*](https://www.codecademy.com/learn/paths/full-stack-engineer-career-path) 
-          (Covering HTML, CSS and JavaScript with the MERN Stack, which includes Node, React and Express), Sept. '21 ~ Feb. '22</li>
+          Covered HTML, CSS and JavaScript with the MERN Stack, which includes Node, React and Express. Sept. '21 ~ Feb. '22</li>
         <li>[ColumbiaX (Columbia University via EdX) CSMM.101x Artificial Intelligence](https://www.edx.org/course/artificial-intelligence-ai) 
           Taken in parallel with Thomas Edison State University's AI course as it uses the same textbook but includes work 
           implementing AI algorithms in Python. Feb. '21 ~ Apr. '21</li>
-        <li>[*C++ Institute*, *CPA – C++ Certified Associate Programmer*](https://cppinstitute.org/cpa-c-certified-associate-programmer-certification), 
-          Completed May 2015. <a href='/docs/Jeff-Russ_CppInstituteCertificate.pdf' target='_blank'>View Certificate</a></li>
+        <li>[*C++ Institute*, *CPA – C++ Certified Associate Programmer*](https://cppinstitute.org/cpa-c-certified-associate-programmer-certification)
+          Upon passing in-person test conducted by [Pearson VUE](https://home.pearsonvue.com/cppinstitute/onvue), certification was awarded in May 2015. 
+          <a href='http://jeffruss.com/docs/Jeff-Russ_CppInstituteCertificate.pdf' target='_blank'>View Certificate</a> </li>
         <li>[*CoderManual, Complete Web Developer Bootcamp with Rails*](https://courses.codermanual.com/) 
           (also covering Git/GitHub, JQuery and Bootstrap) Aug '15 ~ Oct '15</li>
       </ul>
@@ -104,11 +106,11 @@ layout: ResumeLayout
   </section>
 
 {/* Main section 4/4: Selected Projects: One column row */}
-  <section className='my-2 card-section border-2 border-cyan-700/20'>
-    <header className='bg-cyan-600/25'>
+  <section id='projects' className='card-section'>
+    <header>
       ## Selected Projects
     </header>
-    <div className='pl-2 py-1 my-0 md:px-6'>
+    <div className='pl-2 py-1 my-0 md:px-6 lg:px-20'>
       <ul>
       <li>**JavaScript (Node), React, Next.js and TailwindCSS**<ul>
           <li className='ml-6'>[next-markdown-journal](https://github.com/Jeff-Russ/next-markdown-journal) 
@@ -121,7 +123,7 @@ layout: ResumeLayout
       <li>**CSS/SCSS, Bootstrap and HTML**<ul>
           <li>[jeffpack-for-wordpress](https://github.com/Jeff-Russ/jeffpack-for-wordpress) 
             — A WordPress Plugin / Theme for editing sites from a local machine with installing & updating 
-            the deployed site done via Git. Last commit: Jan. '17</li>
+            the deployed site done via `git`. Last commit: Jan. '17</li>
           <li>[scoped-bootstrap](https://github.com/Jeff-Russ/scoped-bootstrap) 
             — Apply Bootstrap only to specified HTML elements. Last commit: Aug. '16</li>
           <li>[PlastiCSS](https://github.com/Jeff-Russ/PlastiCSS) 
@@ -152,7 +154,6 @@ layout: ResumeLayout
       </ul>
     </div>
   </section>
-
 </div>
 
 
