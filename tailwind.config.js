@@ -83,6 +83,7 @@ module.exports = {
         sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
         serif: ['Alice', ...defaultTheme.fontFamily.serif],
         display: ['Abril Fatface', ...defaultTheme.fontFamily.serif],
+        mono: ['Source Code ProVariable', ...defaultTheme.fontFamily.mono],
         icons: ['Material Icons', ...defaultTheme.fontFamily.mono], // For guides:
         // see https://developers.google.com/fonts/docs/material_icons
         // and https://fonts.google.com/icons

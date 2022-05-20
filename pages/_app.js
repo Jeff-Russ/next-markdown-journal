@@ -5,6 +5,8 @@ import 'katex/dist/katex.css'
 import '@fontsource/inter/variable-full.css'
 import '@fontsource/alice'
 import '@fontsource/abril-fatface'
+import '@fontsource/source-code-pro/variable.css'
+import '@fontsource/source-code-pro/variable-italic.css'
 import '@fontsource/material-icons'
 
 import { ThemeProvider } from 'next-themes'
