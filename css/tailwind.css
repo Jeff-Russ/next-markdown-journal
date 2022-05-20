@@ -40,13 +40,15 @@ input:-webkit-autofill:focus {
   transition: background-color 600000s 0s, color 600000s 0s;
 }
 
-/* NOTE: the two fixes below, for math and code, were not worth it since they
-   cause serious formatting problems as can be seen in /resume, where inline 
-   code font-size does not match surrounding text and in. The same situation
-   can be seen with inline math in AI-questions posts. Therefore, the fixes have
+/* NOTE: the two fixes below, for math-inline and inline code, were not worth it 
+   since they cause serious formatting problems as can be seen in /resume, where 
+   inline code font-size does not match surrounding text and in. The same situation
+   can be seen with math-inline in AI-questions posts. Therefore, the fixes have
    been retracted. We'll just deal with the widened page on mobile. The pages
    load the correct width and then users can just pan around to see the overflow
-   of the page. Lots of sites have this and it's probably fine.
+   of the page. Lots of sites have this and it's probably fine. 
+   
+   UPDATE: The fixes for math-display were fine. Still retracting math-inline fix.
 
 /* IMPORTANT: Prevent large (wide) blocks math from widening 
    the page by making them horizontally scrollable (for example: 
@@ -72,9 +74,9 @@ input:-webkit-autofill:focus {
 */
 
 /* .math-inline,  */
-/* .math-display {
+.math-display {
   @apply inline-block max-w-full overflow-y-visible overflow-x-scroll whitespace-nowrap;
-} */
+}
 
 /* Wide inline code was also widening the page (for example, see
   posts/AI-questions/AI-4_Logical_Agents_and_First-Order_Logic)
