@@ -12,7 +12,7 @@ This is a personal or professional journal/posts starter build on [Next.js](http
 - Mobile-friendly and responsive
 - SEO friendly with RSS feed, sitemaps, etc.
 - Preconfigured security headers
-- Newsletter support using mailchimp, buttondown, convertkit, klaviyo and revue
+- Newsletter support using mailchimp, buttondown, convertkit, klaviyo, revue, and emailoctopus
 - Analytics support with [plausible](https://plausible.io/), [simple analytics](https://simpleanalytics.com/) and google analytics
 - For all MD/MDX pages:
   - Code blocks with syntax highlighting, copy button, line numbers and line highlighting via [rehype-prism-plus](https://github.com/timlrx/rehype-prism-plus) 
