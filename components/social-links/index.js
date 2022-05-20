@@ -7,6 +7,7 @@ import Twitter from './twitter.svg'
 import Phone from './phone.svg'
 import CodePen from './codepen.svg'
 import Twitch from './twitch.svg'
+import Resume from './resume.svg'
 import ExternalLink from './externalLink.svg'
 
 // Icons taken from: https://simpleicons.org/
@@ -21,6 +22,7 @@ const components = {
   phone: Phone,
   codepen: CodePen,
   twitch: Twitch,
+  resume: Resume,
   externalLink: ExternalLink,
 }
 

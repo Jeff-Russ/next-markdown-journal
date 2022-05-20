@@ -48,7 +48,7 @@ export default function Home({ posts, initialDisplayPosts }) {
           <ThemeSwitch />
         </div>
       </header>
-      <div className="grid h-fit min-w-[400px] place-items-center rounded-2xl bg-gray-700 pt-2 pb-2 shadow-2xl dark:bg-inherit">
+      <div className="grid h-fit min-w-[400px] max-w-[700px] place-items-center rounded-2xl bg-gray-700 pt-6 pb-2 shadow-2xl dark:bg-inherit">
         {/* 'ml-0 sm:ml-2 md:ml-8 '> */}
         <div className="sm:flex">
           <div
