@@ -8,7 +8,7 @@ const siteMetadata = {
   siteUrl: 'https://www.jeffruss.com',
   siteRepo: 'https://github.com/Jeff-Russ/next-markdown-journal',
   siteLogo: '/static/images/logo.png',
-  image: '/static/images/avatar.png',
+  image: '/static/images/authors/jeffruss-avatar.png', // where is this used?
   socialBanner: '/static/images/twitter-card.png',
   email: '', // 'jeffreylynnruss@gmail.com'
   github: 'https://github.com/Jeff-Russ/',

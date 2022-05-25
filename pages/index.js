@@ -8,6 +8,7 @@ import navLinks, { homeNavOrder } from '@/data/navLinks'
 import NewsletterForm from '@/components/NewsletterForm'
 import ListLayout from '@/layouts/ListLayout'
 import TypingAnimation from '@/components/TypingAnimation'
+import ReactIcon from '@/components/ReactIcon'
 
 const MAX_DISPLAY = 5
 
@@ -107,7 +108,11 @@ export default function Home({ posts, initialDisplayPosts }) {
                               sm:text-left sm:font-medium md:ml-3 md:px-4"
                 >
                   <Link href={navLinks[i].href}>
-                    <p className="material-icons sm:inline">{navLinks[i].materialIcon[0]}</p>&nbsp;
+                    <p className="material-icons">
+                      {/*navLinks[i].materialIcon[0]*/}
+                      <ReactIcon kind={navLinks[i].reactIcon[0]} />
+                    </p>
+                    &nbsp;
                     <p className="sm:inline sm:align-text-top ">{navLinks[i].title}</p>
                   </Link>
                 </div>

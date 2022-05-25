@@ -6,12 +6,17 @@ import CustomLink from './Link'
 import TOCInline from './TOCInline'
 import Pre from './Pre'
 import { BlogNewsletterForm } from './NewsletterForm'
+import ReactIcon, { TechIcon } from './ReactIcon'
+import IconLink from './IconLink'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
 export const MDXComponents = {
   Image,
   TOCInline,
+  ReactIcon,
+  TechIcon,
+  IconLink,
   a: CustomLink,
   pre: Pre,
   BlogNewsletterForm: BlogNewsletterForm,

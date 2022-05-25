@@ -1,6 +1,6 @@
 ---
 name: Jeff Russ
-avatar: /static/images/avatar.png
+avatar: /static/images/authors/jeffruss-avatar.png
 occupation: Musician and Software Developer
 company: Thomas Edison University
 linkedin: https://www.linkedin.com/in/jeffruss/

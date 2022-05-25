@@ -32,6 +32,7 @@ This is a personal or professional journal/posts starter build on [Next.js](http
 - [Customized Usage](#customized-usage)
   - [Overview](#overview)
   - [Tips for favicons](#tips-for-favicons)
+  - [Adding & Removing Authors](#adding-&-removing-authors)
   - [Authoring Content](#authoring-content)
     * [Table of Contents component](#table-of-contents-component)
     * [Code blocks](#code-block-line-highlighting-and-line-numbers)
@@ -101,7 +102,7 @@ Additionally you may need or want to do the following:
 * Modify `tailwind.config.js` and `css/tailwind.css`  to change styling of the site.
 * Modify or add files to `layouts/` to change the layout and styling pages. The component filenames must match what it specified in the markdown frontmatter `layout` field. 
 * Modify `css/prism.css` to change the styles associated with the code blocks, such as by using your preferred [prism theme](https://github.com/PrismJS/prism-themes).
-* Add other icons to `components/social-links`  such as from [Simple Icons](https://simpleicons.org/) or [heroicons](https://heroicons.com/).and map them in `index.js`. 
+* Add other icons to `components/IconLink`  such as from [Simple Icons](https://simpleicons.org/) or [heroicons](https://heroicons.com/).and map them in `index.js`. 
 * Modify `data/navLinks.js` if you'd like to change the links in the navbar. 
 * Modify `./components/Pre.js` to customize how all code blocks (rendered as `<pre>` elements) are rendered.
 * Install and use a self-hosted font from [Fontsource](https://fontsource.org/). 
@@ -143,6 +144,18 @@ Alternatively, you can create one with a simple paint app with  then open it wit
 * Then in File > Document Properties open the drop-down for "Resize page to content..." and hit the "Resize page to drawing or selection."
 * Then in Path > Trace Bitmap, click on "Multiple scans." We'll do this by Colors and there should be 3 scans if you have two colors + bg or 2 scans if you have one color + background. I found (for two colors) that de-selecting "Remove Background" worked best. I had "Smooth" but not "Stack" both selected. Setting "Speckles" all the way to 5.00 make tweaking the nodes easier later. For "Speckles" I selected 400 and for "Smooth Corners" I selected 1.12 but your results may vary. 
 * Select the entire image and hit "Apply." Now you can choose the "Edit Paths by Node" tool and tweak them.
+
+### Adding & Removing Authors
+
+Each `/data/authors/*.md` adds a new author. The filename, without extension, is the author slug which is referenced in a few places:
+
+* The `defaultAuthorSlug` property the `data/siteMetadata.js` object is the author slug for the default author, that is... the author associated with any post that does not specify the `author` in its frontmatter.
+* `/about` Pages:
+  * The default author's information set in `/data/authors/<defaultAuthorSlug>.md` is displayed at the `/about` page as well as  `/about/<defaultAuthorSlug>` page. 
+  * Additional author information from the other authors set in `/data/authors/<authorSlug>.md` are displayed in the  `/about/<authorSlug>` pages.
+* The `/projects` page  is currently populated by the contents of `/data/projectsData.js`. TODO: this will soon be moved to `data/projects/<defaultAuthorSlug>.md` where:
+  * The default author's project set  in `/data/project/<defaultAuthorSlug>.md` is displayed at the `/projects` page as well as  `/projects/<defaultAuthorSlug>` page. 
+  * Additional author information from the other authors set in `/data/projects/<authorSlug>.md` are displayed in the  `/projects/<authorSlug>` pages.
 
 ### Authoring Content
 
