@@ -12,9 +12,9 @@ const projectsData = [
       },
       {
         title: 'AdblibBlaster aka JuceOPLVSTi',
-        description: `AdblibBlaster is AUi a port for macOS of bsutherland's JuceOPLVSTi, a VST instrument emulating the Yamaha OPL sound chip used in the AdLib FM synthesis soundcards from the 90s`,
+        description: `<!--MD-->AdblibBlaster is AUi a port for macOS of <a href="https://bsutherland.github.io/JuceOPLVSTi/" target="_blank">bsutherland's JuceOPLVSTi</a>, a VST instrument emulating the Yamaha OPL sound chip used in the AdLib FM synthesis soundcards from the 90s`,
         imgSrc: '/static/images/projects/adlibblaster.png',
-        href: 'https://bsutherland.github.io/JuceOPLVSTi/',
+        href: 'https://jeff-russ.github.io/AdlibBlaster/',
         techIcons: ['cpp', 'dsp'],
       },
       {
