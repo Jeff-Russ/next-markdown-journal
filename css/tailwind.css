@@ -19,6 +19,27 @@
 }
 
 /******************************************************************************
+This was included in  @fontsource/material-icons which was removed from as a 
+dependancy. But I liked the look so I grabbed it and pasted it here:*/
+
+.material-icons {
+  /* font-family: Material Icons; */
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/******************************************************************************
 Animations */
 
 @keyframes blink {
@@ -212,6 +233,24 @@ TARGETING LAYOUTS */
   color: #179d8d;
   text-decoration: underline;
   font-weight: 500;
+}
+
+/*
+flex-[2_0_21%] is 4 per row https://stackoverflow.com/questions/29546550/flexbox-4-items-per-row/45384426 
+
+
+*/
+
+@media not print {
+  .resume-layout #tech-list > * {
+    @apply flex-[2_0_19%] md:flex-[2_0_8%];
+  }
+}
+
+@media print {
+  .resume-layout #tech-list > * {
+    @apply flex-[2_0_8%];
+  }
 }
 
 .resume-layout ul {

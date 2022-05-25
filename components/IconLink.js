@@ -1,14 +1,14 @@
-import Mail from './mail.svg'
-import Github from './github.svg'
-import Facebook from './facebook.svg'
-import Youtube from './youtube.svg'
-import Linkedin from './linkedin.svg'
-import Twitter from './twitter.svg'
-import Phone from './phone.svg'
-import CodePen from './codepen.svg'
-import Twitch from './twitch.svg'
-import Resume from './resume.svg'
-import ExternalLink from './externalLink.svg'
+import Mail from './svg/mail.svg'
+import Github from './svg/github.svg'
+import Facebook from './svg/facebook.svg'
+import Youtube from './svg/youtube.svg'
+import Linkedin from './svg/linkedin.svg'
+import Twitter from './svg/twitter.svg'
+import Phone from './svg/phone.svg'
+import CodePen from './svg/codepen.svg'
+import Twitch from './svg/twitch.svg'
+import Resume from './svg/resume.svg'
+import ExternalLink from './svg/externalLink.svg'
 
 // Icons taken from: https://simpleicons.org/
 
@@ -26,7 +26,7 @@ const components = {
   externalLink: ExternalLink,
 }
 
-const SocialLink = ({ textOnly, kind, href, size = 8 }) => {
+const IconLink = ({ textOnly, kind, href, size = 8 }) => {
   if (!href) return null
 
   const SocialSvg = components[kind]
@@ -62,4 +62,4 @@ const SocialLink = ({ textOnly, kind, href, size = 8 }) => {
   )
 }
 
-export default SocialLink
+export default IconLink

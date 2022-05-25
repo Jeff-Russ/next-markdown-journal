@@ -1,6 +1,6 @@
 ---
 name: Tails Azimuth
-avatar: /static/images/tailsazimuth-avatar.png
+avatar: /static/images/authors/tailsazimuth-avatar.png
 occupation: Professor of Atmospheric Science
 company: Stanford University
 email: address@yoursite.com
