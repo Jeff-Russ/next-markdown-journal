@@ -9,7 +9,7 @@ const Card = ({ title, description, imgSrc, href, date, techIcons }) => (
       className={`h-full overflow-hidden rounded-md border-2 border-gray-200 border-opacity-60 shadow-md dark:border-gray-700 dark:shadow-stone-900`}
     >
       <div className="p-6">
-        <h2 className="mb-3 text-2xl font-bold leading-8 tracking-normal">
+        <h2 className="mb-3 text-base font-bold leading-8 tracking-normal">
           {href ? (
             <Link href={href} aria-label={`Link to ${title}`}>
               {title}
@@ -50,23 +50,25 @@ const Card = ({ title, description, imgSrc, href, date, techIcons }) => (
               height={306}
             />
           ))}
-        <p className="prose mb-3 max-w-none text-gray-500 dark:text-gray-400">{description}</p>
-
+        <p className="prose mb-3 max-w-none text-gray-500 dark:text-gray-400">
+          {description}
+          {href && (
+            <Link
+              href={href}
+              className="float-right text-base font-medium leading-6 text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+              aria-label={`Link to ${title}`}
+            >
+              Learn more &rarr;
+            </Link>
+          )}
+        </p>
         {techIcons && (
-          <div className="m-2 grid grid-flow-row-dense grid-cols-6">
+          <div className="mx-0.5 mt-8 mb-2 flex flex-wrap gap-2">
+            {/* grid grid-flow-row-dense grid-cols-4 sm:grid-cols-4 lg:grid-cols-6 */}
             {techIcons.map((tech) => (
-              <TechIcon key={tech} kind={tech} />
+              <TechIcon key={tech} kind={tech} className="flex-[0_0_65px]" />
             ))}
           </div>
-        )}
-        {href && (
-          <Link
-            href={href}
-            className="text-base font-medium leading-6 text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-            aria-label={`Link to ${title}`}
-          >
-            Learn more &rarr;
-          </Link>
         )}
       </div>
     </div>
