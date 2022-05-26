@@ -242,5 +242,25 @@ module.exports = {
       }),
     },
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+  // BEGIN added for SASS:
+  // @see https://tailwindcss.com/docs/upcoming-changes
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
+  },
+  // purge: [
+  // 	'./src/components/**/*.js',
+  // 	'./pages/**/*.js'
+  // ],
+  // END added for SASS
+  variants: {},
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    // BEGIN added for SASS:
+    require('tailwindcss'),
+    require('precss'),
+    require('autoprefixer'),
+    // END added for SASS
+  ],
 }

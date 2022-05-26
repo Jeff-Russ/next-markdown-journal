@@ -1,3 +1,5 @@
+const path = require('path') // Added for SASS
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
@@ -98,4 +100,20 @@ module.exports = withBundleAnalyzer({
 
     return config
   },
+
+  // BEGIN added for SASS
+
+  trailingSlash: true,
+  webpackDevMiddleware: (config) => {
+    config.watchOptions = {
+      poll: 1000,
+      aggregateTimeout: 300,
+    }
+    return config
+  },
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
+  },
+
+  // END added for SASS
 })
