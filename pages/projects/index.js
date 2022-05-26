@@ -6,11 +6,11 @@ import { PageSEO } from '@/components/SEO'
 export default function Projects() {
   // Showcase your projects with a hero image (16 x 9)
 
-  const sections = projectsData.filter(
-    (section) => !section.hideAll && section.sectionEntries.length !== 0
+  const sections = projectsData[siteMetadata.defaultAuthorSlug].filter(
+    (section) => !section.hideAll && section.projects.length !== 0
   )
   sections.forEach((section, index) => {
-    sections[index].sectionEntries = section.sectionEntries.filter((project) => !project.hidden)
+    sections[index].projects = section.projects.filter((project) => !project.hidden)
   })
 
   return (
@@ -24,15 +24,15 @@ export default function Projects() {
         </div>
         {sections.map((section) => (
           <div
-            key={section.sectionHeader}
+            key={section.sectionHeading}
             className="divide-gray-200 border-b py-8 dark:divide-gray-700"
           >
             <h2 className="-ml-0.5 pb-4 text-lg font-bold leading-8 tracking-normal">
-              {section.sectionHeader}
+              {section.sectionHeading}
             </h2>
             <div className="container">
               <div className="-m-4 flex flex-wrap">
-                {section.sectionEntries.map((entry) => (
+                {section.projects.map((entry) => (
                   <Card
                     key={entry.title}
                     imgSrc={entry.imgSrc}

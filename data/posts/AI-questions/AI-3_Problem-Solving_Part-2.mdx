@@ -10,7 +10,7 @@ First, I've included Exercise 3.3, since it is referenced in Exercise 5.3.
 
 > **3.3** *Suppose two friends live in different cities on a map, such as the Romania map shown in Figure 3.2. On every turn, we can simultaneously move each friend to a neighboring city on the map. The amount of time needed to move from city $i$ to neighbor $j$ is equal to the road distance $d(i, j)$ between the cities, but on each turn the friend that arrives first must wait until the other one arrives (and calls the first on his/her cell phone) before the next turn can begin. We want the two friends to meet as quickly as possible* (Russell & Norvig, 2010).
 > 
-> ![Figure3.2](/static/images/AI-x/AI-3_Figure3.2.png)
+> ![Figure3.2](/static/images/posts/AI-questions/AI-3_Figure3.2.png)
 
 
 ## 1. Two-Player Pursuit–Evasion Game
@@ -18,14 +18,14 @@ First, I've included Exercise 3.3, since it is referenced in Exercise 5.3.
 > **5.3** *Imagine that, in Exercise 3.3, one of the friends wants to avoid the other. The problem then becomes a two-player **pursuit–evasion** game. We assume now that the players take turns moving. The game ends only when the players are on the same node; the terminal payoff to the pursuer is minus the total time taken. (The evader “wins” by never losing.) An example is shown in Figure 5.16* 
 >
 > {/* <img src="https://media.cheggcdn.com/media/e79/e79fa141-25cc-49dd-8c43-d211d678696b/phpG9B9es.png" style="zoom:33%;" /> */}
-> ![Figure 5.16](/static/images/AI-x/AI-3_Figure5.16.png)
+> ![Figure 5.16](/static/images/posts/AI-questions/AI-3_Figure5.16.png)
 > 
 > **Figure 5.16** **(a)** A map where the cost of every edge is 1. Initially the pursuer $P$ is at node (b) and the evader $E$ is at node (d). **(b)** A partial game tree for this map. Each node is labeled with the $P$, $E$ positions. $P$ moves first. Branches marked “?” have yet to be explored 
 > (Russell & Norvig, 2010).
 
 Before I answer part **a.**, the full state space is not that large if drawn as a graph and it is useful to look at below. The grey nodes are one's not in Figure 5.16 and the red square nodes are terminal nodes where the pursuing (AI) agent succeeds in capturing the evader.  Note that the entire right subtree, descending from `ad` is not worth pursing and, if we (MAX) took it every single time, the evader would win with an infinite game. Hence, the maximizing agent must always choose the left subtree with `cd`. 
 
-![5.3 full graph](/static/images/AI-x/AI-3_5.3_full_graph.png)
+![5.3 full graph](/static/images/posts/AI-questions/AI-3_5.3_full_graph.png)
 
 
 
@@ -38,7 +38,7 @@ First note the following:
 
 It's unclear which we're expected to answer. It if should be an edge cost of 1, why they are having us apply it to the Romania map example and define the terminal payoff? So, I will answer this question both ways with *1*. in pink and *2*. in green. The key on the smaller tree on the upper left shows what city I've chosen to assign each letter to and what the distances are between the cities. These distances are also labeled on the connections in the large tree. 
 
-![5.3a](/static/images/AI-x/AI-3_5.3a.png)
+![5.3a](/static/images/posts/AI-questions/AI-3_5.3a.png)
 
 
 > **b.** *Next to each internal node, write the strongest fact you can infer about its value (a number, one or more inequalities such as “≥ 14”, or a “?”).*
@@ -46,7 +46,7 @@ It's unclear which we're expected to answer. It if should be an edge cost of 1, 
 
 I wrote them inside the node and again, I answered this question both ways with *1*. in pink and *2*. in green. Note that rather than writing the node reached beneath the question marks I've replaced the question marks with the node reached. I've also written a node or two reachable thereafter. 
 
-![5.3b](/static/images/AI-x/AI-3_5.3b.png)
+![5.3b](/static/images/posts/AI-questions/AI-3_5.3b.png)
 
 
 > **d.** *Explain how a bound on the value of the nodes in (c) can be derived from consideration of shortest-path lengths on the map, and derive such bounds for these nodes. Remember the cost to get to each leaf as well as the cost to solve it* (Russell & Norvig, 2010).
@@ -57,7 +57,7 @@ I've already provided bounds on values for all nodes on the tree, both in terms 
 
 > **e.** *Now suppose that the tree as given, with the leaf bounds from (d), is evaluated from left to right. Circle those “?” nodes that would not need to be expanded further, given the bounds from part (d), and cross out those that need not be considered at all* (Russell & Norvig, 2010).
 
-![5.3d](/static/images/AI-x/AI-3_5.3d.png)
+![5.3d](/static/images/posts/AI-questions/AI-3_5.3d.png)
 
 
 > **f.** *Can you prove anything in general about who wins the game on a map that is a tree?* (Russell & Norvig, 2010)
@@ -81,7 +81,7 @@ The proof of this is definitively demonstrated by tree diagrams together with th
 
 ## 2. Adversarial Search
 
-> ![Figure5.17](/static/images/AI-x/AI-3_Figure5.17.png)
+> ![Figure5.17](/static/images/posts/AI-questions/AI-3_Figure5.17.png)
 > 
 > **Figure 5.17** *The starting position of a simple game. Player $A$ moves first. The two players take turns moving, and each player must move his token to an open adjacent space in either direction. If the opponent occupies an adjacent space, then a player may jump over the opponent to the next open space if any. (For example, if $A$ is on 3 and $B$ is on $2,$ then $A$ may move back to 1.) The game ends when one player reaches the opposite end of the board. If player $A$ reaches space 4 first, then the value of the game to $A$ is $+1 ;$ if player $B$ reaches space 1 first, then the value of the game to $A$ is -1* (Russell & Norvig, 2010).
 
@@ -101,7 +101,7 @@ Below is the answer for both part **a** and **b**, with **b** shown in the color
 * The adversary would also choose a win for them over looping forever with '?' so `MAX(+1,'?')` should return +1.
 * In order to back-up "?" `MAX('?')` or `MIN('?')` should return '?' no matter how many '?' there are (if '?' is the only argument value).
 
-![3_5.8ab](/static/images/AI-x/AI-3_5.8ab.png)
+![3_5.8ab](/static/images/posts/AI-questions/AI-3_5.8ab.png)
 
 > **c.** *Explain why the standard minimax algorithm would fail on this game tree and briefly sketch how you might fix it, drawing on your answer to (b). Does your modified algorithm give optimal decisions for all games with loops?* (Russell & Norvig, 2010)
 
@@ -131,7 +131,7 @@ First note that the stated implication can only be proven for an optimal opponen
 
 {/* <img src="https://media.cheggcdn.com/study/49a/49a8073b-b7b9-442c-9a36-2bee2ca62789/7445-5-16EEI1.png" style="zoom:70%;" />  */}
 
-> ![Figure5.19](/static/images/AI-x/AI-3_Figure5.19.png)
+> ![Figure5.19](/static/images/posts/AI-questions/AI-3_Figure5.19.png)
 > 
 > **Figure 5.19** The complete game tree for a trivial game with chance nodes (Russell & Norvig, 2010).
 
@@ -140,7 +140,7 @@ First note that the stated implication can only be proven for an optimal opponen
 > **a.** *Copy the figure, mark the value of all the internal nodes, and indicate the best move at the root with an arrow* (Russell & Norvig, 2010).
 
 
-![5.16a](/static/images/AI-x/AI-3_5.16a.png)
+![5.16a](/static/images/posts/AI-questions/AI-3_5.16a.png)
 
 The circle shaped chance node's values are the averages of their children's values (sum of two child values, each multiplied by $0.5$), which are MIN values determined normally. The root will choose the left subtree as the average 1.5 is greater than -0.5.
 
@@ -170,7 +170,7 @@ After reading the fifth leaf, the right-hand chance node's value equates to $\df
 
 So we have at least $\dfrac{0-2}{2}=-2$ and no more that  $\dfrac{0+2}{2}=1$. The MAX root node will always choose the left-hand chance node since it is 1.5, which is larger than any number in this range. Therefore, the last 3 leaf nodes do not need to be evaluated.
 
-![5.16d](/static/images/AI-x/AI-3_5.16d.png)
+![5.16d](/static/images/posts/AI-questions/AI-3_5.16d.png)
 
 ---
 
@@ -179,7 +179,7 @@ So we have at least $\dfrac{0-2}{2}=-2$ and no more that  $\dfrac{0+2}{2}=1$. Th
 > **6.1** *How many solutions are there for the map-coloring problem in Figure 6.1? How many solutions if four colors are allowed? Two colors?* 
 >
 >
-> ![Figure6.1](/static/images/AI-x/AI-3_Figure6.1.png)
+> ![Figure6.1](/static/images/posts/AI-questions/AI-3_Figure6.1.png)
 > 
 > **Figure 6.1** *(a) The principal states and territories of Australia. Coloring this map can be viewed as a constraint satisfaction problem (CSP). The goal is to assign colors to each region so that no neighboring regions have the same color. (b) The map-coloring problem represented as a constraint graph* (Russell & Norvig, 2010).
 

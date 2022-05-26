@@ -7,7 +7,6 @@ linkedin: https://www.linkedin.com/in/jeffruss/
 github: https://github.com/Jeff-Russ/
 resume: https://www.jeffruss.com/resume
 # email: jeffreylynnruss@gmail.com
-preferredSocials: ['linkedin','github']
 ---
 
 Jeff Russ is software developer from the New York metropolitan area. He is a graduate of Computer Science at [Thomas Edison University](https://www.tesu.edu/) and Music Performace at [Rutgers University's Mason Gross School of the Arts](https://www.masongross.rutgers.edu/).
