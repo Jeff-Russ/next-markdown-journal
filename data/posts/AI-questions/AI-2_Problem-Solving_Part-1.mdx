@@ -79,7 +79,7 @@ This implementation works with any size of (symmetrical) 2-dimensional array. On
 I've found a loophole!  A typical *human* can reach an object that is roughly 1.34 $\times$ their height ([source](https://www.thehoopsgeek.com/standing-reach/#:~:text=Relationship%20between%20standing%20reach%20and%20height%3A&text=This%20means%20the%20average%206,far%20longer%20arms%20than%20others.)) and monkeys have arm lengths in ratio to their heights which are significantly greater than that of humans. I'll estimate the monkey's reach to be $\approx 1.6 \times$ their height (it's actually much more than that) which gives a 3-foot-tall monkey 4.8 foot reach in our case. Add one 3-foot-tall crate and we have a 7.8 foot reach. The average length of a banana is 7 inches ([source](https://healthyeating.sfgate.com/portion-size-bananas-7664.html)), which is $0.58\overline3$ feet, which I'll increase a bit for the string to $0.7$ feet so the monkey's reach only needs to be something like 7.5 feet (I'm adding 2.4 inches for the fingers to grab).  Therefore, the monkey only needs one crate! 
 
 {/* <img src="https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2015/3-chimpanzeess.jpg" style="zoom:20%;" />  */}
-![chimpanzeess](/static/images/AI-x/AI-2_chimpanzeess.png)
+![chimpanzeess](/static/images/posts/AI-questions/AI-2_chimpanzeess.png)
 
 - **Actions**: $(1...9)$. The monkey will need to get off of the crate (if already on one) in order to move it and then soon after the monkey will be on top of it in its new position. Therefore, we can compress these actions into one and consider the monkey's position to be synonymous with the crate position. The unneeded second crate *does* still exist but if the monkey needs to move the first crate to the second crate's position, they can just place it on top and thus, we can ignore this detail. So the action need only be a single integer from 1 to 9. 
 - **States:** $n$-tuple. I'll assume the crate is large enough in relation to the area of the floor such that it can only be in a position that is at least close enough to be under a banana. With $n$ bananas in $n$ positions, we need our state to store which of the $n$ position our monkey + crate and are in, and for each of the $n$ position we need to keep track of whether the banana is still there and has not been taken (0) or has already been taken (1). So, say we have nine possible position, meaning $n=9$. Then we need an $10$-tuple where the first element is the index of the monkeys position in the proceeding 9 elements are each boolean (of value 0 or 1). The first element can be of value $1...9$.
@@ -155,7 +155,7 @@ True. Cost means nothing to the breadth-first search, which will always find a s
 False. In the figure below, the Manhattan distance from one black dot to the other is the length of the blue line, and it requires 12 moves. The rook can do this in one move, as shown by the blue line. The figure below is not a chessboard so the numbers would differ but the principal is the same. If our heuristic estimation of the number of moves is based on the Manhattan distance, it would be capable of overestimating it to be more moves than it actually is, and admissible heuristic never does this.
 
 {/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/1200px-Manhattan_distance.svg.png" style="zoom:17%;" />  */}
-![Manhattan distance](/static/images/AI-x/AI-3_Manhattan_distance.png)
+![Manhattan distance](/static/images/posts/AI-questions/AI-3_Manhattan_distance.png)
 from [Taxicab geometry - Wikipedia](https://en.wikipedia.org/wiki/Taxicab_geometry) 
 
 ---
@@ -165,8 +165,8 @@ from [Taxicab geometry - Wikipedia](https://en.wikipedia.org/wiki/Taxicab_geomet
 > **3.15** Consider a state space where the start state is number 1 and each state $k$ has two successors: numbers $2 k$ and $2 k+1$.  
 > **a.** Draw the portion of the state space for states 1 to 15 (Russell & Norvig, 2010).
 
-{/* <img src="/static/images/AI-x/AI-2_3.15a.png" alt="3.15" style="zoom:67%;" />  */}
-![3.15](/static/images/AI-x/AI-2_3.15a.png) 
+{/* <img src="/static/images/posts/AI-questions/AI-2_3.15a.png" alt="3.15" style="zoom:67%;" />  */}
+![3.15](/static/images/posts/AI-questions/AI-2_3.15a.png) 
 
 As an aside, this tree's state numbers correspond with the indexes a binary heap would be stored in its array, if the array used 1-based indexing.
 

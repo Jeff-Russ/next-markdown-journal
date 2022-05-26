@@ -33,6 +33,8 @@ This is a personal or professional journal/posts starter build on [Next.js](http
   - [Overview](#overview)
   - [Tips for favicons](#tips-for-favicons)
   - [Adding & Removing Authors](#adding-&-removing-authors)
+  - [Creating Projects Pages](#creating-projects-pages)
+  - [Creating About Pages](#creating-about-pages)
   - [Authoring Content](#authoring-content)
     * [Table of Contents component](#table-of-contents-component)
     * [Code blocks](#code-block-line-highlighting-and-line-numbers)
@@ -145,7 +147,7 @@ Alternatively, you can create one with a simple paint app with  then open it wit
 * Then in Path > Trace Bitmap, click on "Multiple scans." We'll do this by Colors and there should be 3 scans if you have two colors + bg or 2 scans if you have one color + background. I found (for two colors) that de-selecting "Remove Background" worked best. I had "Smooth" but not "Stack" both selected. Setting "Speckles" all the way to 5.00 make tweaking the nodes easier later. For "Speckles" I selected 400 and for "Smooth Corners" I selected 1.12 but your results may vary. 
 * Select the entire image and hit "Apply." Now you can choose the "Edit Paths by Node" tool and tweak them.
 
-### Adding & Removing Authors
+### Adding Authors
 
 Each `/data/authors/*.md` adds a new author. The filename, without extension, is the author slug which is referenced in a few places:
 
@@ -153,9 +155,35 @@ Each `/data/authors/*.md` adds a new author. The filename, without extension, is
 * `/about` Pages:
   * The default author's information set in `/data/authors/<defaultAuthorSlug>.md` is displayed at the `/about` page as well as  `/about/<defaultAuthorSlug>` page. 
   * Additional author information from the other authors set in `/data/authors/<authorSlug>.md` are displayed in the  `/about/<authorSlug>` pages.
-* The `/projects` page  is currently populated by the contents of `/data/projectsData.js`. TODO: this will soon be moved to `data/projects/<defaultAuthorSlug>.md` where:
-  * The default author's project set  in `/data/project/<defaultAuthorSlug>.md` is displayed at the `/projects` page as well as  `/projects/<defaultAuthorSlug>` page. 
-  * Additional author information from the other authors set in `/data/projects/<authorSlug>.md` are displayed in the  `/projects/<authorSlug>` pages.
+* The `/projects` page, as well as `/projects/<authorSlug>`  work in a similar manner but all context is set in a single file:  `/data/projectsData.js`.  which exports an objects called  `projectsData`.
+
+### Creating Projects Pages
+
+Each property of the `projectsData` object is named to match an author slug (see [Adding & Removing Authors](#adding-&-removing-authors)). The one matching the `defaultAuthorSlug` property the `data/siteMetadata.js` will be found at two pages: `/projects` and `/projects/<defaultAuthorSlug>` along with any other authors at other `/projects/<authorSlug>` which are added to as properties to `projectsData`.
+
+Each property of `projectsData` is an array of sections (JS objects), each used to create a section within a projects page. Each section must have a `sectionHeading` string property and a `projects` array property. It may optionally have a `hideAll` boolean property.
+
+Each element in `projects` must have `title` and `description` string properties. If the `description` string starts with `<!--MD-->`, it will be parsed as markdown. It's recommended to have the properties `href`, string url  and `imgSrc`, a string path to an image for each project and its recommended to store images within `/static/images/projects/<authorSlug>`.  Other optional properties include a `date` string property as well as a `techIcons` array of strings property. Each of these  tech icons strings must be presents in the `techIconsAvailable` array found in `components/ReactIcon.js`. 
+
+The default author as a link to their "projects" page on the nav bar but there is currently no index of links to "projects" pages for other authors. For these other authors, its recommended to create a link to their projects page from their "about" page. 
+
+### Creating About Pages
+
+Each other found in `/data/authors/<authorSlug>.md` can have an `/about/<authorSlug>` pages if they create an about file as `data/authors/<authorSlug>.md`.  The page `/about` is for the default author, set by the `defaultAuthorSlug` property the `data/siteMetadata.js`. and this page is required so there must be a `data/authors/<defaultAuthorSlug>.md` file. 
+
+```yaml
+name: Guy Mann                                    # required
+avatar: /static/images/authors/guymann-avatar.png # required
+occupation: Musician and Software Developer       # required
+company: Thomas Edison University                 # require
+github: https://github.com/guymann/               # optional
+linkedin: https://www.linkedin.com/in/guymann     # optional
+twitter: https://twitter.com/guymann              # optional
+resume: https://www.guymann.com/guymann           # optional
+email: guymann@gmail.com                          # optional
+```
+
+The default author as a link to their "about" page on the nav bar but there is currently no index of links to author ("about") pages for other authors. There are links, however, to these pages in posts they've authored. 
 
 ### Authoring Content
 
