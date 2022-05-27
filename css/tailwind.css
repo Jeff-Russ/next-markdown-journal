@@ -227,19 +227,37 @@ TARGETING LAYOUTS */
 } */
 
 /*.................................................................
-  ResumeLayout  */
+  ResumeLayout NEW */
 
-.resume-layout a {
-  color: #179d8d;
-  text-decoration: underline;
-  font-weight: 500;
+/* https://stackoverflow.com/questions/5497112/can-you-apply-css-only-on-text-that-is-wrapped-i-e-the-second-and-subsequent-l */
+.resume-layout li {
+  display: block;
+  padding-left: 0.5em;
+  text-indent: -0.5em;
 }
 
-/*
-flex-[2_0_21%] is 4 per row https://stackoverflow.com/questions/29546550/flexbox-4-items-per-row/45384426 
+.resume-layout ul {
+  list-style-type: circle;
+}
 
+.resume-layout a {
+  @apply font-medium text-inherit underline dark:text-inherit;
+}
 
-*/
+.resume-layout a.styled-link {
+  @apply text-[#377971] dark:text-[#4f8e87];
+}
+
+.resume-layout blockquote {
+  @apply my-1 border-l-4 border-[#b1b4b9] bg-[#edf1f7] py-[4px] px-[15px] dark:bg-[#373334];
+}
+
+.resume-layout blockquote blockquote {
+  padding-right: 0em;
+}
+
+/*.................................................................
+  ResumeLayout  */
 
 @media not print {
   .resume-layout #tech-list > * {
@@ -340,6 +358,9 @@ flex-[2_0_21%] is 4 per row https://stackoverflow.com/questions/29546550/flexbox
   }
   .resume-layout #objective {
     @apply mt-2;
+  }
+  .resume-layout svg {
+    @apply shadow-none;
   }
 }
 
