@@ -244,6 +244,10 @@ TARGETING LAYOUTS */
   @apply font-medium text-inherit underline dark:text-inherit;
 }
 
+.dark\:prose-dark a {
+  color: inherit !important;
+}
+
 .resume-layout a.styled-link {
   @apply text-[#377971] dark:text-[#4f8e87];
 }
