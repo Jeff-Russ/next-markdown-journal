@@ -124,9 +124,10 @@ export const techIconsAvailable = [
 /**
  * Returns a labeled icon for various technologies.
  * @param {string} kind - can by any string found in techIconsAvailable
- * @returns A div with an approximate height of 70px, containing a labeel and svg of the icon.
+ * @param {number} size - The size of the icon + label in pixels is 70 * size
+ * @returns A div containing a label and svg of the icon.
  */
-export function TechIcon({ kind, ...rest }) {
+export function TechIcon({ kind, size = 1, showLabel = true, ...rest }) {
   const classAppend = rest.className || ''
   delete rest.className
 
@@ -137,266 +138,608 @@ export function TechIcon({ kind, ...rest }) {
           className={`text-center font-serif italic leading-none text-[#98963c] ${classAppend}`}
           {...rest}
         >
-          <p className="-mb-1 font-bold leading-none">JavaScript</p>
-          <ReactIcon kind={'di.DiJavascript'} size={`68`} className="-mb-[6px]" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${-0.25 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              JavaScript
+            </p>
+          )}
+          <ReactIcon
+            kind={'di.DiJavascript'}
+            size={`${68 * size}`}
+            style={{ marginBottom: `${-6 * size}px` }}
+          />
         </div>
       )
     case 'bootstrap':
       return (
         <div
-          className={`px-0 pb-1 text-center font-serif italic leading-none text-[#672ce7] ${classAppend}`}
+          style={{
+            paddingLeft: `0px`,
+            paddingRight: `0px`,
+            paddingBottom: `${0.25 * size}rem`,
+          }}
+          className={`text-center font-serif italic leading-none text-[#672ce7] ${classAppend}`}
           {...rest}
         >
-          <p className="font-bold leading-none ">Bootstrap</p>
-          <ReactIcon kind={'si.SiBootstrap'} size={`56`} className="-mb-1" />
+          {showLabel && (
+            <p style={{ fontSize: `${14 * size}px` }} className={`font-bold leading-none `}>
+              Bootstrap
+            </p>
+          )}
+          <ReactIcon
+            kind={'si.SiBootstrap'}
+            size={`${56 * size}`}
+            style={{ marginBottom: `${-0.25 * size}rem` }}
+          />
         </div>
       )
     case 'react':
       return (
         <div
-          className={`px-0 pb-1 text-center font-serif italic leading-none text-[#6bb6d2] ${classAppend}`}
+          style={{
+            paddingLeft: `0px`,
+            paddingRight: `0px`,
+            paddingBottom: `${0.25 * size}rem`,
+          }}
+          className={`text-center font-serif italic leading-none text-[#51abcc] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-0.5 font-bold leading-none">React</p>
-          <ReactIcon kind={'si.SiReact'} size={`56`} className="-mb-1" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.125 * size}rem` }}
+              className={`font-black leading-none`}
+            >
+              React
+            </p>
+          )}
+          <ReactIcon
+            kind={'si.SiReact'}
+            size={`${56 * size}`}
+            style={{ marginBottom: `${-0.25 * size}rem` }}
+          />
         </div>
       )
     case 'rubygem':
       return (
         <div
-          className={`px-0.5 pb-1 text-center font-serif italic leading-none text-[#cf3c2f] ${classAppend}`}
+          style={{
+            paddingLeft: `${0.125 * size}rem`,
+            paddingRight: `${0.125 * size}rem`,
+            paddingBottom: `${0.25 * size}rem`,
+          }}
+          className={`text-center font-serif italic leading-none text-[#cf3c2f] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-0.5 font-bold leading-none">RubyGem</p>
-          <ReactIcon kind={'si.SiRubygems'} size={`52`} className="mb-0" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.125 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              RubyGem
+            </p>
+          )}
+          <ReactIcon kind={'si.SiRubygems'} size={`${52 * size}`} style={{ marginBottom: `0px` }} />
         </div>
       )
     case 'jquery':
       return (
         <div
-          className={`px-0.5 pb-1 text-center font-serif italic leading-none text-[#2764a1] ${classAppend}`}
+          style={{
+            paddingLeft: `${0.125 * size}rem`,
+            paddingRight: `${0.125 * size}rem`,
+            paddingBottom: `${0.25 * size}rem`,
+          }}
+          className={`text-center font-serif italic leading-none text-[#2764a1] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-0.5 font-bold leading-none">jQuery</p>
-          <ReactIcon kind={'si.SiJquery'} size={`52`} className="mb-0" />
-        </div>
-      )
-    case 'dsp':
-      return (
-        <div
-          className={`px-0.5 pb-1 text-center font-serif italic leading-none text-[#2764a1] ${classAppend}`}
-          {...rest}
-        >
-          <p className="mb-0.5 font-bold leading-none">DSP</p>
-          <ReactIcon kind={'si.SiAudiomack'} size={`52`} className="mb-0" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.125 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              jQuery
+            </p>
+          )}
+          <ReactIcon kind={'si.SiJquery'} size={`${52 * size}`} style={{ marginBottom: `0px` }} />
         </div>
       )
     case 'nextjs':
       return (
         <div
-          className={`px-0.5 pb-1 text-center font-serif italic leading-none text-[#888899] ${classAppend}`}
+          style={{
+            paddingLeft: `${0.125 * size}rem`,
+            paddingRight: `${0.125 * size}rem`,
+            paddingBottom: `${0.25 * size}rem`,
+          }}
+          className={`text-center font-serif italic leading-none text-[#71acaa] dark:text-[#73aeac] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-0.5 font-bold leading-none">NextJS</p>
-          <ReactIcon kind={'si.SiNextdotjs'} size={`52`} className="mb-0" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.125 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              NextJS
+            </p>
+          )}
+          <ReactIcon
+            kind={'si.SiNextdotjs'}
+            size={`${52 * size}`}
+            style={{ marginBottom: `0px` }}
+          />
         </div>
       )
     case 'tailwind':
       return (
         <div
-          className={`pb-0.5 text-center font-serif italic leading-none text-[#509fcf] ${classAppend}`}
+          style={{ paddingBottom: `${0.125 * size}rem` }}
+          className={`text-center font-serif italic leading-none text-[#5ebaf3] dark:text-[#4488b2] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-1 font-bold leading-none">Tailwind</p>
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.25 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              Tailwind
+            </p>
+          )}
           <ReactIcon
             kind={'si.SiTailwindcss'}
-            size={`52`}
-            className="rounded-[50%] border-[1px] border-[#509fcf] p-0.5 shadow-md"
+            size={`${52 * size}`}
+            style={{ padding: `${0.125 * size}rem` }}
+            className="rounded-[50%] border-[1px] border-[#5ebaf3] shadow-md"
           />
         </div>
       )
     case 'sass':
       return (
         <div
-          className={`px-0.5 pb-1 text-center font-serif italic leading-none text-[#b4678f] ${classAppend}`}
+          style={{
+            paddingLeft: `${0.125 * size}rem`,
+            paddingRight: `${0.125 * size}rem`,
+            paddingBottom: `${0.25 * size}rem`,
+          }}
+          className={`text-center font-serif italic leading-none text-[#b4678f] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-1 font-bold leading-none">Sass</p>
-          <ReactIcon kind={'si.SiSass'} size={`50`} className="mb-0" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.25 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              Sass
+            </p>
+          )}
+          <ReactIcon kind={'si.SiSass'} size={`${50 * size}`} style={{ marginBottom: `0px` }} />
         </div>
       )
     case 'github':
       return (
         <div
-          className={`px-0.5 pb-1 text-center font-serif italic leading-none dark:text-[#898888] ${classAppend}`}
+          style={{
+            paddingLeft: `${0.125 * size}rem`,
+            paddingRight: `${0.125 * size}rem`,
+            paddingBottom: `${0.25 * size}rem`,
+          }}
+          className={`text-center font-serif italic leading-none text-[#362a2a] dark:text-[#957676] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-1 font-bold leading-none">GitHub</p>
-          <ReactIcon kind={'si.SiGithub'} size={`50`} className="mb-0" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.25 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              GitHub
+            </p>
+          )}
+          <ReactIcon kind={'si.SiGithub'} size={`${50 * size}`} style={{ marginBottom: `0px` }} />
+        </div>
+      )
+    case 'git':
+      return (
+        <div
+          style={{ paddingLeft: `${-0.5 * size}rem`, paddingRight: `${-0.5 * size}rem` }}
+          className={`text-center font-serif italic leading-none text-[#362a2a] dark:text-[#957676] ${classAppend}`}
+          {...rest}
+        >
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${-0.4 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              Git
+            </p>
+          )}
+          <ReactIcon
+            kind={'di.DiGit'}
+            size={`${74 * size}`}
+            style={{ marginBottom: `${-0.5 * size}rem` }}
+          />
         </div>
       )
     case 'express':
+      // return (
+      //   <div
+      //     className={`px-0.5 pb-1 text-center font-serif italic leading-none text-[#30302f] dark:text-[#9e9e9b]  ${classAppend}`}
+      //   >
+      //     <p className="mb-1 font-bold leading-none">Express</p>
+      //     <ReactIcon
+      //       kind={'si.SiExpress'}
+      //       size={`52`}
+      //       className="-mb-0.5 rounded-[50%] border-[1px] border-[#30302f] p-1 shadow-md dark:border-[#9e9e9b]"
+      //     />
+      //   </div>
+      // )
       return (
         <div
-          className={`px-0.5 pb-1 text-center font-serif italic leading-none text-[#30302f] dark:text-[#9e9e9b]  ${classAppend}`}
+          style={{
+            paddingLeft: `${0.125 * size}rem`,
+            paddingRight: `${0.125 * size}rem`,
+            paddingBottom: `${0.25 * size}rem`,
+          }}
+          className={`bg-transparent text-center font-serif italic leading-none text-[#30302f] dark:text-[#9e9e9b] ${classAppend}`}
         >
-          <p className="mb-1 font-bold leading-none">Express</p>
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.3 * size}rem` }}
+              className={`bg-transparent font-bold leading-none`}
+            >
+              Express
+            </p>
+          )}
           <ReactIcon
             kind={'si.SiExpress'}
-            size={`52`}
-            className="-mb-0.5 rounded-[50%] border-[1px] border-[#30302f] p-1 shadow-md dark:border-[#9e9e9b]"
+            size={`${50 * size}`}
+            style={{ marginBottom: `${0.125 * size}rem`, padding: `${0.25 * size}rem` }}
+            className="rounded-[50%] border-[1px] border-[#30302f] bg-transparent shadow-md dark:border-[#9e9e9b]"
           />
         </div>
       )
     case 'python':
       return (
         <div
-          className={`pb-1 text-center font-serif italic leading-none text-[#406d90] ${classAppend}`}
+          style={{ paddingBottom: `${0.25 * size}rem` }}
+          className={`text-center font-serif italic leading-none text-[#406d90] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-1 font-bold leading-none">Python</p>
-          <ReactIcon kind={'si.SiPython'} size={`52`} className="-mb-0.5" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.25 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              Python
+            </p>
+          )}
+          <ReactIcon
+            kind={'si.SiPython'}
+            size={`${52 * size}`}
+            style={{ marginBottom: `${-0.125 * size}rem` }}
+          />
         </div>
       )
     case 'mongodb':
       return (
         <div
-          className={`pb-1 text-center font-serif italic leading-none text-[#4a9d55] ${classAppend}`}
+          style={{ paddingBottom: `${0.25 * size}rem` }}
+          className={`text-center font-serif italic leading-none text-[#4a9d55] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-1 font-bold leading-none">MongoDB</p>
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.25 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              MongoDB
+            </p>
+          )}
           <ReactIcon
             kind={'si.SiMongodb'}
-            size={`52`}
-            className="-mb-0.5 rounded-[50%] border-2 border-[#77a452] bg-[#563f37] p-1 text-[#77a452] shadow-md"
+            size={`${52 * size}`}
+            style={{ marginBottom: `${0.125 * size}rem`, padding: `${0.25 * size}rem` }}
+            className="rounded-[50%] border-2 border-[#77a452] bg-[#563f37] text-[#77a452] shadow-md"
           />
         </div>
       )
     case 'cpp':
       return (
         <div
-          className={`pb-1 text-center font-serif italic leading-none text-[#6992c3] ${classAppend}`}
+          style={{ paddingBottom: `${0.25 * size}rem` }}
+          className={`text-center font-serif italic leading-none text-[#5687c3] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-1 font-bold leading-none">C++</p>
-          <ReactIcon kind={'si.SiCplusplus'} size={`52`} className="-mb-0.5" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.25 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              C++
+            </p>
+          )}
+          <ReactIcon
+            kind={'si.SiCplusplus'}
+            size={`${52 * size}`}
+            style={{ marginBottom: `${0.125 * size}rem` }}
+          />
+        </div>
+      )
+    case 'dsp':
+      return (
+        <div
+          style={{
+            paddingLeft: `${0.125 * size}rem`,
+            paddingRight: `${0.125 * size}rem`,
+            paddingBottom: `${0.25 * size}rem`,
+          }}
+          className={`text-center font-serif italic leading-none text-[#6992c3] ${classAppend}`}
+          {...rest}
+        >
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.125 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              DSP
+            </p>
+          )}
+          <ReactIcon
+            kind={'si.SiAudiomack'}
+            size={`${52 * size}`}
+            style={{ marginBottom: `0px` }}
+          />
         </div>
       )
     case 'css3':
       return (
         <div
-          className={`-mx-1 px-0.5 pb-1 text-center font-serif italic leading-none text-[#3072b4] ${classAppend}`}
+          style={{
+            /*  marginLeft:`${-0.25*size}rem`, marginRight:`${-0.25*size}rem`,  */
+            paddingLeft: `${-0.125 * size}rem`,
+            paddingRight: `${-0.125 * size}rem`,
+            paddingBottom: `${0.25 * size}rem`,
+          }}
+          className={`text-center font-serif italic leading-none text-[#3072b4] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-0.5 font-bold leading-none">CSS</p>
-          <ReactIcon kind={'si.SiCss3'} size={`56`} className="-mb-1" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.125 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              CSS
+            </p>
+          )}
+          <ReactIcon
+            kind={'si.SiCss3'}
+            size={`${56 * size}`}
+            style={{ marginBottom: `${-0.25 * size}rem` }}
+          />
         </div>
       )
     case 'html5':
       return (
         <div
-          className={`-mx-1 px-0.5 pb-1 text-center font-serif italic leading-none text-[#8f5339] ${classAppend}`}
+          style={{
+            /*  marginLeft:`${-0.25*size}rem`, marginRight:`${-0.25*size}rem`, */
+            paddingLeft: `${-0.125 * size}rem`,
+            paddingRight: `${-0.125 * size}rem`,
+            paddingBottom: `${0.25 * size}rem`,
+          }}
+          className={`text-center font-serif italic leading-none text-[#8f5339] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-0.5 font-bold leading-none">HTML</p>
-          <ReactIcon kind={'si.SiHtml5'} size={`56`} className="-mb-1" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.125 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              HTML
+            </p>
+          )}
+          <ReactIcon
+            kind={'si.SiHtml5'}
+            size={`${56 * size}`}
+            style={{ marginBottom: `${-0.25 * size}rem` }}
+          />
         </div>
       )
     case 'ror':
       return (
         <div
-          className={`-mx-1 px-0.5 pb-1 text-center font-serif italic leading-none text-[#9b4544] ${classAppend}`}
+          style={{
+            /* marginLeft:`${-0.25*size}rem`, marginRight:`${-0.25*size}rem`,  */
+            paddingLeft: `${-0.125 * size}rem`,
+            paddingRight: `${-0.125 * size}rem`,
+            paddingBottom: `${0.25 * size}rem`,
+          }}
+          className={`text-center font-serif italic leading-none text-[#9b4544] ${classAppend}`}
           {...rest}
         >
-          <p className="-mb-0.5 font-bold leading-none">Ruby</p>
-          <p className="-mb-4 font-bold leading-none">on</p>
-          <ReactIcon kind={'si.SiRubyonrails'} size={`56`} className="mb-0" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${-0.125 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              Ruby
+            </p>
+          )}
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${-1 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              on
+            </p>
+          )}
+          <ReactIcon
+            kind={'si.SiRubyonrails'}
+            size={`${56 * size}`}
+            style={{ marginBottom: `0px` }}
+          />
         </div>
       )
-    // case 'nodejs':
-    // 	return (
-    // 		<div className={`text-center font-serif italic leading-none text-[#64984f] pb-2 -mx-1 ${classAppend}`} {...rest}>
-    // 			<NodeIcon width="70" height='70' fill="currentColor" className='mx-auto -mb-1' />
-    // 		</div>
-    // 	)
+
     case 'nodejs':
+      // return (
+      //   <div className={`text-center font-serif italic leading-none text-[#64984f] pb-2 -mx-1 ${classAppend}`} {...rest}>
+      //     <NodeIcon width="70" height='70' fill="currentColor" className='mx-auto -mb-1' />
+      //   </div>
+      // )
       return (
         <div
-          className={`-mx-1 pb-2 text-center font-serif italic leading-none text-[#64984f] ${classAppend}`}
+          style={{
+            paddingLeft: `${-0.25 * size}rem`,
+            paddingRight: `${-0.25 * size}rem` /* , paddingBottom:`${0.5*size}rem` */,
+          }}
+          className={`text-center font-serif italic leading-none text-[#64984f] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-0.5 font-bold leading-none">Node</p>
-          <ReactIcon kind={'fa.FaNodeJs'} size="54" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.125 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              Node
+            </p>
+          )}
+          <ReactIcon kind={'fa.FaNodeJs'} size={`${54 * size}`} />
         </div>
       )
     case 'php':
       return (
         <div
-          className={`px-0 pb-3 text-center font-serif italic leading-none text-[#7682ba] ${classAppend}`}
+          style={{ paddingLeft: `0px`, paddingRight: `0px`, paddingBottom: `${0.75 * size}rem` }}
+          className={`text-center font-serif italic leading-none text-[#7682ba] ${classAppend}`}
           {...rest}
         >
-          <p className="-mb-1 font-bold leading-none">PHP</p>
-          <PhpElephantOnly width="62" height="62" fill="currentColor" className="mx-auto -mb-4" />
-        </div>
-      )
-    case 'git':
-      return (
-        <div
-          className={`-mx-2 text-center font-serif italic leading-none text-[#d85a3e] ${classAppend}`}
-          {...rest}
-        >
-          <p className="-mb-2 font-bold leading-none">Git</p>
-          <ReactIcon kind={'di.DiGit'} size={`74`} className="-mb-2" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${-0.25 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              PHP
+            </p>
+          )}
+          <PhpElephantOnly
+            width={`${62 * size}`}
+            height={`${62 * size}`}
+            fill="currentColor"
+            style={{ marginBottom: `${-1 * size}rem` }}
+            className="mx-auto"
+          />
         </div>
       )
     case 'ruby':
       return (
         <div
-          className={`-mx-0.5 text-center font-serif italic leading-none text-[#c22c1e] ${classAppend}`}
+          style={{ paddingLeft: `${-0.125 * size}rem`, paddingRight: `${-0.125 * size}rem` }}
+          className={`text-center font-serif italic leading-none text-[#c22c1e] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-0 font-bold leading-none">Ruby</p>
-          <ReactIcon kind={'di.DiRuby'} size={`50`} className="mb-2" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${-0.25 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              Ruby
+            </p>
+          )}
+          <ReactIcon
+            kind={'di.DiRuby'}
+            size={`${50 * size}`}
+            style={{ marginBottom: `${-0.5 * size}rem` }}
+          />
         </div>
       )
     case 'nosql':
       return (
         <div
-          className={`-mx-1 text-center font-serif italic leading-none text-[#30302f] ${classAppend}`}
+          style={{ paddingLeft: `${-0.25 * size}rem`, paddingRight: `${-0.25 * size}rem` }}
+          className={`text-center font-serif italic leading-none text-[#3e4d5d] dark:text-[#687e90] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-0 font-bold leading-none">NoSQL</p>
-          <ReactIcon kind={'hi.HiOutlineDatabase'} size={`58`} className="-mb-2" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.2 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              NoSQL
+            </p>
+          )}
+          <ReactIcon
+            kind={'hi.HiOutlineDatabase'}
+            size={`${58 * size}`}
+            style={{ marginBottom: `${-0.5 * size}rem` }}
+          />
         </div>
       )
     case 'scripts':
       return (
         <div
-          className={`mx-1 pb-1 text-center font-serif italic leading-none text-[#3f473f] dark:text-[#545f54] ${classAppend}`}
+          style={{
+            paddingLeft: `${0.25 * size}rem`,
+            paddingRight: `${0.25 * size}rem`,
+            paddingBottom: `${0.25 * size}rem`,
+          }}
+          className={`text-center font-serif italic leading-none text-[#485a48] dark:text-[#789478] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-1.5 font-bold leading-none">Scripts</p>
-          <ReactIcon kind={'bs.BsTerminal'} size={`48`} />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.375 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              Scripts
+            </p>
+          )}
+          <ReactIcon kind={'bs.BsTerminal'} size={`${48 * size}`} />
         </div>
       )
     case 'wordpress':
       return (
         <div
-          className={`mx-1 pb-1 text-center font-serif italic leading-none text-[#2d7294] ${classAppend}`}
+          style={{
+            paddingLeft: `${0.25 * size}rem`,
+            paddingRight: `${0.25 * size}rem`,
+            paddingBottom: `${0.25 * size}rem`,
+          }}
+          className={`text-center font-serif italic leading-none text-[#2d7294] ${classAppend}`}
           {...rest}
         >
-          <p className="mb-1.5 font-bold leading-none">WordPress</p>
-          <ReactIcon kind={'bs.BsWordpress'} size={`48`} />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.375 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              WordPress
+            </p>
+          )}
+          <ReactIcon kind={'bs.BsWordpress'} size={`${48 * size}`} />
         </div>
       )
     case 'postgres':
       return (
         <div
-          className={`-mx-1 text-center font-serif italic leading-none text-[#3b6286] dark:text-[#44729c] ${classAppend}`}
+          style={{ paddingLeft: `${-0.25 * size}rem`, paddingRight: `${-0.25 * size}rem` }}
+          className={`text-center font-serif italic leading-none text-[#3b6286] dark:text-[#44729c] ${classAppend}`}
           {...rest}
         >
-          <p className="-mb-1.5 font-bold leading-none">Postgres</p>
-          <ReactIcon kind={'di.DiPostgresql'} size={`73`} className="-mb-[9px]" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${-0.375 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              Postgres
+            </p>
+          )}
+          <ReactIcon
+            kind={'di.DiPostgresql'}
+            size={`${73 * size}`}
+            style={{ marginBottom: `${-9 * size}px` }}
+          />
         </div>
       )
     case 'sql':
@@ -405,8 +748,19 @@ export function TechIcon({ kind, ...rest }) {
           className={`text-center font-serif italic leading-none text-[#3b6286] dark:text-[#44729c]  ${classAppend}`}
           {...rest}
         >
-          <p className="mb-0 font-bold leading-none">SQL</p>
-          <ReactIcon kind={'im.ImTable2'} size={`52`} className="-mb-2" />
+          {showLabel && (
+            <p
+              style={{ fontSize: `${14 * size}px`, marginBottom: `${0.375 * size}rem` }}
+              className={`font-bold leading-none`}
+            >
+              SQL
+            </p>
+          )}
+          <ReactIcon
+            kind={'im.ImTable2'}
+            size={`${52 * size}`}
+            style={{ marginBottom: `${-0.5 * size}rem` }}
+          />
         </div>
       )
     default:
@@ -414,72 +768,195 @@ export function TechIcon({ kind, ...rest }) {
       return null
   }
 }
-/*
-const tech = {
-      javascript: {icon: 'di.DiJavascript', color: 'text-[#98963c]' mb: '-mb-1', size: '70'}
-    }
-*/
-// export function TechIconsLabled({tech, labelPosition, ...rest}) {
-// 	// let wrapper = ({children}) => <p className="sm:inline sm:align-text-top ">{children}</p>
-// 	// if (labelPosition === 'b') {
+/**
+ * Returns a labeled icon for various technologies.
+ * @param {string} kind - can by any string found in techIconsAvailable
+ * @returns stylize span of tech name
+ */
+export function TechLabel({ kind, children, ...rest }) {
+  const classAppend = rest.className || ''
+  delete rest.className
 
-// 	// }
-// 	let kind = ''
-// 	switch(tech) {
-// 		case 'javascript': kind=''
-
-// 		default: return null
-// 	}
-
-// 	return <DynamicComponent {...rest} />
-// }
-
-// import {
-//   SiAmazonaws,  // SiAngular, SiAngularjs,  SiApple, SiAppstore, SiAssemblyscript, SiAtom, SiBitbucket
-//   SiBootstrap, SiCoffeescript,
-//   SiCss3,  // SiCsswizardry,
-//   SiCplusplus, // SiCsharp,  SiDevdotto,
-//   SiExpress,  // SiFitbit,   SiFlutter,
-//   SiGithub, SiGnubash, SiHtml5, SiJavascript, SiJava,
-//   SiJquery,  // SiLess,
-//   SiLinkedin,
-//   SiMarkdown, // SiMeetup,  SiMicropython, SiMidi, SiMocha,
-//   SiMongodb, SiNextdotjs, SiNodedotjs, SiNpm, SiPhp, SiPostgresql,
-//   SiPython, // SiRaspberrypi,
-//   SiReact, // SiReddit,
-//   SiRuby, SiRubygems, SiRubyonrails,
-//   SiSass,  // SiSemanticuireact,  SiSwift,
-//   SiTailwindcss, // SiTiktok, SiTsnode,  SiTypescript, SiUdacity,  SiUdemy,  SiUpwork,
-//   SiVercel, SiVisualstudiocode,
-//   // SiWebassembly, SiWikipedia,
-//   SiWordpress,  // SiYoutube,
-// } from "react-icons/si";
-
-// export default TechIcons
-
-// import {
-//   // DiAndroid, DiAngularSimple, DiApple, DiAtom
-//   DiAws, DiBitbucket, DiBootstrap,
-//   // DiBower. DiClojureAlt, DiClojure, DiCoda, DiCodeBadge, DiCode DiCodeigniter,
-//   DiCodepen, DiCoffeescript, // DiCreativecommonsBadge, DiCreativecommons
-//   DiCss3Full, DiCss3, // DiDart, DiDebian, DiDigitalOcean, DiDjang, DiDlang, DiDocker,
-//   // DiDotnet, DiDrupal, DiEmber, DiErlang. DiFirebase, DiFsharp
-//   // DiGitBranch, DiGitCommit, DiGitCompare, DiGitMerge, DiGitPullRequest
-//   DiGit, DiGithubAlt, DiGithubBadge, DiGithubFull, DiGithub, // DiGo,
-//   DiGoogleAnalytics, // DiGoogleDrive, DiGoogleCloudPlatform
-//   // DiGrails, DiGroovy, DiGrunt, DiGulp, DiHaskell
-//   DiHeroku, DiHtml5, DiJava, DiJavascript1, DiJavascript, // DiJekyllSmall, DiJenkins, DiJira, DiJoomla
-//   DiJqueryLogo, // DiJqueryUiLogo
-//   DiJsBadge, // DiLaravel, DiLess, DiLinux
-//   DiMailchimp, DiMarkdown, // DiMaterializecss, DiMeteor, DiMeteorfull,
-//   DiMitlicence, // DiModernizr
-//   DiMongodb, // DiMootoolsBadge, DiMootools, DiMsqlServer, DiMysql, DiNginx
-//   DiNodejsSmall, DiNodejs, DiNpm, //DiPerl, DiPhonegap
-//   DiPhp, DiPostgresql,  DiPython, // DiRasberryPi
-//   DiReact, DiResponsive,  DiRor, DiRubyRough, DiRuby, // DiRust
-//   DiSass, // DiScala, DiScriptcs, DiScrum, DiSpark
-//   DiSqllite, DiStackoverflow, // DiStreamline, DiStylus, DiSublime, DiSwift, DiSymfonyBadge,DiSymfony
-//   DiTerminalBadge, DiTerminal, // DiTravis, DiTrello, DiTypo3, DiUbuntu, DiUikit, DiUnitySmall, DiVim
-//   DiVisualstudio, DiW3C, // DiWebplatform, DiWindows
-//   DiWordpress, // DiYeoman, DiYii, DiZend,
-// } from "react-icons/di";
+  switch (kind) {
+    case 'javascript':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#98963c] ${classAppend}`}>
+          {children || 'JavaScript'}
+        </span>
+      )
+    case 'bootstrap':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#672ce7] ${classAppend}`}>
+          {children || 'Bootstrap'}
+        </span>
+      )
+    case 'react':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#51abcc] ${classAppend}`}>
+          {children || 'React.js'}
+        </span>
+      )
+    case 'rubygem':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#cf3c2f] ${classAppend}`}>
+          {children || 'RubyGem'}
+        </span>
+      )
+    case 'jquery':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#2764a1] ${classAppend}`}>
+          {children || 'jQuery'}
+        </span>
+      )
+    case 'nextjs':
+      return (
+        <span
+          className={`font-serif text-[108%] font-black italic text-[#71acaa] dark:text-[#73aeac] ${classAppend}`}
+        >
+          {children || 'Next.js'}
+        </span>
+      )
+    case 'tailwind':
+      return (
+        <span
+          className={`font-serif text-[108%] font-black italic text-[#5ebaf3] dark:text-[#4488b2] ${classAppend}`}
+        >
+          {children || 'Tailwind CSS'}
+        </span>
+      )
+    case 'sass':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#b4678f] ${classAppend}`}>
+          {children || 'Sass'}
+        </span>
+      )
+    case 'github':
+      return (
+        <span
+          className={`font-serif text-[108%] font-black italic text-[#362a2a] dark:text-[#957676] ${classAppend}`}
+        >
+          {children || 'GitHub'}
+        </span>
+      )
+    case 'express':
+      return (
+        <span
+          className={`font-serif text-[108%] font-black italic text-[#30302f] dark:text-[#9e9e9b] ${classAppend}`}
+        >
+          {children || 'Express.js'}
+        </span>
+      )
+    case 'python':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#406d90] ${classAppend}`}>
+          {children || 'Python'}
+        </span>
+      )
+    case 'mongodb':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#4a9d55] ${classAppend}`}>
+          {children || 'MongoDB'}
+        </span>
+      )
+    case 'cpp':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#6992c3] ${classAppend}`}>
+          {children || 'C++'}
+        </span>
+      )
+    case 'dsp':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#6992c3] ${classAppend}`}>
+          {children || 'DSP'}
+        </span>
+      )
+    case 'css3':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#3072b4] ${classAppend}`}>
+          {children || 'CSS'}
+        </span>
+      )
+    case 'html5':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#8f5339] ${classAppend}`}>
+          {children || 'HTML'}
+        </span>
+      )
+    case 'ror':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#9b4544] ${classAppend}`}>
+          {children || 'Ruby on Rails'}
+        </span>
+      )
+    case 'nodejs':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#64984f] ${classAppend}`}>
+          {children || 'Node.js'}
+        </span>
+      )
+    case 'php':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#7682ba] ${classAppend}`}>
+          {children || 'PHP'}
+        </span>
+      )
+    case 'git':
+      return (
+        <span
+          className={`font-serif text-[108%] font-black italic text-[#362a2a] dark:text-[#957676] ${classAppend}`}
+        >
+          {children || 'Git'}
+        </span>
+      )
+    case 'ruby':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#c22c1e] ${classAppend}`}>
+          {children || 'Ruby'}
+        </span>
+      )
+    case 'nosql':
+      return (
+        <span
+          className={`font-serif text-[108%] font-black italic text-[#3e4d5d] dark:text-[#687e90]${classAppend}`}
+        >
+          {children || 'NoSQL'}
+        </span>
+      )
+    case 'scripts':
+      return (
+        <span
+          className={`text-[108%] font-black italic text-[#485a48] dark:text-[#789478] ${classAppend}`}
+        >
+          {children || 'Scripts'}
+        </span>
+      )
+    case 'wordpress':
+      return (
+        <span className={`font-serif text-[108%] font-black italic text-[#2d7294] ${classAppend}`}>
+          {children || 'WordPress'}
+        </span>
+      )
+    case 'postgres':
+      return (
+        <span
+          className={`font-serif text-[108%] font-black italic text-[#3b6286] dark:text-[#44729c] ${classAppend}`}
+        >
+          {children || 'PostgreSQL'}
+        </span>
+      )
+    case 'sql':
+      return (
+        <span
+          className={`font-serif text-[108%] font-black italic text-[#3b6286] dark:text-[#44729c] ${classAppend}`}
+        >
+          {children || 'SQL'}
+        </span>
+      )
+    default:
+      return (
+        <span className={`font-serif text-[105%] font-medium italic ${classAppend}`}>
+          {children}
+        </span>
+      )
+  }
+}

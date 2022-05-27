@@ -1,0 +1,820 @@
+---
+title: 'Setup Checklist'
+date: 2021-08-07T15:32:14Z
+lastmod: '2021-02-01'
+tags: ['next-js', 'tailwind', 'guide']
+draft: false
+summary: 'An overview of the new features released in v1 - code block copy, multiple authors, frontmatter layout and more'
+bibliography: references-data.bib
+canonicalUrl: https://tailwind-nextjs-starter-blog.vercel.app/blog/new-features-in-v1/
+authors: ['jeffruss', 'tailsazimuth']
+---
+
+
+
+A post on the new features introduced in v1.0. New features:
+
+<TOCInline toc={props.toc} exclude="Overview" toHeading={6} asDisclosure closed/>
+
+
+## Quick Start Guide
+
+1. JS (official support) - `npx degit https://github.com/Jeff-Russ/next-markdown-journal.git` 
+2. Personalize `siteMetadata.js` (site related information)
+3. Modify the content security policy in `next.config.js` if you want to use any analytics provider or a commenting solution other than giscus.
+4. Personalize `` `authors/${siteMetadata.defaultAuthorSlug}.md|mdx` `` (main author as set in siteMetadata)
+5. Modify `projectsData.js`
+6. Modify `headerNavLinks.js` to customize navigation links
+7. Add blog posts
+8. Deploy on Vercel
+
+## Guide to  Project
+
+### Guide to files in Project
+
+`data/siteMetadata.js` - contains most of the site related information which should be modified for a user's need.
+
+`` `authors/${siteMetadata.defaultAuthorSlug}.md|mdx` `` - default author information (required). Additional authors can be added as files in `data/authors`.
+
+`data/projectsData.js` - data used to generate styled card on the projects page.
+
+`data/headerNavLinks.js` - navigation links.
+
+`data/logo.svg` - replace with your own logo.
+
+`data/blog` - replace with your own blog posts.
+
+`public/static` - store assets such as images and favicons.
+
+`tailwind.config.js` and `css/tailwind.css` - contain the tailwind stylesheet which can be modified to change the overall look and feel of the site.
+
+`css/prism.css` - controls the styles associated with the code blocks. Feel free to customize it and use your preferred prismjs theme e.g. [prism themes](https://github.com/PrismJS/prism-themes).
+
+`components/social-icons` - to add other icons, simply copy an svg file from [Simple Icons](https://simpleicons.org/) and map them in `index.js`. Other icons use [heroicons](https://heroicons.com/).
+
+`components/MDXComponents.js` - pass your own JSX code or React component by specifying it over here. You can then call them directly in the `.mdx` or `.md` file. By default, a custom link and image component is passed.
+
+`layouts` - main templates used in pages.
+
+`pages` - pages to route to. Read the [Next.js documentation](https://nextjs.org/docs) for more information.
+
+`next.config.js` - configuration related to Next.js. You need to adapt the Content Security Policy if you want to load scripts, images etc. from other domains.
+
+
+
+### Xdm MDX compiler __DONE__
+
+We switched the MDX bundler from [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote) to [mdx-bundler](https://github.com/kentcdodds/mdx-bundler).
+This uses [xdm](https://github.com/wooorm/xdm) under the hood, the latest micromark 3 and remark, rehype libraries.
+
+**Warning:** If you were using custom remark or rehype libraries, please upgrade to micromark 3 compatible ones. If you are upgrading, please delete `node_modules` and `package-lock.json` to avoid having past dependencies related issues.
+
+[xdm](https://github.com/wooorm/xdm) contains multiple improvements over [@mdx-js/mdx](https://github.com/mdx-js/mdx), the compiler used internally by next-mdx-remote, but there might be some breaking behaviour changes.
+Please check your markdown output to verify.
+
+Some new possibilities include loading components directly in the mdx file using the import syntax and including js code which could be compiled and bundled at the build step. For example, the following jsx snippet can be used directly in an MDX file to render the page title component:
+
+```jsx
+import PageTitle from './PageTitle.js'
+;<PageTitle> Using JSX components in MDX </PageTitle>
+```
+
+**Note** that adding this in a mdx file will add a header but that header will not be part of the Table of Contents. 
+
+The default configuration resolves all components relative to the `components` directory.
+
+**Note**:
+Components which require external image loaders also require additional esbuild configuration.
+Components which are dependent on global application state on lifecycle like the Nextjs `Link` component would also not work with this setup as each mdx file is built independently.
+For such cases, it is better to use component substitution.
+
+### Upgrade guide
+
+There are significant portions of the code that has been changed from v0 to v1 including support for layouts and a new mdx engine.
+
+There's also no real reason to change if the previous one serves your needs and it might be easier to copy
+the component changes you are interested in to your existing blog rather than migrating everything over.
+
+Nonetheless, if you want to do so and have not changed much of the template, you could clone the new version and copy over the blog post over to the new template.
+
+Another alternative would be to pull the latest template version with the following code:
+
+```bash
+git remote add template git@github.com:timlrx/tailwind-nextjs-starter-blog.git
+git pull template v1 --allow-unrelated-histories
+rm -rf node_modules
+```
+
+You can see an example of such a migration in this [commit](https://github.com/timlrx/timlrx.com/commit/bba1c185384fd6d5cdaac15abf802fdcff027286) for my personal blog.
+
+v1 also uses `feed.xml` rather than `index.xml`, to avoid some build issues with Vercel. If you are migrating you should add a redirect to `next.config.js` like so:
+
+```js
+async redirects() {
+  return [
+    {
+      source: '/:path/index.xml',
+      destination: '/:path/feed.xml',
+      permanent: true,
+    }
+  ]
+}
+```
+
+#### Support
+
+Using the template? Support this effort by giving a star on GitHub, sharing your own blog and giving a shoutout on Twitter or be a project [sponsor](https://github.com/sponsors/timlrx).
+
+
+
+## Development and Customizations
+
+First, run the development server:
+
+```bash
+npm start
+# or
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+
+### Theme colors __DONE__
+
+You can easily modify the theme color by changing the primary attribute in the tailwind config file:
+
+```js:tailwind.config.js
+theme: {
+    colors: {
+      primary: colors.teal,
+      gray: colors.neutral,
+      ...
+    }
+  ...
+}
+```
+
+The primary color attribute should be assigned an object with keys from 50, 100, 200 ... 900 and the corresponding color code values.
+
+Tailwind includes great default color palettes that can be used for theming your own website. Check out [customizing colors documentation page](https://tailwindcss.com/docs/customizing-colors) for the full range of options.
+
+Migrating from v1? You can revert to the previous theme by setting `primary` to `colors.sky` (Tailwind 2.2.2 and above, otherwise `colors.lightBlue`) and changing gray to `colors.gray`.
+
+From v1.1.2+, you can also customize the style of your code blocks easily by modifying the `css/prism.css` stylesheet. Token classnames are compatible with prismjs so you can copy and adapt token styles from a prismjs stylesheet e.g. [prism themes](https://github.com/PrismJS/prism-themes).
+
+
+
+### Layouts __REVIEW__
+
+You can map mdx blog content to layout components by configuring the frontmatter field. For example, this post is written with the new `PostSimple` layout!
+
+#### Adding new templates
+
+layout templates are stored in the `./layouts` folder. You can add your React components that you want to map to markdown content in this folder.
+The component file name must match that specified in the markdown frontmatter `layout` field.
+
+The only required field is `children` which contains the rendered MDX content, though you would probably want to pass in the frontMatter contents and render it in the template.
+
+You can configure the template to take in other fields - see `PostLayout` component for an example.
+
+Here's an example layout which you can further customise:
+
+```jsx
+export default function ExampleLayout({ frontMatter, children }) {
+  const { date, title } = frontMatter
+
+  return (
+    <SectionContainer>
+      <div>{date}</div>
+      <h1>{title}</h1>
+      <div>{children}</div>
+    </SectionContainer>
+  )
+}
+```
+
+#### Configuring a blog post frontmatter
+
+Use the `layout` frontmatter field to specify the template you want to map the markdown post to. Here's how the frontmatter of this post looks like:
+
+```
+---
+title: 'New features in v1'
+date: '2021-05-26   '
+tags: ['next-js', 'tailwind', 'guide']
+draft: false
+summary: 'Introducing the new layout features - you can map mdx blog content to layout components by configuring the frontmatter field'
+layout: PostSimpleLayout
+---
+```
+
+You can configure the default layout in the respective page section by modifying the `DEFAULT_LAYOUT` variable.
+The `DEFAULT_LAYOUT` for blog posts page is set to `PostLayout`.
+
+#### Extend
+
+`layout` is mapped to wrapper which wraps the entire MDX content.
+
+```jsx
+export const MDXComponents = {
+  Image,
+  a: CustomLink,
+  pre: Pre,
+  wrapper: ({ components, layout, ...rest }) => {
+    const Layout = require(`../layouts/${layout}`).default
+    return <Layout {...rest} />
+  },
+}
+
+export const MDXLayoutRenderer = ({ layout, mdxSource, ...rest }) => {
+  const MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource])
+
+  return <MDXLayout layout={layout} components={MDXComponents} {...rest} />
+}
+```
+
+Use the `MDXLayoutRenderer` component on a page where you want to accept a layout name to map to the desired layout.
+You need to pass the layout name from the layout folder (it has to be an exact match).
+
+
+
+### Self-hosted font (v1.5.0) <mark>REVIEW</mark>
+
+Google font has been replaced with self-hosted font from [Fontsource](https://fontsource.org/). This gives the following [advantages](https://fontsource.org/docs/introduction):
+
+> Self-hosting brings significant performance gains as loading fonts from hosted services, such as Google Fonts, lead to an extra (render blocking) network request. To provide perspective, for simple websites it has been seen to double visual load times.
+>
+> Fonts remain version locked. Google often pushes updates to their fonts without notice, which may interfere with your live production projects. Manage your fonts like any other NPM dependency.
+>
+> Commit to privacy. Google does track the usage of their fonts and for those who are extremely privacy concerned, self-hosting is an alternative.
+
+This leads to a smaller font bundle and a 0.1s faster load time ([webpagetest comparison](https://www.webpagetest.org/video/compare.php?tests=220201_AiDcFH_f68a69b758454dd52d8e67493fdef7da,220201_BiDcMC_bf2d53f14483814ba61e794311dfa771)).
+
+To change the default Inter font:
+
+1. Install the preferred [font](https://fontsource.org/fonts) - `npm install -save @fontsource/<font-name>`
+2. Update the import at `pages/_app.js`- `import '@fontsource/<font-name>.css'`
+3. Update the `fontfamily` property in the tailwind css config file
+
+
+
+
+
+## Blog Posts
+
+### Frontmatter
+
+Frontmatter follows [Hugo's standards](https://gohugo.io/content-management/front-matter/).
+
+Currently 7 fields are supported.
+
+```
+title (required)
+date (required)
+tags (required, can be empty array)
+lastmod (optional)
+draft (optional)
+summary (optional)
+images (optional, if none provided defaults to socialBanner in siteMetadata config)
+authors (optional list which should correspond to the file names in `data/authors`. Uses `default` if none is specified)
+layout (optional list which should correspond to the file names in `data/layouts`)
+canonicalUrl (optional, canonical url for the post for SEO)
+```
+
+Here's an example of a post's frontmatter:
+
+```
+---
+title: 'Introducing Tailwind Nexjs Starter Blog'
+date: '2021-01-12'
+lastmod: '2021-01-18'
+tags: ['next-js', 'tailwind', 'guide']
+draft: false
+summary: 'Looking for a performant, out of the box template, with all the best in web technology to support your blogging needs? Checkout the Tailwind Nextjs Starter Blog template.'
+images: ['/static/images/canada/mountains.jpg', '/static/images/canada/toronto.jpg']
+authors: ['jeffruss', 'sparrowhawk']
+layout: PostLayout
+canonicalUrl: https://tailwind-nextjs-starter-blog.vercel.app/blog/introducing-tailwind-nextjs-starter-blog
+---
+```
+
+### Compose in new Posts
+
+<mark>Run `node ./scripts/compose.js` to bootstrap a new post.</mark>
+
+Follow the interactive prompt to generate a post with pre-filled frontmatter.
+
+
+
+### Table of contents component __TODO: make fixed link that opens TOC Modal__
+
+Inspired by [Docusaurus](https://docusaurus.io/docs/next/markdown-features/inline-toc) and Gatsby's [gatsby-remark-table-of-contents](https://www.gatsbyjs.com/plugins/gatsby-remark-table-of-contents/),
+the `toc` variable containing all the top level headings of the document is passed to the MDX file and can be styled accordingly.
+To make generating a table of contents (TOC) simple, you can use the existing `TOCInline` component.
+
+For example, the TOC in this post was generated with the following code:
+
+```jsx
+<TOCInline toc={props.toc} exclude="Overview" toHeading={2} />
+```
+
+You can customise the headings that are displayed by configuring the `fromHeading` and `toHeading` props, or exclude particular headings
+by passing a string or a string array to the `exclude` prop. By default, all headings that are of depth 3 or smaller are indented. This can be configured by changing the `indentDepth` property.
+A `asDisclosure` prop can be used to render the TOC within an expandable disclosure element. 
+
+
+**Update**: I've added a `closed` attribute as well. Adding this in addition to `asDisclosure` makes the the TOC be collapsed by default.
+
+```jsx
+<TOCInline toc={props.toc} asDisclosure closed />
+```
+
+
+
+
+### Multiple authors __DONE__
+
+Information on authors is now split from `siteMetadata.js` and stored in its own `data/authors` folder as a markdown file. Minimally, you will need to have a `` `authors/${siteMetadata.defaultAuthorSlug}.md|mdx` `` file with authorship information. You can create additional files as required and the file name will be used as the reference to the author.
+
+Here's how an author markdown file might look like:
+
+```md:default.md
+---
+name: Tails Azimuth
+avatar: /static/images/avatar.png
+occupation: Professor of Atmospheric Science
+company: Stanford University
+email: address@yoursite.com
+twitter: https://twitter.com/Twitter
+linkedin: https://www.linkedin.com
+github: https://github.com
+---
+
+A long description of yourself...
+```
+
+You can use this information in multiple places across the template. For example in the about section of the page, we grab the default author information with this line of code:
+
+```js
+const authorDetails = await getFileBySlug('authors', [siteMetadata.defaultAuthorSlug])
+```
+
+This is rendered in the `AuthorLayout` template.
+
+#### Multiple authors in blog post __OK__
+
+The frontmatter of a blog post accepts an optional `authors` array field. If no field is specified, it is assumed that the default author is used. Simply pass in an array of authors to render multiple authors associated with a post.
+
+For example, the following frontmatter will display the authors given by `data/authors/jeffruss.md` and `data/authors/sparrowhawk.md`
+
+```yaml
+title: 'My first post'
+date: '2021-01-12'
+draft: false
+summary: 'My first post'
+authors: ['jeffruss', 'sparrowhawk']
+```
+
+A demo of a multiple authors post is shown in [Introducing Tailwind Nextjs Starter Blog post](https://tailwind-nextjs-starter-blog.vercel.app/blog/introducing-tailwind-nextjs-starter-blog).
+
+
+
+### Copy button for code blocks __OK__
+
+Hover over a code block and you will notice a GitHub-inspired copy button! You can modify `./components/Pre.js` to further customise it.
+The component is passed to `MDXComponents` and modifies all `<pre>` blocks.
+
+
+
+### Line highlighting and line numbers __REFERTO__
+
+Line highlighting and line numbers are now supported out of the box thanks to the new [rehype-prism-plus plugin](https://github.com/timlrx/rehype-prism-plus)
+
+The following javascript code block:
+
+````markdown
+```js {1, 3-4} showLineNumbers
+var num1, num2, sum
+num1 = prompt('Enter first number')
+num2 = prompt('Enter second number')
+sum = parseInt(num1) + parseInt(num2) // "+" means "add"
+alert('Sum = ' + sum) // "+" means combine into a string
+```
+````
+
+will appear as:
+
+```js {1,3-4} showLineNumbers
+var num1, num2, sum
+num1 = prompt('Enter first number')
+num2 = prompt('Enter second number')
+sum = parseInt(num1) + parseInt(num2) // "+" means "add"
+alert('Sum = ' + sum) // "+" means combine into a string
+```
+
+To modify the styles, change the following class selectors in the `prism.css` file:
+
+```css
+.code-highlight {
+  @apply float-left min-w-full;
+}
+
+.code-line {
+  @apply -mx-4 block border-l-4 border-opacity-0 pl-4 pr-4;
+}
+
+.code-line.inserted {
+  @apply bg-green-500 bg-opacity-20;
+}
+
+.code-line.deleted {
+  @apply bg-red-500 bg-opacity-20;
+}
+
+.highlight-line {
+  @apply -mx-4 border-l-4 border-primary-500 bg-gray-700 bg-opacity-50;
+}
+
+.line-number::before {
+  @apply mr-4 -ml-2 inline-block w-4 text-right text-gray-400;
+  content: attr(line);
+}
+```
+
+
+
+### Bibliography and Citations (v1.2.1) __REVIEW__
+
+`rehype-citation` plugin is added to the xdm processing pipeline in v1.2.1. This allows you to easily format citations and insert bibliography from an existing bibtex or CSL-json file.
+
+For example, the following markdown code sample:
+
+```md
+Standard citation [@Nash1950]
+In-text citations e.g. @Nash1951
+Multiple citations [see @Nash1950; @Nash1951, page 50]
+
+**References:**
+
+[^ref]
+```
+
+is rendered to the following:
+
+Standard citation [@Nash1950]  
+In-text citations e.g. @Nash1951  
+Multiple citations [see @Nash1950; @Nash1951, page 50]
+
+**References:**
+
+[^ref]
+
+A bibliography will be inserted at the end of the document, but this can be overwritten by specifying a `[^Ref]` tag at the intended location.
+The plugin uses APA citation formation, but also supports the following CSLs, 'apa', 'vancouver', 'harvard1', 'chicago', 'mla', or a path to a user-specified CSL file.
+
+See [rehype-citation readme](https://github.com/timlrx/rehype-citation) for more information on the configuration options.
+
+
+
+## Blog comments system setup
+
+We have also added support for [giscus](https://github.com/laymonage/giscus), [utterances](https://github.com/utterance/utterances) or disqus.
+To enable, simply configure `siteMetadata.js` comments property with the desired provider and settings as specified in the config file. Some correspond to the following environment variables found in `.env*`
+
+```text
+NEXT_PUBLIC_GISCUS_REPO=
+NEXT_PUBLIC_GISCUS_REPOSITORY_ID=
+NEXT_PUBLIC_GISCUS_CATEGORY=
+NEXT_PUBLIC_GISCUS_CATEGORY_ID=
+
+NEXT_PUBLIC_UTTERANCES_REPO=
+
+NEXT_PUBLIC_DISQUS_SHORTNAME=
+```
+
+[__NOTE__ that prepending with `NEXT_PUBLIC_` exposes a variable to the browser.](https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables-to-the-browser) 
+
+### Giscus Setup
+
+We need these four environmental variables Giscus:
+
+`GISCUS_REPO` which sets `siteMetadata.comment.giscusConfig.repo`   
+`GISCUS_REPOSITORY_ID` which sets `siteMetadata.comment.giscusConfig.repositoryId`  
+`GISCUS_CATEGORY` which sets `siteMetadata.comment.giscusConfig.category`  
+`GISCUS_CATEGORY_ID` which sets `siteMetadata.comment.giscusConfig.categoryId`   
+
+We also need these values:  
+
+`siteMetadata.comment.giscusConfig.mapping`   
+`siteMetadata.comment.giscusConfig.reactions`   
+`siteMetadata.comment.giscusConfig.metadata`  
+`siteMetadata.comment.giscusConfig.inputPosition`   
+`siteMetadata.comment.giscusConfig.lang = en`  
+`siteMetadata.comment.giscusConfig.theme`   
+`siteMetadata.comment.giscusConfig.darkTheme`   
+`siteMetadata.comment.giscusConfig.themeURL`  
+
+#### Giscus Repository Setup
+
+**Repository** section at https://giscus.app/:
+
+1. We see we should pick a **public** repository on GitHub to hold the discussion. I believe this can be the repository that has the source for your site but doesn't have to be; it can simply be a repository who's only purpose is to hold the discussions. 
+2. Next we **install the giscus app**: Visit https://github.com/apps/giscus, click "Install," selecting "Only select repositories," selecting the one or more respositories and then clicking "install." Doing so will probably take you [here, where you can configure Giscus](https://github.com/settings/installations/). 
+3. Next, [enable the Discussions feature for your repository](https://docs.github.com/en/github/administering-a-repository/managing-repository-settings/enabling-or-disabling-github-discussions-for-a-repository) by visiting **Settings > General at your repository on Github and checking off "Discussions."** Keep this page open because later on we'll hit "Set up Discussions."
+
+Now back in the bottom of the 'Configuration' section at https://giscus.app/, you should be to type your `github-username/project-name` and have it say "**Success! This repository meets all of the above criteria**." After choosing our repository, we can now use it to assign our environment variable:  
+
+<mark>GISCUS_REPO=github-username/project-name</mark> which sets `siteMetadata.comment.giscusConfig.repo`    
+
+If you scroll down the page at after seeing "Success! This repository meets all of the above criteria" to the "Enable giscus" section, you'll see a value for `data-category-id="SOME_VALUE"` which can use to set the environment variable:
+
+<mark>GISCUS_REPOSITORY_ID="SOME_VALUE"</mark> which sets `siteMetadata.comment.giscusConfig.repositoryId`  
+
+#### Giscus Page ↔ Discussions Mapping
+
+The **Page ↔ Discussions Mapping** section (after 'Repository') at https://giscus.app/ is where we choose the mapping between the embedding page and the embedded discussion. Choose the `pathname` option since others might not be distinct. <mark>But beware of modifying the site to change paths!</mark> I'm not sure that this would be a problem but it certainly may be. 
+
+<mark>☑</mark> *Discussion title contains page* `pathname` — Giscus will search for a discussion whose title contains the page's `pathname` URL component. 
+☐ *Discussion title contains page* `URL` —  Giscus will search for a discussion whose title contains the page's URL.
+☐  *Discussion title contains page* `<title>` —  Giscus will search for a discussion whose title contains the page's `<title>` HTML tag.
+☐  *Discussion title contains page* `og:title` — Giscus will search for a discussion whose title contains the page's [`<meta property="og:title">`](https://ogp.me/) HTML tag.
+☐  *Discussion title contains a specific term* —  Giscus will search for a discussion whose title contains a specific term.
+☐ *Specific discussion number* —  Giscus will load a specific discussion by number. This option **does not** support automatic discussion creation.
+
+In any case, we don't need to fill this out here as we will set this in:   
+
+<mark>siteMetadata.comment.giscusConfig.mapping = 'pathname'</mark> 
+
+#### Giscus Discussion Category
+
+At the **Discussion Category** section at https://giscus.app/ you won't find a category that suits what we are doing so...
+
+Back in *Settings > General at your repository* where you checked off "Discussions," click "**Set up Discussions**." This will take you to a pre-written message from you to "Start a new discussion." Click "Start discussion" to post it. Now click on the Discussions tab (already selected) to take you to the home of Discussions. Click on the pencil logo next to "Categories" to create a new category. Click "New category." Make the title be "**Blog Comments**," make the icon be the speech_balloon, type whatever you want for "Description," such as the url for the blog  and select "Open ended Discussion" and hit "Create."
+
+1. Now at the **Discussion Category** section at https://giscus.app/ you can select "**Blog Comments**."
+2. We can select **Only search for discussions in this category** — when searching for a matching discussion, giscus will only search in this category." for now.
+
+After creating the category "Blog Comments" we can now use it to assign our environment variables:
+
+<mark>GISCUS_CATEGORY="Blog Comments"</mark> which sets `siteMetadata.comment.giscusConfig.category`  
+
+If you scroll down the page at after seeing "Blog Comments" to the "Enable giscus" section, you'll see a value for `data-category-id="SOME_VALUE"` which can use to set the environment variable:
+
+<mark>GISCUS_CATEGORY_ID="SOME_VALUE"</mark> which sets `siteMetadata.comment.giscusConfig.categoryId`   
+
+#### Giscus Features
+
+At the **Features** section at https://giscus.app/ we choose whether specific features should be enabled. We can toggle on or off each of the following, but we'll just select the first one for now.
+
+<mark>☑</mark> *Enable reactions for the main post* — The reactions for the discussion's main post will be shown before the comments. We'll  set this in:  
+<mark>siteMetadata.comment.giscusConfig.reactions = 1</mark>    
+
+☐ *Emit discussion metadata* — Discussion metadata will be sent periodically to the parent window (the embedding page). For demonstration, enable this option and open your browser's console on this page. See [the documentation](https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#imetadatamessage) for more details. We'll  set this in:  
+<mark>siteMetadata.comment.giscusConfig.metadata = 0</mark>   
+
+☐ *Place the comment box above the comments* — The comment input box will be placed above the comments, so that users can leave a comment without scrolling to the bottom of the discussion. We'll  set this in:   
+<mark>siteMetadata.comment.giscusConfig.inputPosition = 'bottom'</mark>   
+
+☐ *Load the comments lazily* — Loading of the comments will be deferred until the user scrolls near the comments container. This is done by adding [`loading="lazy"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attr-loading) to the `<iframe>` element. I'm not sure where this is set by our website.
+
+#### Giscus Theme
+
+At the **Theme** section at https://giscus.app/, we choose a theme that matches your website. I think we'll choose preferred_color_scheme but it doesn't matter since this will be set in 
+
+<mark>siteMetadata.comment.giscusConfig.theme = 'light'</mark>   
+<mark>siteMetadata.comment.giscusConfig.darkTheme = 'transparent_dark'</mark>  
+and possibly. 
+<mark>siteMetadata.comment.giscusConfig.themeURL = ''</mark>  
+
+#### Enable giscus
+
+At the **Enable giscus** section at https://giscus.app/, we add the following `<script>` tag (with the square bracket values below with their appropriate values filled in for us) to our website's template where you want the comments to appear. If an element with the class `giscus` exists, the comments will be placed there instead.
+
+```
+<script src="https://giscus.app/client.js"
+        data-repo="[ENTER REPO HERE]"
+        data-repo-id="[ENTER REPO ID HERE]"
+        data-category="[ENTER CATEGORY NAME HERE]"
+        data-category-id="[ENTER CATEGORY ID HERE]"
+        data-mapping="pathname"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+```
+
+You can customize the container layout using the `.giscus` and `.giscus-frame` selectors from the embedding page.
+
+If you're using giscus, consider [starring 🌟 giscus on GitHub](https://github.com/giscus/giscus) and adding the [`giscus`](https://github.com/topics/giscus) topic [to your repository](https://docs.github.com/en/github/administering-a-repository/classifying-your-repository-with-topics)! 🎉
+
+## Analytics setup __DONE?__
+
+The template now supports [plausible](https://plausible.io/), [simple analytics](https://simpleanalytics.com/) and google analytics (and
+[umami](https://umami.is/docs/about), which apparently added later). 
+
+After configuring your site, `<Analytics />` is loaded into `pages/_app.js`, if you are not on the development server. 
+
+Custom events are also supported. You can import the `logEvent` function from `@components/analytics/[ANALYTICS-PROVIDER]` file and call it when triggering certain events of interest.  
+
+_Note_: Additional configuration might be required depending on the analytics provider, please check their official documentation for more information.
+
+
+### Google Analytics Setup __DONE__
+
+First, configure `siteMetadata.js` with the settings that correspond with the desired analytics provider.
+
+```js
+	analytics: {
+    // supports plausible, simpleAnalytics or googleAnalytics
+    plausibleDataDomain: '', // e.g. tailwind-nextjs-starter-blog.vercel.app
+    simpleAnalytics: false, // true or false
+    umamiWebsiteId: '', // e.g. 123e4567-e89b-12d3-a456-426614174000
+    googleAnalyticsId: '', // e.g. UA-000000-2 or G-XXXXXXX
+  },
+```
+
+<mark>EDIT:</mark> I've modified `.env*` to include the following:
+
+```text
+UMAMI_WEBSITE_ID=
+GOOGLE_ANALYTICS_ID=
+```
+
+So now  `siteMetadata.js`  can show this:
+
+```js
+	analytics: {
+    // supports plausible, simpleAnalytics or googleAnalytics
+    plausibleDataDomain: '', // e.g. tailwind-nextjs-starter-blog.vercel.app
+    simpleAnalytics: false, // true or false
+    umamiWebsiteId: process.env.UMAMI_WEBSITE_ID, // e.g. 123e4567-e89b-12d3-a456-426614174000
+    googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID, // e.g. UA-000000-2 or G-XXXXXXX
+  },
+```
+
+
+
+* To get your **googleAnalyticsId**, go to [Sign into Google Analytics](https://analytics.google.com/analytics/web/) On the top, to the 
+  left of the search field you should see:
+
+  > All accounts > YOURSITE.COM  
+  > All Web Site Data
+
+  If 'YOURSITE.COM' is not the domain you're working on, click on 'All Web Site Data.' In this modal, you'll see your Analytics account o
+  n the left pane. Select that and you'll see all of your domains in the middle pane. Here you should see the google Analytics Id for that 
+  domain.   
+  You can get more details by select the domain  then on the right  pane you'll 'All Web Site Data'... click that. 
+  You'll see a gear icon on the lower left. If you see 'Admin' to the right of it, click it to view the Admin details for that domain.   
+
+* If you want to use an analytics provider you have to **add it to the content security policy in the `next.config.js` file**, which looks like this by default:
+
+  ```js
+  const ContentSecurityPolicy = `
+    default-src 'self';
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app;
+    style-src 'self' 'unsafe-inline';
+    img-src * blob: data:;
+    media-src 'none';
+    connect-src *;
+    font-src 'self';
+    frame-src giscus.app
+  `
+  ```
+
+  You would probably have to add www.googletagmanager.com and www.google-analytics.com if you are using google analytics<sup>[src](https://github.com/timlrx/tailwind-nextjs-starter-blog/issues/319)</sup>. 
+  After that, it may look as shown below, with the one line added for this:  
+
+  ```js
+  const ContentSecurityPolicy = `
+    default-src 'self';
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' *.googletagmanager.com *.google-analytics.com;
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app;
+    style-src 'self' 'unsafe-inline';
+    img-src * blob: data:;
+    media-src 'none';
+    connect-src *;
+    font-src 'self';
+    frame-src giscus.app
+  `
+  ```
+
+This gave me the following browser console warning:
+
+```
+Ignoring duplicate Content-Security-Policy directive 'script-src'.
+```
+
+This did not, but I'm not sure if it is the correct syntax:
+
+```js
+const ContentSecurityPolicy = `
+  default-src 'self';
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app *.googletagmanager.com *.google-analytics.com;
+  style-src 'self' 'unsafe-inline';
+  img-src * blob: data:;
+  media-src 'none';
+  connect-src *;
+  font-src 'self';
+  frame-src giscus.app
+`
+```
+
+
+
+## Newletter component (v1.1.3) setup
+
+Introduced in v1.1.3, the newsletter component gives you an easy way to build an audience. It integrates with the following providers:
+
+- [Mailchimp](https://mailchimp.com/)
+- [Buttondown](https://buttondown.email/)
+- [Convertkit](https://convertkit.com/)
+
+To use it, specify the provider which you are using in the config file and add the necessary environment variables to the `.env` file.
+For more information on the required variables, check out `.env.example` and [this guide](https://nextjs.org/docs/basic-features/environment-variables) 
+
+Two components are exported, a default `NewsletterForm` and a `BlogNewsletterForm` component, which is also passed in as an MDX component
+and can be used in a blog post:
+
+```jsx
+<BlogNewsletterForm title="Like what you are reading?" />
+```
+
+<BlogNewsletterForm title="Like what you are reading?" />
+
+The component relies on nextjs's [API routes](https://nextjs.org/docs/api-routes/introduction) which requires a server-side instance of nextjs to be setup
+and is not compatible with a 100% static site export. Users should either self-host or use a compatible platform like Vercel or Netlify which supports this functionality.
+
+A static site compatible alternative is to substitute the route in the newsletter component with a form API endpoint provider.
+
+### Buttondown setup
+
+Go to [Buttondown](https://buttondown.email/) and sign up. To set up our we only need these three environment variables: 
+
+1. `BUTTONDOWN_API_URL`, which should be `https://api.buttondown.email/v1/` and the 
+2. `BUTTONDOWN_API_KEY`. After being signed in, click the three horizontal lines button on the upper right. 
+
+Here is a quick overview to important items in the menu:
+
+* **Settings**
+  * [Programming](https://buttondown.email/settings/programming)  is where your **API Key** (`BUTTONDOWN_API_KEY`) is found, which can be regenerated. You can also set **Webhooks**, and view **Events** and **Requests**.
+  * [Your newsletter](https://buttondown.email/settings)  is where you **Newsletter name**, **Newsletter description**, and other things are set. 
+  * [Account](https://buttondown.email/account)  you can set the **Your name** ('From' field in emails from you, which defaults to be the Newsletter name) and **Your address**, which is blank by default <mark>but t's a legal requirement for newsletters to contain a physical address.</mark> 
+  * [Settings](https://buttondown.email/settings) is where you can change your **Username**, **Newsletter name** and **Newsletter description**, among other things.  
+  * [Subscribing](https://buttondown.email/settings/subscribing) is where you can modify how people sign up (confirmation and welcome emails, etc).
+* **Writing**
+* **Management**
+
+Sometimes email confirmations from Buttondown are identified as spam by Gmail and possibly others. [Here is advice from Buttondown on this](https://blog.buttondown.email/2019/05/16/sending-newsletters-that-get-delivered)
+
+
+
+
+
+## Environment Variables and Secrets
+
+Sources for this section include [next.js/docs/basic-features/environment-variables.md on GitHub](https://github.com/vercel/next.js/blob/canary/docs/basic-features/environment-variables.md).
+
+Sensitive data should only be specified in `.env.local` as it is where secrets should be stored. As a result, it, along with all other `.env*.local` files are `.gitignore`d. Default values should be defined in ` .env`, `.env.development`, and `.env.production` which all should be files should be included in your repository.
+
+
+
+## Deployment
+
+### Vercel  
+
+The easiest way to deploy the template is to use the [Vercel Platform](https://vercel.com) from the creators of Next.js. Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+* Guides to Deploying on Vercel (MY LINKS: __TODO: DELETE__):
+  * [How to deploy a super-fast Next.js app for less than $3 per month | Modern Fullstack](https://modernfullstack.com/article/how-to-deploy-a-nextjs-app)
+  * https://nextjs.org/docs/deployment
+
+#### Environment Variables on Vercel
+
+When deploying a Next.js app to [Vercel](https://vercel.com/), all types of Environment Variables should be configured in the [Project Settings](https://vercel.com/docs/environment-variables), even Environment Variables used in Development – which can then be [downloaded onto your local device](https://vercel.com/docs/environment-variables#development-environment-variables). If you've configured [Development Environment Variables](https://vercel.com/docs/environment-variables#development-environment-variables) you can pull them into `.env.local` for use on your local machine with the following command:
+
+```
+vercel env pull .env.local
+```
+
+<mark>When using the Vercel CLI to deploy make sure you add a [`.vercelignore`](https://vercel.com/guides/prevent-uploading-sourcepaths-with-vercelignore?query=vercelignore#allowlist) that includes files that should not be uploaded, generally these are the same files included in `.gitignore`.</mark>
+
+Should values in `.env*` have quotes? See [this posting on Stackoverflow](https://stackoverflow.com/questions/69394751/connection-to-db-works-with-next-config-js-env-vars-but-fails-with-env-file). [This article says not to use single or double quotes at all](https://javascript.plainenglish.io/how-to-use-environment-variables-in-next-js-353824614686), but the value in the example does not have spaces. [This article](https://robertcooper.me/post/front-end-javascript-environment-variables) says values with spaces require quotes, presumably double quotes. 
+
+ [Deploying Next.js to Vercel with Environment Variables - YouTube](https://www.youtube.com/watch?v=lo2GmBahoyI) 
+
+If you don't see the changes to the deployed app, it's probably because you are not looking at the particular deployment that has the environmental variables loaded, even if that is the most recent one because the most recent one is not necessarily the "current" one. 
+
+
+
+### Netlify / GitHub Pages / Firebase etc.  
+
+As the template uses `next/image` for image optimization, additional configurations have to be made to deploy on other popular static hosting websites like [Netlify](https://www.netlify.com/) or [GitHub Pages](https://pages.github.com/). An alternative image optimization provider such as Imgix, Cloudinary or Akamai has to be used. Alternatively, replace the `next/image` component with a standard `<img>` tag. See [`next/image` documentation](https://nextjs.org/docs/basic-features/image-optimization) for more details.
+
+The API routes used in the newsletter component cannot be used in a static site export. You will need to use a form API endpoint provider and substitute the route in the newsletter component accordingly. Other hosting platforms such as Netlify also offer alternative solutions - please refer to their docs for more information.
+
