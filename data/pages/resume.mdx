@@ -7,7 +7,7 @@ images: []
 layout: ResumeLayout
 ---
 
-<div id='printable-page' className='text-md flex flex-wrap -mx-1 lg:mx-4 xl:mx-6 font-serif italic align-top -mt-2'>
+<div id='printable-page' className='flex flex-wrap font-serif italic align-top'>
   {/* NOTE: relative links to document on this domain must include the domain in the pdf to be valid 
   (they must be full URLs). I've generated the PDF this way and hopefully that will work (I used http 
   not https and omitted the www) once the site is up!
@@ -23,20 +23,21 @@ layout: ResumeLayout
       <h2 className='text-sm -mb-1'>Software Developer</h2>
     </header>
   </section>
-  <section id="resume-contact" className='mt-3 px-1 lg:my-2 lg:px-4 w-1/2 text-xs sm:text-[0.78rem] font-sans not-italic align-top'>
-    <a className='nobot jeff-e-mail username-at-moc-liamg align-top styled-link' href='ssurnnylyerffej'>ssur</a><br />
-    <a className='nobot jeff-ph-num area-exchangenum-702-237 styled-link' href='5433'>702</a> Glen Rock, NJ <br />
-    <a className='styled-link' href='https://www.linkedin.com/in/jeff-russ-a866b648/' target="_blank">LinkedIn</a>
+  <section id="resume-contact" className='mt-3 px-1 lg:my-2 lg:px-4 w-1/2 text-xs sm:text-[0.78rem] font-sans not-italic align-top leading-5'>
+    &bull; <a className='styled-link nobot jeff-e-mail username-at-moc-liamg align-top' href='ssurnnylyerffej'>ssur</a><br />
+    &bull; <a className='styled-link nobot jeff-ph-num area-exchangenum-702-237' href='5433'>702</a>&nbsp;&bull;&nbsp;Glen Rock, NJ<br />
+    &bull; <a className='styled-link' href='https://www.linkedin.com/in/jeff-russ-a866b648/' target="_blank">LinkedIn</a>&nbsp;
+    &bull; <a className='styled-link' href='https://www.jeffruss.com/' target="_blank">jeffruss.com</a>
   </section>
 
   {/* Main section 1: Career Objective: One column row */}
   <section id='objective' className='card-section'>
     <header>
-      ## Career Objective
+      ## Career Objective & Skills
     </header>
     <p className='py-1 my-0 px-2 md:px-8 lg:px-20'>Driven by a love of programming, self-learning and creative problem solving
       with open-source software projects, followed by formal education in Computer Science earning a 3.978 GPA, the next step is 
-      to share these skills and knowledge to solve the needs of a enterprise and its stakeholders.</p>
+      to share these skills and knowledge to solve the needs of an enterprise and its stakeholders.</p>
     <div id='tech-list' className="flex flex-wrap my-1 mx-8">  
       <TechIcon kind='javascript' size={0.9} />
       <TechIcon kind='css3' size={0.9} />

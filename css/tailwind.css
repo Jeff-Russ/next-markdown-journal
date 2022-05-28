@@ -264,12 +264,24 @@ TARGETING LAYOUTS */
   ResumeLayout  */
 
 @media not print {
+  .resume-layout #printable-page {
+    @apply -mx-1 -mt-2 text-base lg:mx-4 xl:mx-6;
+  }
   .resume-layout #tech-list > * {
     @apply flex-[2_0_19%] md:flex-[2_0_8%];
   }
 }
 
 @media print {
+  .resume-layout #printable-page {
+    @apply -mx-10 -mb-12 -mt-12 text-[0.69rem];
+  }
+  .resume-layout h1 {
+    @apply -mb-2 text-4xl font-bold;
+  }
+  .resume-layout #resume-header {
+    @apply -mb-3 mt-3;
+  }
   .resume-layout #tech-list > * {
     @apply flex-[2_0_8%];
   }
@@ -354,12 +366,6 @@ TARGETING LAYOUTS */
   .resume-layout .card-section {
     @apply my-1;
   }
-  .resume-layout h1 {
-    @apply -mb-2 text-4xl font-bold;
-  }
-  .resume-layout #resume-header {
-    @apply -mb-1 mt-1;
-  }
   .resume-layout #objective {
     @apply mt-2;
   }
@@ -420,9 +426,6 @@ TARGETING LAYOUTS */
   }
   .resume-layout .education-grid-template-areas-wrapper .C {
     margin-top: -3rem;
-  }
-  .resume-layout #printable-page {
-    @apply text-[0.69rem];
   }
   .resume-layout #transcript-label {
     @apply ml-16 mt-4 after:content-['→'];
