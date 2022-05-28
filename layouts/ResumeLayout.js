@@ -9,9 +9,7 @@ const discussUrl = (slug) =>
     `${siteMetadata.siteUrl}/posts/${slug}`
   )}`
 
-const postDateTemplate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-
-export default function ResumeLayout({ frontMatter, authorDetails, next, prev, children }) {
+export default function ResumeLayout({ frontMatter, children }) {
   // console.log(frontMatter)
   const { summary /* , title */ } = frontMatter
 
