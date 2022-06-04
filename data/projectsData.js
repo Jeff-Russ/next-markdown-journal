@@ -35,7 +35,6 @@ const projectsData = {
           description:
             'MacOS port of [bsutherland/JuceOPLVSTi](https://github.com/bsutherland/JuceOPLVSTi), a VST instrument which emulates the Yamaha OPL sound chip used in PC sound cards from the 90s.',
           imgSrc: '/static/images/adlibblaster-vst.jpg',
-          date: "Feb '16",
         },
       ],
     },
