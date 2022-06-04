@@ -434,3 +434,88 @@ TARGETING LAYOUTS */
     @apply mx-8;
   }
 }
+
+/* ############################################################################## */
+/* for QuizLayout -> CSS ONLY: https://codepen.io/bramus/pen/OJPQmpo?editors=1010 */
+
+.quiz-layout fieldset {
+  border: 0;
+  margin: 2rem 0;
+}
+
+.quiz-layout fieldset legend {
+  @apply font-bold;
+}
+
+.quiz-layout .answer__item {
+  @apply relative mt-2 block cursor-pointer bg-[#cecfc0] p-2 dark:bg-[#2f301f];
+  /* background-color: #f6f6f6;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  padding: 0.75rem 1.25rem;
+  margin: 0.25rem 0;
+   */
+}
+
+/* Hide Radio Buttons and Submit Button */
+.quiz-layout input[type='radio'],
+.quiz-layout button {
+  @apply hidden;
+}
+
+/* Any correct answer on any answered question, highlight in light green */
+.quiz-layout :valid .answer__item--is-correct {
+  background-color: rgba(61, 181, 64, 0.6);
+}
+
+/* Show any extra explanatory text */
+.quiz-layout .answer__reveal-text {
+  @apply hidden;
+}
+.quiz-layout :valid .answer__reveal-text {
+  @apply block;
+}
+
+/* Any chosen answer, highlight in red */
+.quiz-layout :checked + .answer__item {
+  @apply bg-[#c70000] text-[#ffffff];
+}
+
+/* Any correctly chosen answer, highlight in bright green */
+.quiz-layout :checked + .answer__item--is-correct {
+  @apply bg-[#3db540];
+}
+
+/* Show the icon for the selected answer */
+.quiz-layout :checked + .answer__item .answer__icon {
+  @apply inline-block;
+}
+
+/* prevent chosing another answer once chosen */
+.quiz-layout :valid {
+  @apply select-none;
+  /* -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none  */
+}
+.quiz-layout :valid + .answer__item {
+  @apply pointer-events-none;
+}
+
+/* keep track of score */
+.quiz-layout form {
+  counter-reset: quiz-score;
+}
+.quiz-layout :checked + .answer__item--is-correct {
+  counter-increment: quiz-score;
+}
+.quiz-layout .score:after {
+  content: counter(quiz-score) '/' attr(data-question-count);
+}
+
+/* show score once quiz has been completed */
+.quiz-layout .message {
+  @apply hidden;
+}
+.quiz-layout form:valid .message {
+  @apply block;
+}
