@@ -5,6 +5,11 @@ decodeHrefTelNumber()
   which will be interpreted as the @ symbol and interprets remaining part of class string 
   as domain name and domain (like gmail.com) in reverse and with '-' in place of '.' 
   The email username is taken from incomplete href in reverse.
+
+  Example:
+
+  <a className='nobot jeff-e-mail username-at-moc-liamg align-top' href='moc.ssurffej'>moc.</a>
+
 */
 function decodeHrefMailtoEmailAddresses() {
   let a_elems = document.getElementsByTagName('a')
@@ -41,6 +46,11 @@ function decodeHrefMailtoEmailAddresses() {
   The remaining four digits of the phone number (called the 'subscriber number') are taken 
   from the href in reverse. 
   https://www.campaignmonitor.com/blog/email-marketing/using-phone-numbers-in-html-email/
+
+  Example:
+
+  <a className='nobot jeff-ph-num area-exchangenum-405-646' href='6878'>405</a> 
+
 */
 function decodeHrefTelNumber() {
   let a_elems = document.getElementsByTagName('a')
