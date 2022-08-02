@@ -1,6 +1,14 @@
 // import { MDXLayoutRenderer } from '@/components/MDXComponents'
+import { useState, useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
 import { formatSlug, readFileBySlug, getFiles } from '@/lib/mdx'
-import { splitLinesKeepNLs, firstContentIs, newlinesCount, splitAfterNth } from '@/lib/stringManip'
+import {
+  splitLinesKeepNLs,
+  deleteAll,
+  firstContentIs,
+  newlinesCount,
+  splitAfterNth,
+} from '@/lib/stringManip'
 import QuizLayout from '@/layouts/QuizLayout'
 import Markdown from 'markdown-to-jsx'
 
@@ -111,43 +119,109 @@ export async function getStaticProps({ params }) {
     }
   })
   // return { props: {  } }
-  return { props: { mdData } }
+  return { props: { mdData, totalQuestions: questionNumber } }
 }
 
 // export default function Quiz({ quiz }) {
-export default function Quiz({ mdData }) {
-  // const { mdxSource, frontMatter } = quiz
-
-  // console.log(jsxSections)
+export default function Quiz({ mdData, totalQuestions }) {
   const title = mdData[0].sectionTop.replaceAll('#', '')
-  // console.log(mdData)
+
+  const router = useRouter()
+  // console.log(router.query); // ?scoreStats={1:[0,1],2:[1,0],3:[1,0],4:[1,0],5:[1,0],6:[1,0],7:[1,0]}
+
+  function uncompressScoreStats(str) {
+    return JSON.parse(`{${str.replaceAll(/([\d]+):([\d]+,[\d]+)/g, '"$1":[$2]')}}`)
+  }
+  // console.log("uncompressScoreStats", uncompressScoreStats('1:0,1,2:1,0,3:1,0,4:1,0,5:1,0,6:1,0,7:1,0'))
+
+  function compressScoreStats(jsonObj) {
+    return deleteAll(JSON.stringify(jsonObj), ['"', '{', '}', '[', ']'])
+  }
+  // console.log("compressScoreStats", compressScoreStats({"1":[0,1],"2":[1,0],"3":[1,0],"4":[1,0],"5":[1,0],"6":[1,0],"7":[1,0]}))
+
+  // console.log(initState)
+
+  const [scoreStats, setScoreStats] = useState(
+    'scoreStats' in router.query ? uncompressScoreStats(router.query.scoreStats) : {}
+  ) // useState({})
+  // scoreStats = {
+  //   <qestionNum>: : [<incorrectCount>,  <correctCount>],
+  //   <qestionNum>: : [<incorrectCount>,  <correctCount>]
+  // }
+
+  useEffect(() => {
+    document.querySelectorAll('input[type=radio]').forEach((item) => {
+      item.addEventListener('click', (event) => {
+        const qestionNum = `${item.name.match(/[0-9]+$/)}`
+
+        if (item.getAttribute('grade-as') === 'correct') {
+          setScoreStats((scoreStats) => ({
+            ...scoreStats,
+            [qestionNum]:
+              qestionNum in scoreStats
+                ? [scoreStats[qestionNum][0], scoreStats[qestionNum][1] + 1]
+                : [0, 1],
+          }))
+        } else {
+          setScoreStats((scoreStats) => ({
+            ...scoreStats,
+            [qestionNum]:
+              qestionNum in scoreStats
+                ? [scoreStats[qestionNum][1] + 1, scoreStats[qestionNum][0]]
+                : [1, 0],
+          }))
+        }
+      })
+    })
+  }, [])
+
+  // const [scoreStatsQSP, setScoreStatsQSP] = useState(router.query || {})
+
+  useEffect(() => {
+    console.log(JSON.stringify(scoreStats))
+
+    // router.query.scoreStats = compressScoreStats(scoreStats)
+
+    if (Object.keys(scoreStats).length === totalQuestions) console.log('finished quiz')
+  }, [scoreStats])
+
+  // useEffect(() => {
+  //   console.log(scoreStatsQSP)
+  // }, [scoreStatsQSP])
+
+  const onCompletion = () => {
+    console.log('completed')
+  }
 
   // https://codepen.io/bramus/pen/OJPQmpo?editors=1010
   return (
     <QuizLayout title={title} description={title}>
-      <form method="POST" className="is-not-results">
+      <form /* method="POST" */ className="is-not-results">
         {mdData.map((item, i) => (
           <div key={i}>
             {item.options ? (
-              <div key={`q${item.questionNumber}`}>
+              <div key={`Q${item.questionNumber}`}>
                 <fieldset>
                   <legend>
                     <Markdown>{item.sectionTop}</Markdown>
                   </legend>
                   <div className="answers">
                     {item.options.map((option, i) => (
-                      <div className="answer" key={i}>
+                      <div className="option" key={i}>
                         <input
                           type="radio"
-                          name={`answers[${item.questionNumber}]`}
-                          id={`answers-${item.questionNumber}-${i + 1}`}
+                          name={`Q${item.questionNumber}`}
+                          id={`Q${item.questionNumber}-option${i + 1}`}
                           value={`${i + 1}`}
+                          grade-as={`${item.answers.includes(i + 1) ? 'correct' : 'incorrect'}`}
                           required
                         />
                         <label
-                          htmlFor={`answers-${item.questionNumber}-${i + 1}`}
-                          className={`answer__item ${
-                            item.answers.includes(i + 1) ? 'answer__item--is-correct' : ''
+                          htmlFor={`Q${item.questionNumber}-option${i + 1}`}
+                          className={`selection ${
+                            item.answers.includes(i + 1)
+                              ? 'selection-is-correct'
+                              : 'selection-is-incorrect'
                           }`}
                         >
                           <Markdown options={{ forceInline: true }}>{option + '<br>'}</Markdown>
@@ -155,27 +229,32 @@ export default function Quiz({ mdData }) {
                       </div>
                     ))}
                   </div>
+                  {item.explanation && (
+                    <div className="explanation">
+                      <Markdown>{item.explanation}</Markdown>
+                    </div>
+                  )}
                 </fieldset>
-
-                {item.explanation && (
-                  <div className="answer__reveal-text">
-                    <Markdown>{item.explanation}</Markdown>
-                  </div>
-                )}
               </div>
             ) : (
               <Markdown>{item.sectionTop}</Markdown>
             )}
           </div>
         ))}
-        <button type="submit">Submit answers</button>
-        <div className="message">
+        <button
+          id="submit-answers"
+          type="button"
+          className="rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
+          onClick={onCompletion}
+        >
+          Submit answers
+        </button>
+        <div className="message" id="result-display">
           <p>
-            Your Score: <span className="score" data-question-count="2"></span>
+            Your Score: <span id="score-display" data-question-count={`${totalQuestions}`}></span>
           </p>
         </div>
       </form>
     </QuizLayout>
   )
-  // return ( {jsxSections.map((section) => (section))} )
 }

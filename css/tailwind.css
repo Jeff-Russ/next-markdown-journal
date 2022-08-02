@@ -447,7 +447,7 @@ TARGETING LAYOUTS */
   @apply font-bold;
 }
 
-.quiz-layout .answer__item {
+.quiz-layout .selection {
   @apply relative mt-2 block cursor-pointer bg-[#cecfc0] p-2 dark:bg-[#2f301f];
   /* background-color: #f6f6f6;
   display: block;
@@ -459,45 +459,45 @@ TARGETING LAYOUTS */
 }
 
 /* Hide Radio Buttons and Submit Button */
-.quiz-layout input[type='radio'],
-.quiz-layout button {
+.quiz-layout input[type='radio']/* ,
+.quiz-layout button#submit-answers  */ {
   @apply hidden;
 }
 
 /* Any correct answer on any answered question, highlight in light green */
-.quiz-layout :valid .answer__item--is-correct {
+.quiz-layout :valid .selection-is-correct {
   background-color: rgba(61, 181, 64, 0.6);
 }
 
 /* Show any extra explanatory text */
-.quiz-layout .answer__reveal-text {
+.quiz-layout .explanation {
   @apply hidden;
 }
-.quiz-layout :valid .answer__reveal-text {
+.quiz-layout :valid .explanation {
   @apply block;
 }
 
 /* Any chosen answer, highlight in red */
-.quiz-layout :checked + .answer__item {
+.quiz-layout :checked + .selection {
   @apply bg-[#c70000] text-[#ffffff];
 }
 
 /* Any correctly chosen answer, highlight in bright green */
-.quiz-layout :checked + .answer__item--is-correct {
+.quiz-layout :checked + .selection-is-correct {
   @apply bg-[#3db540];
 }
 
 /* Show the icon for the selected answer */
-.quiz-layout :checked + .answer__item .answer__icon {
+/* .quiz-layout :checked + .selection .selection-icon {
   @apply inline-block;
-}
+} */
 
 /* prevent chosing another answer once chosen */
 .quiz-layout :valid {
   @apply select-none;
   /* -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none  */
 }
-.quiz-layout :valid + .answer__item {
+.quiz-layout :valid + .selection {
   @apply pointer-events-none;
 }
 
@@ -505,17 +505,18 @@ TARGETING LAYOUTS */
 .quiz-layout form {
   counter-reset: quiz-score;
 }
-.quiz-layout :checked + .answer__item--is-correct {
+.quiz-layout :checked + .selection-is-correct {
   counter-increment: quiz-score;
 }
-.quiz-layout .score:after {
+.quiz-layout #score-display:after {
   content: counter(quiz-score) '/' attr(data-question-count);
 }
 
 /* show score once quiz has been completed */
-.quiz-layout .message {
-  @apply hidden;
+.quiz-layout .message#result-display {
+  /* @apply hidden; */
+  @apply block;
 }
-.quiz-layout form:valid .message {
+.quiz-layout form:valid .message#result-display {
   @apply block;
 }
