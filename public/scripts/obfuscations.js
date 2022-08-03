@@ -8,7 +8,7 @@ decodeHrefTelNumber()
 
   Example:
 
-  <a className='nobot jeff-e-mail username-at-moc-liamg align-top' href='moc.ssurffej'>moc.</a>
+  <a className='nobot jeff-e-mail username-at-moc-liamg align-top' href='ssurnnylyerffej'>ssur</a>
 
 */
 function decodeHrefMailtoEmailAddresses() {
@@ -49,7 +49,7 @@ function decodeHrefMailtoEmailAddresses() {
 
   Example:
 
-  <a className='nobot jeff-ph-num area-exchangenum-405-646' href='6878'>405</a> 
+  <a className='nobot jeff-ph-num area-exchangenum-702-237' href='5433'>702</a> 
 
 */
 function decodeHrefTelNumber() {

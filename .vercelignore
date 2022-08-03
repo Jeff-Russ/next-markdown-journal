@@ -3,3 +3,5 @@ data/pages/resume-old.mdx
 data/posts/next-markdown-journal_setup-guides/*
 data/pages/resume-old.mdx
 public/docs/Jeff-Russ_Resume-old.pdf
+components/infoBox.js
+pages/InfoBoxTest.js

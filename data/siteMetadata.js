@@ -15,7 +15,7 @@ const siteMetadata = {
   twitter: '',
   facebook: '', // 'https://www.facebook.com/jeffreylynnruss'
   youtube: 'https://www.youtube.com/c/JeffRuss-shebang',
-  linkedin: 'https://www.linkedin.com/in/jeff-russ-a866b648/',
+  linkedin: 'https://www.linkedin.com/in/jeffruss/',
   locale: 'en-US',
   defaultAuthorSlug: 'jeffruss',
   whoamiHTML: 'Jeff is a software developer and musician.',

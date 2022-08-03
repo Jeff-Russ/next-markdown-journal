@@ -31,7 +31,7 @@ export function InfoBox(props) {
 import { useState } from 'react';
 import { InfoBox } from '@/components/InfoBox.js';
 
-export default function infoBoxTest() {
+export default function InfoBoxTest() {
   let [showInfo1, setShowInfo1] = useState(false);
   return (
     <div className="container">
