@@ -1,0 +1,313 @@
+{
+  "name": "Jeff Russ",
+
+  "meta": {
+    "format": "FRESH@0.6.0",
+    "version": "0.5.0"
+  },
+  "info": {
+    "label": "Web Developer",
+    "characterClass": "Programmer",
+    "brief": "Driven by a love of programming, self-learning and creative problem solving with open-source software projects, followed by formal education in Computer Science earning a 3.978 GPA, the next step is to share these skills and knowledge to solve the needs of an enterprise and its stakeholders.",
+    "image": "",
+    "quote": "“Technology should not aim to replace humans, rather amplify human capabilities.” — Doug Engelbart."
+  },
+  "contact": {
+    "website": "https://www.jeffruss.com",
+    "phone": "1-646-504-8786",
+    "email": "jeffruss.com@gmail.com",
+    "other": []
+  },
+  "location": {
+    "address": "154 Pinelynn Rd.",
+    "city": "Glen Rock",
+    "region": "NJ",
+    "code": "07452",
+    "country": "US"
+  },
+  "skills": {
+    "sets": [
+      {
+        "name": "Proficiencies:",
+        "level": "advanced",
+        "skills": [
+          "JavaScript",
+          "ES2015",
+          "CSS",
+          "HTML",
+          "React.js",
+          "Next.js",
+          "Node.js",
+          "git",
+          "Python"
+        ]
+      },
+      {
+        "name": "",
+        "level": "intermediate",
+        "skills": ["TailwindCSS", "Sass/SCSS", "Bootstrap", "jQuery", "SQL", "NoSQL", "C++", "Bash"]
+      },
+      {
+        "name": "Development:",
+        "level": "beginner",
+        "skills": ["Agile", "Waterfall", "SDLC", "Test-Driven-Development", "TDD", "GitHub"]
+      },
+      {
+        "name": "Personality:",
+        "level": "advanced",
+        "skills": ["self-motivated", "fast-learner", "thorough", "open-minded", "honest"]
+      }
+    ],
+
+    "list": []
+  },
+  "projects": [
+    {
+      "role": "creator",
+      "title": "next-markdown-journal",
+      "url": "https://github.com/Jeff-Russ/next-markdown-journal",
+      "summary": "A multi-purpose website template with content authored in MDX files (Markdown with JSX) and Tailwind.",
+      "keywords": [
+        "Node.js",
+        "React.js",
+        "Next.js",
+        "JavaScript",
+        "ES2015",
+        "HTML",
+        "CSS",
+        "TailwindCSS",
+        "JSON",
+        "git",
+        "GitHub"
+      ],
+      "highlights": [],
+      "start": "2021-12-06",
+      "category": "Personal Web App"
+    },
+    {
+      "role": "creator",
+      "title": "spelunker",
+      "url": "https://github.com/Jeff-Russ/spelunker-node-shell",
+      "summary": "Utility to batch Node's I/O with the shell, increasing performance of otherwise slow operations.",
+      "keywords": ["JavaScript", "Bash", "git", "GitHub"],
+      "highlights": [],
+      "start": "2016-05-01",
+      "end": "2016-06-06",
+      "category": "Utility"
+    },
+    {
+      "role": "creator",
+      "title": "jeffpack-for-wordpress",
+      "url": "https://github.com/Jeff-Russ/jeffpack-for-wordpress",
+      "summary": "A Wordpress Plugin and Theme enabling remote updating via `git`.",
+      "keywords": ["PHP", "git", "JavaScript", "CSS", "Bootstrap", "Sass/SCSS", "GitHub"],
+      "highlights": [],
+      "start": "2016-08-07",
+      "end": "2017-01-28",
+      "category": "FOSS"
+    },
+    {
+      "role": "creator",
+      "title": "markdown.design",
+      "url": "https://github.com/Jeff-Russ/markdown.design",
+      "summary": "A with Real-time web page generation from markdown files hosted anywhere.",
+      "keywords": ["Ruby on Rails", "HTML", "CSS", "Sass/SCSS", "JavaScript", "jQuery"],
+      "highlights": [],
+      "start": "2015-11-02",
+      "end": "2016-05-11",
+      "category": "Content Generator"
+    },
+    {
+      "role": "creator",
+      "title": "gfunc-gem",
+      "url": "https://github.com/Jeff-Russ/gfunc-gem",
+      "summary": "A collection of multi-purpose Ruby utilities bundled as a Ruby Gem package.",
+      "keywords": [""],
+      "highlights": [],
+      "start": "2016-04-01",
+      "end": "2016-05-08",
+      "media": [
+        {
+          "category": "download",
+          "url": "https://rubygems.org/gems/gfunc"
+        }
+      ],
+      "category": "Library"
+    },
+    {
+      "role": "contributor",
+      "title": "AdlibBlaster (JuceOPLVSTi)",
+      "url": "https://github.com/bsutherland/JuceOPLVSTi",
+      "summary": "Authored macOS port of JuceOPLVSTi emulating the Yamaha OPL sound chip written in C++.",
+      "keywords_disable": ["C++", "macOS", "git", "GitHub"],
+      "highlights": [],
+      "start": "2013-09-04",
+      "end": "2016-02-08",
+      "media": [
+        {
+          "category": "download",
+          "url": "https://bsutherland.github.io/JuceOPLVSTi/"
+        }
+      ],
+      "category": "Audio/Music Software"
+    }
+  ],
+  "social": [
+    {
+      "network": "LinkedIn",
+      "user": "jeffruss",
+      "url": "https://www.linkedin.com/in/jeffruss/"
+    },
+
+    {
+      "network": "GitHub",
+      "user": "Jeff-Russ",
+      "url": "https://github.com/Jeff-Russ"
+    }
+  ],
+  "employment": {
+    "summary": "",
+    "history": [
+      {
+        "employer": "Jeff Russ",
+        "position": "Freelance Web Developer",
+        "url": "https://www.jeffruss.com",
+        "start": "2015-01",
+        "end": "2019-09-02",
+        "summary": "Throughout my time spent self-learning and attending bootcamps, I'd done some freelance work in web development.",
+        "keywords": [
+          "React.js",
+          "Node.js",
+          "Bootstrap",
+          "jQuery",
+          "CSS3",
+          "HTML5",
+          "JavaScript",
+          "ES2015",
+          "AWS",
+          "Ruby on Rails"
+        ]
+      },
+      {
+        "employer": "Smoothie King",
+        "position": "Server",
+        "url": "https://www.smoothieking.com/",
+        "start": "2015-04-11",
+        "end": "2020-02-16",
+        "summary": "Worked under the supervision of [Duane MacDonald (owner)](https://www.linkedin.com/in/duane-macdonald-3632447/)"
+      },
+      {
+        "employer": "Walnut Street Theatre",
+        "position": "Independently Contracted Salesperson",
+        "url": "https://www.walnutstreettheatre.org/",
+        "start": "2011-01-01",
+        "end": "2015-01-26",
+        "summary": "Worked under the supervision of [Andy Burr](https://www.linkedin.com/in/andy-burr-85284721/)"
+      }
+    ]
+  },
+  "education": {
+    "summary": "",
+    "level": "degree",
+    "degree": "Bachelor",
+
+    "history": [
+      {
+        "title": "**[Full Stack Engineer Career Path](https://www.codecademy.com/learn/paths/full-stack-engineer-career-path)**",
+        "institution": "**Codecademy**",
+        "summary": "",
+        "curriculum": [
+          "<br>",
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "git",
+          "GitHub",
+          "SQL",
+          "PostgreSQL",
+          "Express.js",
+          "React.js",
+          "Node.js",
+          "TDD"
+        ],
+        "start": "2021-09",
+        "end": "2022-02",
+        "url": "https://www.codecademy.com/learn/paths/full-stack-engineer-career-path"
+      },
+      {
+        "title": "**[Bachelor in Computer Science](https://www.tesu.edu/heavin/ba/computer-science)**",
+        "institution": "**[Thomas Edison State University](https://www.tesu.edu/heavin/)**",
+        "summary": "GPA: 3.978,&nbsp;&nbsp;Five President's List Achievements, [Arnold Fletcher Award, two honor society invitations](http://jeffruss.com/docs/Jeff-Russ_TESU_transcript_etc.pdf)<br>Watch his [Senior Capstone Presentation on Personalization Algorithms](https://youtu.be/7VOftj9qKLo) <br>Summary of [transcript](http://jeffruss.com/docs/Jeff-Russ_TESU_transcript_etc.pdf): ",
+        "curriculum": [
+          "System Analysis & Design I: 99%,&nbsp;&nbsp;",
+          "Software Engineering: 100%,&nbsp;&nbsp;",
+          "Database Management (SQL): 96%,&nbsp;&nbsp;",
+          "[Artificial Intelligence](https://www.jeffruss.com/tags/artificial-intelligence): 97%,&nbsp;&nbsp;",
+          "Computer Architecture: 97%,&nbsp;&nbsp;",
+          "Calculus I: 94%,&nbsp;&nbsp;",
+          "Discrete Mathematics: 93%,&nbsp;&nbsp;",
+          "Python Programming: 94%,&nbsp;&nbsp;",
+          "Data Structures (in Python): 96%,&nbsp;&nbsp;",
+          "Operating Systems: 93%,&nbsp;&nbsp;",
+          "C++ Programming: 98%"
+        ],
+        "start": "2019-09-02",
+        "end": "2021-12-17",
+        "url": "https://www.tesu.edu/heavin/",
+        "degree": "Computer Science",
+        "level": "Bachelor",
+        "grade": "3.978"
+      },
+      {
+        "title": "**[CSMM.101x — Artificial Intelligence](https://www.edx.org/course/artificial-intelligence-ai)**",
+        "institution": "**Columbia University via EdX (ColumbiaX)**",
+        "summary": "Taken in parallel with Thomas Edison State University's AI course as it included work implementing AI in Python.",
+        "start": "2021-02-01",
+        "end": "2021-04-28",
+        "url": "https://www.edx.org/course/artificial-intelligence-ai"
+      },
+      {
+        "title": "**[Web Developer Bootcamp](https://courses.codermanual.com/)**",
+        "institution": "**CoderManual**",
+        "summary": "",
+        "curriculum": [
+          "<br>",
+          "Ruby",
+          "Ruby on Rails",
+          "HTML",
+          "git",
+          "GitHub",
+          "JavaScript",
+          "jQuery",
+          "Bootstrap"
+        ],
+        "start": "2015-08-23",
+        "end": "2015-12-23",
+        "url": "https://courses.codermanual.com/"
+      },
+      {
+        "title": "**[CPA (C++ Certified Associate Programmer)](https://cppinstitute.org/cpa-c-certified-associate-programmer-certification)**",
+        "institution": "**[C++ Institute](https://cppinstitute.org/cpa-c-certified-associate-programmer-certification)**",
+        "summary": "View [Certificate](http://jeffruss.com/docs/Jeff-Russ_CppInstituteCertificate.pdf)",
+        "start": "2014-12-01",
+        "end": "2015-05-10",
+        "url": "https://cppinstitute.org/cpa-c-certified-associate-programmer-certification"
+      },
+      {
+        "title": "**[Bachelor of Music](https://www.masongross.rutgers.edu/degrees-programs/music/programs/bm/)**",
+        "institution": "**[Rutgers University](https://www.masongross.rutgers.edu/degrees-programs/music/programs/bm/)**",
+        "summary": "GPA: 3.011,&nbsp;&nbsp; Two Dean's List Achievements",
+        "start": "2001-09-01",
+        "end": "2005-01-01",
+        "url": "https://www.masongross.rutgers.edu/degrees-programs/music/programs/bm/"
+      }
+    ]
+  },
+
+  "languages": [
+    {
+      "language": "English",
+      "level": "Native"
+    }
+  ]
+}
