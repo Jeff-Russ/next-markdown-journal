@@ -19,8 +19,11 @@ import { ClientReload } from '@/components/ClientReload'
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isSocket = process.env.SOCKET
 
-import { appOverrides } from '@/data/wrapperOverrides'
+import { appOverrides, LayoutWrapperOverrides } from '@/data/wrapperOverrides'
 import { useRouter } from 'next/router'
+
+import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar'
 
 export default function App(props) {
   const { Component, pageProps } = props
@@ -47,6 +50,41 @@ export default function App(props) {
         {isDevelopment && isSocket && <ClientReload />}
         <Analytics />
         <Component {...pageProps} />
+      </>
+    )
+  } else if (
+    LayoutWrapperOverrides.pages.includes(router.pathname) ||
+    LayoutWrapperOverrides.paths.includes(router.asPath)
+  ) {
+    // console.log(
+    //   'LayoutWrapperOverride in App:\n\t',
+    //   router.pathname,' is useRouter().pathname\n\t',
+    //   router.asPath,'is router.asPath'
+    // )
+    return (
+      <>
+        <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
+          <Head>
+            {<meta name="viewport" content="width=device-width, initial-scale=0.9" />}
+            {/*isDevelopment && (
+            <script
+              async
+              src="scripts/log-undefined-css-classes.js"
+              type="text/javascript"
+            ></script>
+          )*/}
+          </Head>
+          {isDevelopment && isSocket && <ClientReload />}
+          <Analytics />
+          <div className="flex h-screen flex-col justify-between">
+            {/* {!noNavbar && } */}
+            <Navbar />
+            <main className="mb-auto">
+              <Component {...pageProps} />
+            </main>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </>
     )
   } else {

@@ -5,3 +5,5 @@ data/pages/resume-old.mdx
 public/docs/Jeff-Russ_Resume-old.pdf
 components/infoBox.js
 pages/InfoBoxTest.js
+
+**/*-no_deploy.*
